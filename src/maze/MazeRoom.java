@@ -15,6 +15,8 @@ public class MazeRoom implements MazeObject {
 		initializeDoors(row, col);
 	}
 	
+	public int getDoorNum() { return this.availDoors; }
+	
 	public void initializeDoors(int row, int col) {
 		
 		if(row == 0) {
