@@ -7,12 +7,16 @@ public class MazeRoom implements MazeObject {
 	private int availDoors;
 	private MazeObject[] doors;
 	
+	private MazeMediator mediator;
+	
 	public MazeRoom(int row, int col) {
 		this.doors = new MazeDoor[NUM_DOORS];
 		
 		this.availDoors = 0;
 		
 		initializeDoors(row, col);
+		
+		mediator = MazeMediator.getReference();
 	}
 	
 	public int getDoorNum() { return this.availDoors; }
@@ -24,7 +28,7 @@ public class MazeRoom implements MazeObject {
 			this.doors[SOUTH] = new MazeDoor("South");
 			this.availDoors++;
 		}
-		else if(row == Maze.MAX_SIZE-1) {
+		else if(row == mediator.getMazeSize()-1) {
 			this.doors[SOUTH] = new NullMazeDoor();
 			this.doors[NORTH] = new MazeDoor("North");
 			this.availDoors++;
@@ -35,7 +39,7 @@ public class MazeRoom implements MazeObject {
 			this.availDoors += 2;
 		}
 		
-		if(col == Maze.MAX_SIZE-1) {
+		if(col == mediator.getMazeSize()-1) {
 			this.doors[EAST] = new NullMazeDoor();
 			this.doors[WEST] = new MazeDoor("West");
 			this.availDoors++;

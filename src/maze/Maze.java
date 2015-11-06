@@ -4,10 +4,12 @@ public class Maze implements MazeObject {
 	
 	public static final int MAX_SIZE = 10;
 	private int size;
-	private MazeRoom[][] maze;
+	private MazeObject[][] maze;
 	
 	public Maze(int size) {
 		this.size = size;
+		
+		MazeMediator.createReference(this);
 	}
 	
 	public int getSize() { return this.size; }
