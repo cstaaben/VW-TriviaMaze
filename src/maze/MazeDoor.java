@@ -3,6 +3,8 @@ package maze;
 public class MazeDoor implements MazeObject {
 	
 	private String direction;
+	private boolean open;
+	private boolean locked;
 	
 	public MazeDoor(String direction) {
 		this.direction = direction;
@@ -14,6 +16,17 @@ public class MazeDoor implements MazeObject {
 	public String display() {
 		// Display question
 		return "Question";
+	}
+	
+	public boolean isOpen() { return open; }
+	public boolean isLocked() { return locked; }
+	
+	public void setOpen(boolean open) {
+		this.open = open;
+	}
+	
+	public void setLocked(boolean locked) {
+		this.locked = locked;
 	}
 
 }

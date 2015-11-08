@@ -1,0 +1,41 @@
+package maze;
+
+import java.io.Serializable;
+
+public class MockQuestion implements MazeObject, Serializable {
+
+	private static final long serialVersionUID = -806054378560451774L;
+	private String question;
+	private String answer;
+	private char questionType;
+	
+	public MockQuestion() {
+		question = getQuestion();
+		questionType = getQuestionType();
+		answer = getAnswer();
+	}
+	
+	public long getID() { return serialVersionUID; }
+	
+	@Override
+	public String display() {
+		return question + " " + answer + " " + questionType;
+	}
+	
+	private char getQuestionType() {
+		return 'm';
+	}
+	
+	private String getQuestion() {
+		return "Question";
+	}
+	
+	public void setQuestionType(char type) {
+		this.questionType = type;
+	}
+	
+	private String getAnswer() {
+		return "Answer";
+	}
+
+}
