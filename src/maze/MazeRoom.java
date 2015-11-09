@@ -2,8 +2,7 @@ package maze;
 
 public class MazeRoom implements MazeObject {
 	
-	private final int NORTH = 0, EAST = 1, SOUTH = 2, WEST = 3;
-	private final int NUM_DOORS = 4;
+	public static final int NUM_DOORS = 4;
 	private int availDoors;
 	private MazeObject[] doors;
 	
@@ -25,53 +24,146 @@ public class MazeRoom implements MazeObject {
 	public void initializeDoors(int row, int col) {
 		
 		if(row == 0) {
-			this.doors[NORTH] = new NullMazeDoor();
-			this.doors[SOUTH] = new MazeDoor("South");
+			this.doors[MazeDirection.NORTH.ordinal()] = new NullMazeDoor();
+			this.doors[MazeDirection.SOUTH.ordinal()] = new MazeDoor("South");
 			this.availDoors++;
 		}
 		else if(row == mediator.getMazeSize()-1) {
-			this.doors[SOUTH] = new NullMazeDoor();
-			this.doors[NORTH] = new MazeDoor("North");
+			this.doors[MazeDirection.SOUTH.ordinal()] = new NullMazeDoor();
+			this.doors[MazeDirection.NORTH.ordinal()] = new MazeDoor("North");
 			this.availDoors++;
 		}
 		else {
-			this.doors[NORTH] = new MazeDoor("North");
-			this.doors[SOUTH] = new MazeDoor("South");
+			this.doors[MazeDirection.NORTH.ordinal()] = new MazeDoor("North");
+			this.doors[MazeDirection.SOUTH.ordinal()] = new MazeDoor("South");
 			this.availDoors += 2;
 		}
 		
 		if(col == mediator.getMazeSize()-1) {
-			this.doors[EAST] = new NullMazeDoor();
-			this.doors[WEST] = new MazeDoor("West");
+			this.doors[MazeDirection.EAST.ordinal()] = new NullMazeDoor();
+			this.doors[MazeDirection.WEST.ordinal()] = new MazeDoor("West");
 			this.availDoors++;
 		}
 		else if(col == 0) {
-			this.doors[WEST] = new NullMazeDoor();
-			this.doors[EAST] = new MazeDoor("East");
+			this.doors[MazeDirection.WEST.ordinal()] = new NullMazeDoor();
+			this.doors[MazeDirection.EAST.ordinal()] = new MazeDoor("East");
 			this.availDoors++;
 		}
 		else {
-			this.doors[EAST] = new MazeDoor("East");
-			this.doors[WEST] = new MazeDoor("West");
+			this.doors[MazeDirection.EAST.ordinal()] = new MazeDoor("East");
+			this.doors[MazeDirection.WEST.ordinal()] = new MazeDoor("West");
 			this.availDoors += 2;
 		}
 	}
 	
 	public boolean isValidDoor(String direction) {
 		if(direction.toLowerCase().equals("n")) {
-			return !((MazeDoor)doors[NORTH]).getDirection().toLowerCase().equals("null");
+			return !((MazeDoor)doors[MazeDirection.NORTH.ordinal()]).getDirection().toLowerCase().equals("null") 
+					&& !((MazeDoor)doors[MazeDirection.NORTH.ordinal()]).isLocked();
 		}
 		else if(direction.toLowerCase().equals("e")) {
-			return !((MazeDoor)doors[EAST]).getDirection().toLowerCase().equals("null");
+			return !((MazeDoor)doors[MazeDirection.EAST.ordinal()]).getDirection().toLowerCase().equals("null")
+					&& !((MazeDoor)doors[MazeDirection.EAST.ordinal()]).isLocked();
 		}
 		else if(direction.toLowerCase().equals("s")) {
-			return !((MazeDoor)doors[SOUTH]).getDirection().toLowerCase().equals("null");
+			return !((MazeDoor)doors[MazeDirection.SOUTH.ordinal()]).getDirection().toLowerCase().equals("null")
+					&& !((MazeDoor)doors[MazeDirection.SOUTH.ordinal()]).isLocked();
 		}
 		else if(direction.toLowerCase().equals("w")) {
-			return !((MazeDoor)doors[WEST]).getDirection().toLowerCase().equals("null");
+			return !((MazeDoor)doors[MazeDirection.WEST.ordinal()]).getDirection().toLowerCase().equals("null")
+					&& !((MazeDoor)doors[MazeDirection.WEST.ordinal()]).isLocked();
 		}
 		
 		return false;
+	}
+	
+	public boolean questionPrompt(String input) {
+		String answer = "";
+		
+		if(input.toLowerCase().equals("n")) {
+			if(!((MazeDoor)doors[MazeDirection.NORTH.ordinal()]).isLocked() && 
+					((MazeDoor)doors[MazeDirection.NORTH.ordinal()]).isOpen()) {
+				return true;
+			}
+			
+			System.out.println(((MazeDoor)doors[MazeDirection.NORTH.ordinal()]).display());
+			answer = MazeTest.KB.nextLine();
+			return ((MazeDoor)doors[MazeDirection.NORTH.ordinal()]).isCorrectAnswer(answer);
+		}
+		else if(input.toLowerCase().equals("e")) {
+			if(!((MazeDoor)doors[MazeDirection.EAST.ordinal()]).isLocked() && 
+					((MazeDoor)doors[MazeDirection.EAST.ordinal()]).isOpen()) {
+				return true;
+			}
+			
+			System.out.println(((MazeDoor)doors[MazeDirection.EAST.ordinal()]).display());
+			answer = MazeTest.KB.nextLine();
+			return ((MazeDoor)doors[MazeDirection.EAST.ordinal()]).isCorrectAnswer(answer);
+		}
+		else if(input.toLowerCase().equals("s")) {
+			if(!((MazeDoor)doors[MazeDirection.SOUTH.ordinal()]).isLocked() && 
+					((MazeDoor)doors[MazeDirection.SOUTH.ordinal()]).isOpen()) {
+				return true;
+			}
+			
+			System.out.println(((MazeDoor)doors[MazeDirection.SOUTH.ordinal()]).display());
+			answer = MazeTest.KB.nextLine();
+			return ((MazeDoor)doors[MazeDirection.SOUTH.ordinal()]).isCorrectAnswer(answer);
+		}
+		else if(input.toLowerCase().equals("w")) {
+			if(!((MazeDoor)doors[MazeDirection.WEST.ordinal()]).isLocked() && 
+					((MazeDoor)doors[MazeDirection.WEST.ordinal()]).isOpen()) {
+				return true;
+			}
+			
+			System.out.println(((MazeDoor)doors[MazeDirection.WEST.ordinal()]).display());
+			answer = MazeTest.KB.nextLine();
+			return ((MazeDoor)doors[MazeDirection.WEST.ordinal()]).isCorrectAnswer(answer);
+		}
+		
+		return false;
+	}
+	
+	public char checkDoor(int direction) {
+		switch(direction) {
+			case 0:
+				if(((MazeDoor)doors[MazeDirection.NORTH.ordinal()]).isLocked()) {
+					return 'l';
+				}
+				else if(((MazeDoor)doors[MazeDirection.NORTH.ordinal()]).isOpen()) {
+					return 'o';
+				}
+				break;
+			
+			case 1:
+				if(((MazeDoor)doors[MazeDirection.EAST.ordinal()]).isLocked()) {
+					return 'l';
+				}
+				else if(((MazeDoor)doors[MazeDirection.EAST.ordinal()]).isOpen()) {
+					return 'o';
+				}
+				break;
+				
+			case 2:
+				if(((MazeDoor)doors[MazeDirection.SOUTH.ordinal()]).isLocked()) {
+					return 'l';
+				}
+				else if(((MazeDoor)doors[MazeDirection.SOUTH.ordinal()]).isOpen()) {
+					return 'o';
+				}
+				break;
+				
+			case 3:
+				if(((MazeDoor)doors[MazeDirection.WEST.ordinal()]).isLocked()) {
+					return 'l';
+				}
+				else if(((MazeDoor)doors[MazeDirection.WEST.ordinal()]).isOpen()) {
+					return 'o';
+				}
+				break;
+		}
+		
+		return 'c';
 	}
 
 	@Override

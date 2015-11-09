@@ -5,6 +5,7 @@ public class MazeDoor implements MazeObject {
 	private String direction;
 	private boolean open;
 	private boolean locked;
+	//private Question question;
 	
 	public MazeDoor(String direction) {
 		this.direction = direction;
@@ -27,6 +28,10 @@ public class MazeDoor implements MazeObject {
 	
 	public void setLocked(boolean locked) {
 		this.locked = locked;
+	}
+	
+	public boolean isCorrectAnswer(String input) {
+		return input.toLowerCase().equals("a");
 	}
 
 }

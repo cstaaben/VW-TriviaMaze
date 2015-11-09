@@ -5,6 +5,7 @@ import java.util.Random;
 public class Maze implements MazeObject {
 	
 	public static final int MAX_SIZE = 10;
+	
 	private int size;
 	private MazeObject[][] maze;
 	private MazeCoordinates start;
@@ -51,11 +52,75 @@ public class Maze implements MazeObject {
 		
 		for(int i = 0; i < size; i++) {
 			for(int j = 0; j < size; j++) {
-				
-			}
-		}
+				for(int k = 0; k < MazeRoom.NUM_DOORS; k++) {
+					result += getRoomLayout(((MazeRoom)maze[i][j]).checkDoor(k), k);
+				} // end for k
+			} // end for j
+		} // end for i
 		
 		return result;
+	}
+	
+	private String getRoomLayout(char status, int direction) {
+		switch(direction) {
+			case 0: // North
+				switch(status) {
+				case 'c':
+					
+					break;
+				case 'o':
+					
+					break;
+				case 'l':
+					
+					break;
+				}
+				break;
+				
+			case 1: // East
+				switch(status) {
+				case 'c':
+					
+					break;
+				case 'o':
+					
+					break;
+				case 'l':
+					
+					break;
+				}
+				break;
+				
+			case 2: // South
+				switch(status) {
+				case 'c':
+					
+					break;
+				case 'o':
+					
+					break;
+				case 'l':
+					
+					break;
+				}
+				break;
+				
+			case 3: // West
+				switch(status) {
+				case 'c':
+					
+					break;
+				case 'o':
+					
+					break;
+				case 'l':
+					
+					break;
+				}
+				break;
+		} // end switch direction
+		
+		return "";
 	}
 	
 	private MazeCoordinates getStartCoord() {
@@ -106,16 +171,24 @@ public class Maze implements MazeObject {
 			}
 			
 			if(input.toLowerCase().equals("n")) {
-				current.setCoordinates(current.getRow()-1, current.getCol());
+				if(((MazeRoom)maze[current.getRow()][current.getCol()]).questionPrompt(input)) {
+					current.setCoordinates(current.getRow()-1, current.getCol());
+				}
 			}
 			else if(input.toLowerCase().equals("s")) {
-				current.setCoordinates(current.getRow()+1, current.getCol());
+				if(((MazeRoom)maze[current.getRow()][current.getCol()]).questionPrompt(input)) {
+					current.setCoordinates(current.getRow()+1, current.getCol());
+				}
 			}
 			else if(input.toLowerCase().equals("e")) {
-				current.setCoordinates(current.getRow(), current.getCol()+1);
+				if(((MazeRoom)maze[current.getRow()][current.getCol()]).questionPrompt(input)) {
+					current.setCoordinates(current.getRow(), current.getCol()+1);
+				}
 			}
 			else if(input.toLowerCase().equals("w")) {
-				current.setCoordinates(current.getRow(), current.getCol()-1);
+				if(((MazeRoom)maze[current.getRow()][current.getCol()]).questionPrompt(input)) {
+					current.setCoordinates(current.getRow(), current.getCol()-1);
+				}
 			}
 		} // end while input
 	}
@@ -152,6 +225,14 @@ public class Maze implements MazeObject {
 			
 			this.row = row;
 			this.column = col;
+		}
+		
+		public boolean equals(MazeCoordinates mc) {
+			return mc.getRow() == row && mc.getCol() == column;
+		}
+		
+		public boolean equals(int row, int col) {
+			return this.row == row && col == column;
 		}
 	}
 
