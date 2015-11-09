@@ -14,9 +14,10 @@ public class MazeRoom implements MazeObject {
 		
 		this.availDoors = 0;
 		
+		mediator = MazeMediator.getReference();
+		
 		initializeDoors(row, col);
 		
-		mediator = MazeMediator.getReference();
 	}
 	
 	public int getDoorNum() { return this.availDoors; }
@@ -54,6 +55,23 @@ public class MazeRoom implements MazeObject {
 			this.doors[WEST] = new MazeDoor("West");
 			this.availDoors += 2;
 		}
+	}
+	
+	public boolean isValidDoor(String direction) {
+		if(direction.toLowerCase().equals("n")) {
+			return !((MazeDoor)doors[NORTH]).getDirection().toLowerCase().equals("null");
+		}
+		else if(direction.toLowerCase().equals("e")) {
+			return !((MazeDoor)doors[EAST]).getDirection().toLowerCase().equals("null");
+		}
+		else if(direction.toLowerCase().equals("s")) {
+			return !((MazeDoor)doors[SOUTH]).getDirection().toLowerCase().equals("null");
+		}
+		else if(direction.toLowerCase().equals("w")) {
+			return !((MazeDoor)doors[WEST]).getDirection().toLowerCase().equals("null");
+		}
+		
+		return false;
 	}
 
 	@Override
