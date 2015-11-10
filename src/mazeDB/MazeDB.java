@@ -366,7 +366,7 @@ public class MazeDB {
 		
 		try {
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:mazeQuestions.db");
+			c = DriverManager.getConnection("jdbc:sqlite:src/MazeDB/mazeQuestions.db");
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			sb = new StringBuilder("INSERT INTO QUESTION (QUESTIONTYPE,FILETYPE,QUESTIONTEXT,ANSWERTEXT,FILEPATH) ");
