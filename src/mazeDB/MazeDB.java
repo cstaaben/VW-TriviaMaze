@@ -224,7 +224,7 @@ public class MazeDB {
 					}
 					try(Connection connection = DriverManager.getConnection("jdbc:sqlite:src/MazeDB/mazeQuestions.db");) {
 						connection.setAutoCommit(false);
-						try(PreparedStatement statement = connection.prepareStatement("DELETE FROM QUESTION WHERE ID =?");) {
+						try(PreparedStatement statement = connection.prepareStatement("DELETE FROM QUESTION WHERE ID = ?");) {
 							statement.setInt(1, idToDelete);
 							deletionOccurred = statement.executeUpdate();
 						} catch (SQLException e) {
@@ -236,6 +236,7 @@ public class MazeDB {
 						} else {
 							System.out.println("Question was not found.");
 						}
+						connection.commit();
 					} catch (SQLException e) {
 						System.err.println(e.getClass().getName() + ": " + e.getMessage());
 						System.exit(0);
@@ -432,7 +433,9 @@ public class MazeDB {
 		
 		//escape ' for SQL
 		for(int i = 0; i < strings.length; i++) {
-			strings[i] = strings[i].replaceAll("'", "''");
+			if(strings[i] != null) {
+				strings[i] = strings[i].replaceAll("'", "''");
+			}
 		}// end for loop i
 		
 		String questionType = strings[0];
