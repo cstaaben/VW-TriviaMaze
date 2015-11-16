@@ -193,8 +193,58 @@ public class MazeDB {
 	//allows the user to delete a question by ID
 	
 	private static void deleteQuestionMenu(Scanner kb) {
-		// TODO Auto-generated method stub
+		String input = "";
+		int idToDelete = 0;
+		boolean validIntGiven = false;
+		int deletionOccurred = 0;
 		
+		System.out.println("Enter the ID of a question to delete, or \"exit\" to exit:");
+		input = kb.nextLine();
+		
+		while(!input.equals("exit")) {
+			validIntGiven = false;
+			if(!input.equals("exit")) {
+				try {
+					idToDelete = Integer.parseInt(input);
+					if(idToDelete > 0) {
+						validIntGiven = true;
+					}
+					if(!validIntGiven) {
+						System.out.println("Enter a positive integer.");
+					}
+				} catch (NumberFormatException e) {
+					System.out.println("Not a valid integer.");
+				}
+				if(validIntGiven) {
+					try {
+						Class.forName("org.sqlite.JDBC");
+					} catch (Exception e) {
+						System.err.println(e.getClass().getName() + ": " + e.getMessage());
+						System.exit(0);
+					}
+					try(Connection connection = DriverManager.getConnection("jdbc:sqlite:src/MazeDB/mazeQuestions.db");) {
+						connection.setAutoCommit(false);
+						try(PreparedStatement statement = connection.prepareStatement("DELETE FROM QUESTION WHERE ID =?");) {
+							statement.setInt(1, idToDelete);
+							deletionOccurred = statement.executeUpdate();
+						} catch (SQLException e) {
+							System.err.println(e.getClass().getName() + ": " + e.getMessage());
+							System.exit(0);
+						}
+						if(deletionOccurred > 0) {
+							System.out.println("Question was deleted.");
+						} else {
+							System.out.println("Question was not found.");
+						}
+					} catch (SQLException e) {
+						System.err.println(e.getClass().getName() + ": " + e.getMessage());
+						System.exit(0);
+					}
+				}
+				System.out.println("Enter the ID of a question to delete, or \"exit\" to exit:");
+				input = kb.nextLine();
+			}
+		}
 	}
 	
 	//series of prompts to add a true/false question
