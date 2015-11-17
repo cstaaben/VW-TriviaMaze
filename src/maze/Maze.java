@@ -2,6 +2,8 @@ package maze;
 
 import java.util.Random;
 
+import mazeTests.MazeTest;
+
 public class Maze implements MazeObject {
 	
 	public static final int MAX_SIZE = 10;

@@ -1,5 +1,7 @@
 package maze;
 
+import mazeTests.MazeTest;
+
 public class MazeRoom implements MazeObject {
 	
 	public static final int NUM_DOORS = 4;
