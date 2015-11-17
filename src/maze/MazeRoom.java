@@ -25,33 +25,33 @@ public class MazeRoom implements MazeObject {
 		
 		if(row == 0) {
 			this.doors[MazeDirection.NORTH.ordinal()] = new NullMazeDoor();
-			this.doors[MazeDirection.SOUTH.ordinal()] = new MazeDoor("South");
+			this.doors[MazeDirection.SOUTH.ordinal()] = new MazeDoor(MazeDirection.SOUTH);
 			this.availDoors++;
 		}
 		else if(row == mediator.getMazeSize()-1) {
 			this.doors[MazeDirection.SOUTH.ordinal()] = new NullMazeDoor();
-			this.doors[MazeDirection.NORTH.ordinal()] = new MazeDoor("North");
+			this.doors[MazeDirection.NORTH.ordinal()] = new MazeDoor(MazeDirection.NORTH);
 			this.availDoors++;
 		}
 		else {
-			this.doors[MazeDirection.NORTH.ordinal()] = new MazeDoor("North");
-			this.doors[MazeDirection.SOUTH.ordinal()] = new MazeDoor("South");
+			this.doors[MazeDirection.NORTH.ordinal()] = new MazeDoor(MazeDirection.NORTH);
+			this.doors[MazeDirection.SOUTH.ordinal()] = new MazeDoor(MazeDirection.SOUTH);
 			this.availDoors += 2;
 		}
 		
 		if(col == mediator.getMazeSize()-1) {
 			this.doors[MazeDirection.EAST.ordinal()] = new NullMazeDoor();
-			this.doors[MazeDirection.WEST.ordinal()] = new MazeDoor("West");
+			this.doors[MazeDirection.WEST.ordinal()] = new MazeDoor(MazeDirection.WEST);
 			this.availDoors++;
 		}
 		else if(col == 0) {
 			this.doors[MazeDirection.WEST.ordinal()] = new NullMazeDoor();
-			this.doors[MazeDirection.EAST.ordinal()] = new MazeDoor("East");
+			this.doors[MazeDirection.EAST.ordinal()] = new MazeDoor(MazeDirection.EAST);
 			this.availDoors++;
 		}
 		else {
-			this.doors[MazeDirection.EAST.ordinal()] = new MazeDoor("East");
-			this.doors[MazeDirection.WEST.ordinal()] = new MazeDoor("West");
+			this.doors[MazeDirection.EAST.ordinal()] = new MazeDoor(MazeDirection.EAST);
+			this.doors[MazeDirection.WEST.ordinal()] = new MazeDoor(MazeDirection.WEST);
 			this.availDoors += 2;
 		}
 	}

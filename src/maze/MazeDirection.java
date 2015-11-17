@@ -2,6 +2,6 @@ package maze;
 
 public enum MazeDirection {
 
-	NORTH, EAST, SOUTH, WEST;
+	NORTH, EAST, SOUTH, WEST, NULL;
 	
 }
