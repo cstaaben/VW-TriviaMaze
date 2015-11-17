@@ -2,7 +2,7 @@ package maze;
 
 import java.util.Random;
 
-import mazeTests.MazeTest;
+import mazeTests.MazeNavigationTest;
 
 public class Maze implements MazeObject {
 	
@@ -164,12 +164,12 @@ public class Maze implements MazeObject {
 		while(!input.equals("exit")) {
 			System.out.println(maze[current.getRow()][current.getCol()].display());
 			System.out.print("Where would you like to move?  (Type \"exit\" to exit.) ");
-			input = MazeTest.KB.nextLine();
+			input = MazeNavigationTest.KB.nextLine();
 			
 			while(!isValidInput(input)) {
 				System.out.println("Invalid input. Please enter N, S, E, or W.");
 				System.out.println("Where would you like to go? (Type \"exit\" to exit.) ");
-				input = MazeTest.KB.nextLine();
+				input = MazeNavigationTest.KB.nextLine();
 			}
 			
 			if(input.toLowerCase().equals("n")) {
@@ -208,7 +208,7 @@ public class Maze implements MazeObject {
 	}
 	
 //================================================================	
-	private class MazeCoordinates {
+	public class MazeCoordinates {
 		private int row;
 		private int column;
 		

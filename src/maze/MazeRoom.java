@@ -1,6 +1,6 @@
 package maze;
 
-import mazeTests.MazeTest;
+import mazeTests.MazeNavigationTest;
 
 public class MazeRoom implements MazeObject {
 	
@@ -89,7 +89,7 @@ public class MazeRoom implements MazeObject {
 			}
 			
 			System.out.println(((MazeDoor)doors[MazeDirection.NORTH.ordinal()]).display());
-			answer = MazeTest.KB.nextLine();
+			answer = MazeNavigationTest.KB.nextLine();
 			return ((MazeDoor)doors[MazeDirection.NORTH.ordinal()]).isCorrectAnswer(answer);
 		}
 		else if(input.toLowerCase().equals("e")) {
@@ -99,7 +99,7 @@ public class MazeRoom implements MazeObject {
 			}
 			
 			System.out.println(((MazeDoor)doors[MazeDirection.EAST.ordinal()]).display());
-			answer = MazeTest.KB.nextLine();
+			answer = MazeNavigationTest.KB.nextLine();
 			return ((MazeDoor)doors[MazeDirection.EAST.ordinal()]).isCorrectAnswer(answer);
 		}
 		else if(input.toLowerCase().equals("s")) {
@@ -109,7 +109,7 @@ public class MazeRoom implements MazeObject {
 			}
 			
 			System.out.println(((MazeDoor)doors[MazeDirection.SOUTH.ordinal()]).display());
-			answer = MazeTest.KB.nextLine();
+			answer = MazeNavigationTest.KB.nextLine();
 			return ((MazeDoor)doors[MazeDirection.SOUTH.ordinal()]).isCorrectAnswer(answer);
 		}
 		else if(input.toLowerCase().equals("w")) {
@@ -119,7 +119,7 @@ public class MazeRoom implements MazeObject {
 			}
 			
 			System.out.println(((MazeDoor)doors[MazeDirection.WEST.ordinal()]).display());
-			answer = MazeTest.KB.nextLine();
+			answer = MazeNavigationTest.KB.nextLine();
 			return ((MazeDoor)doors[MazeDirection.WEST.ordinal()]).isCorrectAnswer(answer);
 		}
 		

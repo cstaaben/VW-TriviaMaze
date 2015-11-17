@@ -4,7 +4,7 @@ import java.io.*;
 
 import maze.MockQuestion;
 
-public class MockQuestionTest {
+public class MockQuestionSerializationTest {
 
 	public static void main(String[] args) throws Exception {
 		MockQuestion mq = new MockQuestion();

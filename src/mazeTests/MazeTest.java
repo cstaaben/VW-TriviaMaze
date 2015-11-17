@@ -1,17 +1,34 @@
 package mazeTests;
 
-import java.util.Scanner;
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import maze.Maze;
 
 public class MazeTest {
+
+	Maze test;
 	
-	public static final Scanner KB = new Scanner(System.in);
+	@Before
+	public void setUp() throws Exception {
+		test = Maze.getMaze(5);
+	}
+
+	@After
+	public void tearDown() throws Exception {
+	}
+
+	@Test
+	public void getSizeTest() {
+		assertEquals(5, test.getSize());
+	}
 	
-	public static void main(String[] args) {
-		Maze maze = Maze.getMaze(10);
-		
-		maze.navigate();
+	@Test
+	public void startEndCoordinateTest() {
+		assertFalse(test.getStart().equals(test.getEnd()));
 	}
 
 }
