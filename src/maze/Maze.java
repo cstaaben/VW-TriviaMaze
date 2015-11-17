@@ -151,7 +151,7 @@ public class Maze implements MazeObject {
 	public MazeCoordinates getStart() { return this.start; }
 	public MazeCoordinates getEnd() { return this.exit; }
 	
-	public MazeCoordinates initCurrentCoord() {
+	private MazeCoordinates initCurrentCoord() {
 		return new MazeCoordinates(start.getRow(), start.getCol());
 	}
 	
