@@ -25,6 +25,8 @@ public class MazePlayerTest {
 
 	@Before
 	public void setUp() throws Exception {
+		test = new MazePlayer(mc);
+		test.setPoints(50);
 	}
 
 	@After
@@ -32,8 +34,21 @@ public class MazePlayerTest {
 	}
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void pointsTest() {
+		assertEquals(50, test.getCurrentPoints());
+		try {
+			test.incrementPoints(10);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		assertEquals(60, test.getCurrentPoints());
+	}
+	
+	@Test
+	public void coordinatesTest() {
+		assertEquals(test.getCurrentCoordinates().getRow(), mc.getRow());
+		assertEquals(test.getCurrentCoordinates().getCol(), mc.getCol());
 	}
 
 }

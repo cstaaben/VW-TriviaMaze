@@ -1,6 +1,7 @@
 package player;
 
 import maze.MazeObject;
+
 import maze.Maze.MazeCoordinates;
 
 public class MazePlayer implements MazeObject {
@@ -22,6 +23,16 @@ public class MazePlayer implements MazeObject {
 	
 	public MazeCoordinates getCurrentCoordinates() { return this.currentCoordinates; }
 	
+	public void setPoints(int points) {
+		this.currentPoints = points;
+	}
 	
+	public void incrementPoints(int points) throws IllegalArgumentException{
+		if(points < 0) {
+			throw new IllegalArgumentException("Negative value passed to increment points.");
+		}
+		
+		this.currentPoints += points;
+	}
 	
 }
