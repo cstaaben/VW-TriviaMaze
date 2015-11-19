@@ -22,7 +22,7 @@ public class MazeRoomTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		test = new MazeRoom(2,3);
+		test = maze.getRoom(2,3);
 	}
 
 	@After
@@ -37,10 +37,10 @@ public class MazeRoomTest {
 	@Test
 	public void initDoor_validDoorTest() {
 		// all 4 valid doors
-		assertTrue(test.isValidDoor("north"));
-		assertTrue(test.isValidDoor("south"));
-		assertTrue(test.isValidDoor("west"));
-		assertTrue(test.isValidDoor("east"));
+		assertTrue(test.isValidDoor("n"));
+		assertTrue(test.isValidDoor("s"));
+		assertTrue(test.isValidDoor("w"));
+		assertTrue(test.isValidDoor("e"));
 		MazeRoom m1 = new MazeRoom(0,3); 
 		MazeRoom m2 = new MazeRoom(0,0);
 		MazeRoom m3 = new MazeRoom(0,4);
@@ -50,45 +50,45 @@ public class MazeRoomTest {
 		MazeRoom m7 = new MazeRoom(3,4);
 		MazeRoom m8 = new MazeRoom(4,0);
 		// top row, mid column
-		assertFalse(m1.isValidDoor("north"));
-		assertTrue(m1.isValidDoor("south"));
-		assertTrue(m1.isValidDoor("east"));
-		assertTrue(m1.isValidDoor("west"));
+		assertFalse(m1.isValidDoor("n"));
+		assertTrue(m1.isValidDoor("s"));
+		assertTrue(m1.isValidDoor("e"));
+		assertTrue(m1.isValidDoor("w"));
 		// top-left corner
-		assertFalse(m2.isValidDoor("north"));
-		assertFalse(m2.isValidDoor("west"));
-		assertTrue(m2.isValidDoor("south"));
-		assertTrue(m2.isValidDoor("east"));
+		assertFalse(m2.isValidDoor("n"));
+		assertFalse(m2.isValidDoor("w"));
+		assertTrue(m2.isValidDoor("s"));
+		assertTrue(m2.isValidDoor("e"));
 		// top-right corner
-		assertTrue(m3.isValidDoor("south"));
-		assertTrue(m3.isValidDoor("west"));
-		assertFalse(m3.isValidDoor("north"));
-		assertFalse(m3.isValidDoor("east"));
+		assertTrue(m3.isValidDoor("s"));
+		assertTrue(m3.isValidDoor("w"));
+		assertFalse(m3.isValidDoor("n"));
+		assertFalse(m3.isValidDoor("e"));
 		// bottom-left corner
-		assertTrue(m8.isValidDoor("north"));
-		assertTrue(m8.isValidDoor("east"));
-		assertFalse(m8.isValidDoor("south"));
-		assertFalse(m8.isValidDoor("west"));
+		assertTrue(m8.isValidDoor("n"));
+		assertTrue(m8.isValidDoor("e"));
+		assertFalse(m8.isValidDoor("s"));
+		assertFalse(m8.isValidDoor("w"));
 		// bottom-right corner
-		assertTrue(m4.isValidDoor("north"));
-		assertTrue(m4.isValidDoor("west"));
-		assertFalse(m4.isValidDoor("south"));
-		assertFalse(m4.isValidDoor("east"));
+		assertTrue(m4.isValidDoor("n"));
+		assertTrue(m4.isValidDoor("w"));
+		assertFalse(m4.isValidDoor("s"));
+		assertFalse(m4.isValidDoor("e"));
 		// left-mid column
-		assertTrue(m6.isValidDoor("north"));
-		assertTrue(m6.isValidDoor("south"));
-		assertTrue(m6.isValidDoor("east"));
-		assertFalse(m6.isValidDoor("west"));
+		assertTrue(m6.isValidDoor("n"));
+		assertTrue(m6.isValidDoor("s"));
+		assertTrue(m6.isValidDoor("e"));
+		assertFalse(m6.isValidDoor("w"));
 		// right-mid column
-		assertTrue(m7.isValidDoor("north"));
-		assertTrue(m7.isValidDoor("south"));
-		assertTrue(m7.isValidDoor("west"));
-		assertFalse(m7.isValidDoor("east"));
+		assertTrue(m7.isValidDoor("n"));
+		assertTrue(m7.isValidDoor("s"));
+		assertTrue(m7.isValidDoor("w"));
+		assertFalse(m7.isValidDoor("e"));
 		// bottom-mid row
-		assertTrue(m5.isValidDoor("north"));
-		assertTrue(m5.isValidDoor("east"));
-		assertTrue(m5.isValidDoor("west"));
-		assertFalse(m5.isValidDoor("south"));
+		assertTrue(m5.isValidDoor("n"));
+		assertTrue(m5.isValidDoor("e"));
+		assertTrue(m5.isValidDoor("w"));
+		assertFalse(m5.isValidDoor("s"));
 	}
 	
 }

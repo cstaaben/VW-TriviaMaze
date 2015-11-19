@@ -19,7 +19,7 @@ public class MazePlayerTest {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		m = Maze.getMaze(4);
+		m = Maze.getMaze(5);
 		mc = m.getStart();
 	}
 
@@ -49,6 +49,7 @@ public class MazePlayerTest {
 	public void coordinatesTest() {
 		assertEquals(test.getCurrentCoordinates().getRow(), mc.getRow());
 		assertEquals(test.getCurrentCoordinates().getCol(), mc.getCol());
+		assertEquals(mc, test.getCurrentCoordinates());
 	}
 
 }

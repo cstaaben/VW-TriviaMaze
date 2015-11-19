@@ -207,6 +207,13 @@ public class Maze implements MazeObject {
 		return false;
 	}
 	
+	/*
+	 * For testing purposes only
+	 */
+	public MazeRoom getRoom(int row, int col) {
+		return (MazeRoom)maze[row][col];
+	}
+	
 //================================================================	
 	public class MazeCoordinates {
 		private int row;
