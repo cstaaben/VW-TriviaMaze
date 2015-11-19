@@ -2,7 +2,7 @@ package maze;
 
 import java.util.Random;
 
-import mazeTests.MazeNavigationTest;
+import tests.MazeNavigationTest;
 
 public class Maze implements MazeObject {
 	

@@ -36,11 +36,11 @@ public class MockQuestion implements MazeObject, Serializable {
 		this.questionType = type;
 	}
 	
-	private String getAnswer() {
+	public String getAnswer() {
 		return "Answer";
 	}
 	
-	private int getPoints() {
+	public int getPoints() {
 		return 5;
 	}
 

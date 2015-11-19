@@ -1,4 +1,4 @@
-package mazeTests;
+package tests;
 
 import java.util.Scanner;
 

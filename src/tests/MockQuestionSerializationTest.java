@@ -1,4 +1,4 @@
-package mazeTests;
+package tests;
 
 import java.io.*;
 
@@ -18,6 +18,11 @@ public class MockQuestionSerializationTest {
 		MockQuestion q = (MockQuestion)ois.readObject();
 		
 		System.out.println(q.display());
+		
+		fos.close();
+		oos.close();
+		ois.close();
+		fis.close();
 	}
 
 }

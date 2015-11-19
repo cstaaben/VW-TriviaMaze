@@ -1,4 +1,4 @@
-package mazeTests;
+package tests;
 
 import static org.junit.Assert.*;
 

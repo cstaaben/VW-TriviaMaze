@@ -1,6 +1,6 @@
 package maze;
 
-import mazeTests.MazeNavigationTest;
+import tests.MazeNavigationTest;
 
 public class MazeRoom implements MazeObject {
 	
