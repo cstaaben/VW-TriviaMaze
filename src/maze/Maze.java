@@ -190,6 +190,10 @@ public class Maze implements MazeObject {
 		return (MazeRoom)maze[row][col];
 	}
 	
+	public MazeRoom getRoom(MazeCoordinates mc) {
+		return (MazeRoom)maze[mc.getRow()][mc.getCol()];
+	}
+	
 //================================================================	
 	public class MazeCoordinates {
 		private int row;
@@ -210,6 +214,15 @@ public class Maze implements MazeObject {
 			
 			this.row = row;
 			this.column = col;
+		}
+		
+		public void setCoordinates(MazeCoordinates mc) {
+			if(mc.getRow() > size-1 || mc.getCol() > size-1 || mc.getRow() < 0 || mc.getCol() < 0) {
+				throw new IndexOutOfBoundsException("Value passed to setCoordinates() out of bounds.");
+			}
+			
+			this.row = mc.getRow();
+			this.column = mc.getCol();
 		}
 		
 		public boolean equals(MazeCoordinates mc) {

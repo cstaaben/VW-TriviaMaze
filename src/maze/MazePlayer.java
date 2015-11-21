@@ -33,4 +33,8 @@ public class MazePlayer implements MazeObject {
 		this.currentPoints += points;
 	}
 	
+	public void move(int row, int col) {
+		currentCoordinates.setCoordinates(row, col);
+	}
+	
 }

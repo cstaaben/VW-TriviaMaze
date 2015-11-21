@@ -1,6 +1,7 @@
 package states;
 
 import java.util.Scanner;
+
 import maze.Maze;
 import maze.MazePlayer;
 
@@ -51,6 +52,9 @@ public class TriviaMaze {
 	public TriviaMazeState getSaveGameState() { return this.saveGameState; }
 	public TriviaMazeState getExitMazeState() { return exitMazeState; }
 	public TriviaMazeState getEndGameState() { return endGameState; }
+	
+	public MazePlayer getPlayer() { return this.player; }
+	public Maze getMaze() { return this.maze; }
 	
 	public void mainMenu() {
 		currentState.mainMenu();

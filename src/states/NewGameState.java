@@ -1,19 +1,27 @@
 package states;
 
+import creation.MazeFactory;
+import maze.MazePlayer;
+
 public class NewGameState implements TriviaMazeState {
 
 	private TriviaMaze triviaMaze;
 	
 	public NewGameState(TriviaMaze triviaMaze) {
 		this.triviaMaze = triviaMaze;
-		
-		triviaMaze.setState(triviaMaze.getNavigateMazeState());
+	}
+	
+	private int sizePrompt() {
+		return 0;
 	}
 	
 	@Override
 	public void newGame() {
-		// TODO Auto-generated method stub
+		triviaMaze.setMaze(MazeFactory.getReference().getMaze(sizePrompt()));
+		
+		triviaMaze.setPlayer(new MazePlayer(triviaMaze.getMaze().getStart()));
 
+		triviaMaze.setState(triviaMaze.getNavigateMazeState());
 	}
 
 	@Override
