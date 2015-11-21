@@ -45,6 +45,13 @@ public class MazeFactory {
 					((MazeRoom)rooms[i][j]).insertDoor(MazeDirection.EAST, door);
 					((MazeRoom)rooms[i][j+1]).insertDoor(MazeDirection.WEST, door);
 				} // end if j+1
+				else if((j + 1) == rooms[i].length) {
+					door = doorFactory.newDoor()
+							.lesserRoom(rooms[i][j])
+							.lesserDirection(MazeDirection.EAST)
+							.greaterDirection(MazeDirection.NULL)
+							.buildDoor();
+				}
 				
 				if((i + 1) < rooms.length) {
 					door = doorFactory.newDoor()
