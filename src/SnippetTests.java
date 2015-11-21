@@ -1,36 +1,22 @@
-import java.util.InputMismatchException;
+import java.util.EnumMap;
 
-import states.TriviaMaze;
+import maze.MazeDirection;
+import maze.MazeDoor;
 
 public class SnippetTests {
 
 	public static void main(String[] args) {
-		int input = 0;
-		String menu = "1.) Start a new game\n"
-				+ "2.) Load a game\n"
-				+ "3.) Login to the question database\n"
-				+ "4.) Exit game";
+		EnumMap<MazeDirection, MazeDoor> map = new EnumMap<MazeDirection, MazeDoor>(MazeDirection.class);
 		
-		while(input != 4) {
-			do {
-				System.out.println(menu);
-				try {
-					input = TriviaMaze.KB.nextInt();
-					if(input < 1 || input > 4) {
-						throw new IndexOutOfBoundsException("Value entered is out of range of the menu.");
-					}
-					break;
-				}
-				catch(InputMismatchException e) {
-					System.out.println("Value entered is not an integer.");
-					TriviaMaze.KB.next();
-					continue;
-				}
-				catch(IndexOutOfBoundsException i) {
-					System.out.println(i.getMessage());
-				}
-			} while(input < 1 || input > 4);
-		}
+		map.put(MazeDirection.NORTH, new MazeDoor());
+		map.put(MazeDirection.SOUTH, new MazeDoor());
+		map.put(MazeDirection.EAST, new MazeDoor());
+		map.put(MazeDirection.WEST, new MazeDoor());
+		
+		System.out.println(map.get(MazeDirection.NORTH));
+		System.out.println(map.get(MazeDirection.SOUTH));
+		System.out.println(map.get(MazeDirection.EAST));
+		System.out.println(map.get(MazeDirection.WEST));
 	}
 
 }

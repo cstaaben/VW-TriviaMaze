@@ -2,28 +2,38 @@ package maze;
 
 public class MazeDoor implements MazeObject {
 	
-	private MazeDirection direction;
+	private MazeDirection lesserDirection, greaterDirection;
 	private boolean open;
 	private boolean locked;
 	private MockQuestion question;
 	
-	public MazeDoor(MazeDirection direction) {
-		this.direction = direction;
-		this.question = new MockQuestion();
+	private MazeObject lesserRoom, greaterRoom;
+	
+	public MazeDoor() {
 		this.open = false;
 		this.locked = false;
 	}
+
+	public MazeDirection getLesserDirection() { return lesserDirection; }
+	public MazeDirection getGreaterDirection() { return greaterDirection; }
+	public boolean isOpen() { return open; }
+	public boolean isLocked() { return locked; }
+	public MazeObject getLesserRoom() { return lesserRoom; }
+	public MazeObject getGreaterRoom() { return greaterRoom; }
 	
-	public String getDirection() { return direction.toString(); }
+	public void setLesserDirection(MazeDirection lesserDirection) {
+		this.lesserDirection = lesserDirection;
+	}
+
+	public void setGreaterDirection(MazeDirection greaterDirection) {
+		this.greaterDirection = greaterDirection;
+	}
 
 	@Override
 	public String display() {
 		// Display question
 		return question.display();
 	}
-	
-	public boolean isOpen() { return open; }
-	public boolean isLocked() { return locked; }
 	
 	public void setOpen(boolean open) {
 		this.open = open;
@@ -34,9 +44,19 @@ public class MazeDoor implements MazeObject {
 	}
 	
 	public boolean isCorrectAnswer(String input) {
-		return input.toLowerCase().equals("a");
+		return input.toLowerCase().equals(question.getAnswer().toLowerCase());
 	}
 	
+	public void setLesserRoom(MazeRoom room) {
+		this.lesserRoom = room;
+	}
 	
+	public void setGreaterRoom(MazeRoom room) {
+		this.greaterRoom = room;
+	}
+	
+	public void setQuestion(MockQuestion question) {
+		this.question = question;
+	}
 
 }

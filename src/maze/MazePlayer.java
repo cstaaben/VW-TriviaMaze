@@ -1,6 +1,4 @@
-package player;
-
-import maze.MazeObject;
+package maze;
 
 import maze.Maze.MazeCoordinates;
 
@@ -15,8 +13,8 @@ public class MazePlayer implements MazeObject {
 	}
 	
 	public String display() {
-		return "You are currently at coordinates (" + currentCoordinates.getRow() + ", " + currentCoordinates.getCol() + ")."
-				+ "\n\tYou currently have " + currentPoints + " points.";
+		return "You are currently at coordinates (" + currentCoordinates.getRow() + ", " 
+				+ currentCoordinates.getCol() + "with " + currentPoints + " points.";
 	}
 	
 	public int getCurrentPoints() { return this.currentPoints; }

@@ -16,42 +16,13 @@ public class Maze implements MazeObject {
 	private MazeCoordinates current;
 	private Random random = new Random();
 	
-	private static Maze reference = null;
-	
-	private Maze(int size) {
-		this.size = size;
-		
-		MazeMediator.createReference(this);
-		
-		initMaze();
+	public Maze(MazeObject[][] maze) {
+		this.maze = maze;
+		this.size = maze.length;
 		
 		start = getStartCoord();
 		exit = getExitCoord();
 		current = initCurrentCoord();
-	}
-	
-	public static Maze getMaze(int size) throws IllegalArgumentException {
-		if(size < 2) {
-			throw new IllegalArgumentException("Size less than 2 passed to getMaze.");
-		}
-		
-		if(reference == null) {
-			reference = new Maze(size);
-		}
-		
-		return reference;
-	}
-	
-	public int getSize() { return this.size; }
-	
-	private void initMaze() {
-		maze = new MazeObject[size][size];
-		
-		for(int i = 0; i < size; i++) {
-			for(int j = 0; j < size; j++) {
-				maze[i][j] = new MazeRoom(i, j);
-			}
-		}
 	}
 
 	public String display() {
@@ -203,7 +174,7 @@ public class Maze implements MazeObject {
 	private boolean isValidInput(String input) {
 		if(input.toLowerCase().equals("n") || input.toLowerCase().equals("e") || 
 				input.toLowerCase().equals("s") || input.toLowerCase().equals("w")) {
-			return ((MazeRoom)maze[current.getRow()][current.getCol()]).isValidDoor(input);
+			//return ((MazeRoom)maze[current.getRow()][current.getCol()]).isValidDoor(input);
 		}
 		else if(input.toLowerCase().equals("exit")) {
 			return true;
@@ -247,6 +218,10 @@ public class Maze implements MazeObject {
 		
 		public boolean equals(int row, int col) {
 			return this.row == row && col == column;
+		}
+		
+		public String display() {
+			return "(" + row + ", " + column + ")";
 		}
 	}
 
