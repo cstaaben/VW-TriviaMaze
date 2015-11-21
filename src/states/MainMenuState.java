@@ -57,6 +57,7 @@ public class MainMenuState implements TriviaMazeState {
 		while(input != 4) {
 			do {
 				System.out.println(menu);
+				
 				try {
 					input = TriviaMaze.KB.nextInt();
 					if(input < 1 || input > 4) {
@@ -71,7 +72,9 @@ public class MainMenuState implements TriviaMazeState {
 				}
 				catch(IndexOutOfBoundsException i) {
 					System.out.println(i.getMessage());
+					continue;
 				}
+				
 			} while(input < 1 || input > 4);
 		} // end while input
 		
@@ -84,6 +87,9 @@ public class MainMenuState implements TriviaMazeState {
 				break;
 			case 3:
 				triviaMaze.setState(triviaMaze.getAdminDBState());
+				break;
+			case 4:
+				triviaMaze.setState(triviaMaze.getEndGameState());
 				break;
 		} // end switch input
 	}
