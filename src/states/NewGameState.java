@@ -6,6 +6,8 @@ public class NewGameState implements TriviaMazeState {
 	
 	public NewGameState(TriviaMaze triviaMaze) {
 		this.triviaMaze = triviaMaze;
+		
+		triviaMaze.setState(triviaMaze.getNavigateMazeState());
 	}
 	
 	@Override
@@ -54,6 +56,11 @@ public class NewGameState implements TriviaMazeState {
 	public void exitMaze() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public void endGame() {
+		// TODO Auto-generated method stub
 	}
 
 }

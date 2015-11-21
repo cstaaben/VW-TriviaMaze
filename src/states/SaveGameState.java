@@ -55,5 +55,10 @@ public class SaveGameState implements TriviaMazeState {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void endGame() {
+		// TODO Auto-generated method stub
+	}
 
 }

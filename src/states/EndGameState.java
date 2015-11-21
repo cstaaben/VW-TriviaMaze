@@ -1,10 +1,10 @@
 package states;
 
-public class AdminDBState implements TriviaMazeState {
+public class EndGameState implements TriviaMazeState {
 
-	private TriviaMaze triviaMaze;
+	private TriviaMaze triviaMaze; 
 	
-	public AdminDBState(TriviaMaze triviaMaze) {
+	public EndGameState(TriviaMaze triviaMaze) {
 		this.triviaMaze = triviaMaze;
 	}
 	
@@ -22,9 +22,8 @@ public class AdminDBState implements TriviaMazeState {
 
 	@Override
 	public void adminDB() {
-		
-		
-		triviaMaze.setState(triviaMaze.getMainMenuState());
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
@@ -48,18 +47,18 @@ public class AdminDBState implements TriviaMazeState {
 	@Override
 	public void mainMenu() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void exitMaze() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void endGame() {
-		// TODO Auto-generated method stub
+		System.out.println("Thanks for playing!");
 	}
-	
+
 }
