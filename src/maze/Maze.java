@@ -2,9 +2,12 @@ package maze;
 
 import java.util.Random;
 
+import tests.MazeNavigationTest;
+
 public class Maze implements MazeObject {
 	
 	public static final int MAX_SIZE = 10;
+	public static final int MIN_SIZE = 2;
 	
 	private int size;
 	private MazeObject[][] maze;
@@ -27,7 +30,11 @@ public class Maze implements MazeObject {
 		current = initCurrentCoord();
 	}
 	
-	public static Maze getMaze(int size) {
+	public static Maze getMaze(int size) throws IllegalArgumentException {
+		if(size < 2) {
+			throw new IllegalArgumentException("Size less than 2 passed to getMaze.");
+		}
+		
 		if(reference == null) {
 			reference = new Maze(size);
 		}
@@ -151,7 +158,7 @@ public class Maze implements MazeObject {
 	public MazeCoordinates getStart() { return this.start; }
 	public MazeCoordinates getEnd() { return this.exit; }
 	
-	public MazeCoordinates initCurrentCoord() {
+	private MazeCoordinates initCurrentCoord() {
 		return new MazeCoordinates(start.getRow(), start.getCol());
 	}
 	
@@ -162,12 +169,12 @@ public class Maze implements MazeObject {
 		while(!input.equals("exit")) {
 			System.out.println(maze[current.getRow()][current.getCol()].display());
 			System.out.print("Where would you like to move?  (Type \"exit\" to exit.) ");
-			input = MazeTest.KB.nextLine();
+			input = MazeNavigationTest.KB.nextLine();
 			
 			while(!isValidInput(input)) {
 				System.out.println("Invalid input. Please enter N, S, E, or W.");
 				System.out.println("Where would you like to go? (Type \"exit\" to exit.) ");
-				input = MazeTest.KB.nextLine();
+				input = MazeNavigationTest.KB.nextLine();
 			}
 			
 			if(input.toLowerCase().equals("n")) {
@@ -205,8 +212,15 @@ public class Maze implements MazeObject {
 		return false;
 	}
 	
+	/*
+	 * For testing purposes only
+	 */
+	public MazeRoom getRoom(int row, int col) {
+		return (MazeRoom)maze[row][col];
+	}
+	
 //================================================================	
-	private class MazeCoordinates {
+	public class MazeCoordinates {
 		private int row;
 		private int column;
 		

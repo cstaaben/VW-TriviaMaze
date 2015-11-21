@@ -2,21 +2,24 @@ package maze;
 
 public class MazeDoor implements MazeObject {
 	
-	private String direction;
+	private MazeDirection direction;
 	private boolean open;
 	private boolean locked;
-	//private Question question;
+	private MockQuestion question;
 	
-	public MazeDoor(String direction) {
+	public MazeDoor(MazeDirection direction) {
 		this.direction = direction;
+		this.question = new MockQuestion();
+		this.open = false;
+		this.locked = false;
 	}
 	
-	public String getDirection() { return direction; }
+	public String getDirection() { return direction.toString(); }
 
 	@Override
 	public String display() {
 		// Display question
-		return "Question";
+		return question.display();
 	}
 	
 	public boolean isOpen() { return open; }
@@ -33,5 +36,7 @@ public class MazeDoor implements MazeObject {
 	public boolean isCorrectAnswer(String input) {
 		return input.toLowerCase().equals("a");
 	}
+	
+	
 
 }

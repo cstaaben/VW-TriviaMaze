@@ -8,18 +8,20 @@ public class MockQuestion implements MazeObject, Serializable {
 	private String question;
 	private String answer;
 	private char questionType;
+	private int points;
 	
 	public MockQuestion() {
 		question = getQuestion();
 		questionType = getQuestionType();
 		answer = getAnswer();
+		this.points = getPoints();
 	}
 	
 	public long getID() { return serialVersionUID; }
 	
 	@Override
 	public String display() {
-		return question + " " + answer + " " + questionType;
+		return question + " " + answer + " " + questionType + " " + points;
 	}
 	
 	private char getQuestionType() {
@@ -34,8 +36,12 @@ public class MockQuestion implements MazeObject, Serializable {
 		this.questionType = type;
 	}
 	
-	private String getAnswer() {
+	public String getAnswer() {
 		return "Answer";
+	}
+	
+	public int getPoints() {
+		return 5;
 	}
 
 }

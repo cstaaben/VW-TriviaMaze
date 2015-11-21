@@ -1,0 +1,47 @@
+package states;
+
+import java.util.Scanner;
+
+public class TriviaMaze {
+	
+	public static final Scanner KB = new Scanner(System.in);
+	
+	private TriviaMazeState mainMenuState;
+	private TriviaMazeState newGameState;
+	private TriviaMazeState loadGameState;
+	private TriviaMazeState adminDBState;
+	private TriviaMazeState navigateMazeState;
+	private TriviaMazeState answerQuestionState;
+	private TriviaMazeState saveGameState;
+	private TriviaMazeState exitMazeState;
+	
+	private TriviaMazeState currentState;
+	
+	public TriviaMaze() {
+		mainMenuState = new MainMenuState(this);
+		newGameState = new NewGameState(this);
+		loadGameState = new LoadGameState(this);
+		adminDBState = new AdminDBState(this);
+		navigateMazeState = new NavigateMazeState(this);
+		answerQuestionState = new AnswerQuestionState(this);
+		saveGameState = new SaveGameState(this);
+		exitMazeState = new ExitMazeState(this);
+		
+		setState(mainMenuState);
+	}
+	
+	public void setState(TriviaMazeState state) {
+		this.currentState = state;
+	}
+	
+	public TriviaMazeState getCurrentState() { return this.currentState; }
+	public TriviaMazeState getMainMenuState() { return this.mainMenuState; }
+	public TriviaMazeState getNewGameState() { return this.newGameState; }
+	public TriviaMazeState getLoadGameState() { return this.loadGameState; }
+	public TriviaMazeState getAdminDBState() { return this.adminDBState; }
+	public TriviaMazeState getNavigateMazeState() { return this.navigateMazeState; }
+	public TriviaMazeState getAnswerQuestionState() { return this.answerQuestionState; }
+	public TriviaMazeState getSaveGameState() { return this.saveGameState; }
+	public TriviaMazeState getExitMazeState() { return exitMazeState; }
+	
+}

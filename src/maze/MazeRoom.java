@@ -1,5 +1,7 @@
 package maze;
 
+import tests.MazeNavigationTest;
+
 public class MazeRoom implements MazeObject {
 	
 	public static final int NUM_DOORS = 4;
@@ -25,33 +27,33 @@ public class MazeRoom implements MazeObject {
 		
 		if(row == 0) {
 			this.doors[MazeDirection.NORTH.ordinal()] = new NullMazeDoor();
-			this.doors[MazeDirection.SOUTH.ordinal()] = new MazeDoor("South");
+			this.doors[MazeDirection.SOUTH.ordinal()] = new MazeDoor(MazeDirection.SOUTH);
 			this.availDoors++;
 		}
 		else if(row == mediator.getMazeSize()-1) {
 			this.doors[MazeDirection.SOUTH.ordinal()] = new NullMazeDoor();
-			this.doors[MazeDirection.NORTH.ordinal()] = new MazeDoor("North");
+			this.doors[MazeDirection.NORTH.ordinal()] = new MazeDoor(MazeDirection.NORTH);
 			this.availDoors++;
 		}
 		else {
-			this.doors[MazeDirection.NORTH.ordinal()] = new MazeDoor("North");
-			this.doors[MazeDirection.SOUTH.ordinal()] = new MazeDoor("South");
+			this.doors[MazeDirection.NORTH.ordinal()] = new MazeDoor(MazeDirection.NORTH);
+			this.doors[MazeDirection.SOUTH.ordinal()] = new MazeDoor(MazeDirection.SOUTH);
 			this.availDoors += 2;
 		}
 		
 		if(col == mediator.getMazeSize()-1) {
 			this.doors[MazeDirection.EAST.ordinal()] = new NullMazeDoor();
-			this.doors[MazeDirection.WEST.ordinal()] = new MazeDoor("West");
+			this.doors[MazeDirection.WEST.ordinal()] = new MazeDoor(MazeDirection.WEST);
 			this.availDoors++;
 		}
 		else if(col == 0) {
 			this.doors[MazeDirection.WEST.ordinal()] = new NullMazeDoor();
-			this.doors[MazeDirection.EAST.ordinal()] = new MazeDoor("East");
+			this.doors[MazeDirection.EAST.ordinal()] = new MazeDoor(MazeDirection.EAST);
 			this.availDoors++;
 		}
 		else {
-			this.doors[MazeDirection.EAST.ordinal()] = new MazeDoor("East");
-			this.doors[MazeDirection.WEST.ordinal()] = new MazeDoor("West");
+			this.doors[MazeDirection.EAST.ordinal()] = new MazeDoor(MazeDirection.EAST);
+			this.doors[MazeDirection.WEST.ordinal()] = new MazeDoor(MazeDirection.WEST);
 			this.availDoors += 2;
 		}
 	}
@@ -87,7 +89,7 @@ public class MazeRoom implements MazeObject {
 			}
 			
 			System.out.println(((MazeDoor)doors[MazeDirection.NORTH.ordinal()]).display());
-			answer = MazeTest.KB.nextLine();
+			answer = MazeNavigationTest.KB.nextLine();
 			return ((MazeDoor)doors[MazeDirection.NORTH.ordinal()]).isCorrectAnswer(answer);
 		}
 		else if(input.toLowerCase().equals("e")) {
@@ -97,7 +99,7 @@ public class MazeRoom implements MazeObject {
 			}
 			
 			System.out.println(((MazeDoor)doors[MazeDirection.EAST.ordinal()]).display());
-			answer = MazeTest.KB.nextLine();
+			answer = MazeNavigationTest.KB.nextLine();
 			return ((MazeDoor)doors[MazeDirection.EAST.ordinal()]).isCorrectAnswer(answer);
 		}
 		else if(input.toLowerCase().equals("s")) {
@@ -107,7 +109,7 @@ public class MazeRoom implements MazeObject {
 			}
 			
 			System.out.println(((MazeDoor)doors[MazeDirection.SOUTH.ordinal()]).display());
-			answer = MazeTest.KB.nextLine();
+			answer = MazeNavigationTest.KB.nextLine();
 			return ((MazeDoor)doors[MazeDirection.SOUTH.ordinal()]).isCorrectAnswer(answer);
 		}
 		else if(input.toLowerCase().equals("w")) {
@@ -117,7 +119,7 @@ public class MazeRoom implements MazeObject {
 			}
 			
 			System.out.println(((MazeDoor)doors[MazeDirection.WEST.ordinal()]).display());
-			answer = MazeTest.KB.nextLine();
+			answer = MazeNavigationTest.KB.nextLine();
 			return ((MazeDoor)doors[MazeDirection.WEST.ordinal()]).isCorrectAnswer(answer);
 		}
 		
