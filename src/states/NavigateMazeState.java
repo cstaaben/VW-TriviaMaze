@@ -34,7 +34,7 @@ public class NavigateMazeState implements TriviaMazeState {
 	@Override
 	public void navigateMaze() {
 		MazePlayer player = triviaMaze.getPlayer();
-		Maze maze = triviaMaze.getMaze()
+		Maze maze = triviaMaze.getMaze();
 		
 		String input = "";
 		
@@ -74,6 +74,18 @@ public class NavigateMazeState implements TriviaMazeState {
 				}
 			}
 		} // end while input
+	}
+	
+	private boolean isValidInput(String input) {
+		if(input.toLowerCase().equals("n") || input.toLowerCase().equals("e") || 
+				input.toLowerCase().equals("s") || input.toLowerCase().equals("w")) {
+			return triviaMaze.getMaze().getRoom(triviaMaze.getPlayer().getCurrentCoordinates()).isValidDoor(input);
+		}
+		else if(input.toLowerCase().equals("exit")) {
+			return true;
+		}
+		
+		return false;
 	}
 
 	@Override

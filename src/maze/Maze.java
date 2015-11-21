@@ -2,8 +2,6 @@ package maze;
 
 import java.util.Random;
 
-import tests.MazeNavigationTest;
-
 public class Maze implements MazeObject {
 	
 	public static final int MAX_SIZE = 10;
@@ -13,7 +11,6 @@ public class Maze implements MazeObject {
 	private MazeObject[][] maze;
 	private MazeCoordinates start;
 	private MazeCoordinates exit;
-	private MazeCoordinates current;
 	private Random random = new Random();
 	
 	public Maze(MazeObject[][] maze) {
@@ -22,7 +19,6 @@ public class Maze implements MazeObject {
 		
 		start = getStartCoord();
 		exit = getExitCoord();
-		current = initCurrentCoord();
 	}
 
 	public String display() {
@@ -131,56 +127,6 @@ public class Maze implements MazeObject {
 	
 	private MazeCoordinates initCurrentCoord() {
 		return new MazeCoordinates(start.getRow(), start.getCol());
-	}
-	
-	public void navigate() {
-		String input = "";
-		current.setCoordinates(start.getRow(), start.getCol());
-		
-		while(!input.equals("exit")) {
-			System.out.println(maze[current.getRow()][current.getCol()].display());
-			System.out.print("Where would you like to move?  (Type \"exit\" to exit.) ");
-			input = MazeNavigationTest.KB.nextLine();
-			
-			while(!isValidInput(input)) {
-				System.out.println("Invalid input. Please enter N, S, E, or W.");
-				System.out.println("Where would you like to go? (Type \"exit\" to exit.) ");
-				input = MazeNavigationTest.KB.nextLine();
-			}
-			
-			if(input.toLowerCase().equals("n")) {
-				if(((MazeRoom)maze[current.getRow()][current.getCol()]).questionPrompt(input)) {
-					current.setCoordinates(current.getRow()-1, current.getCol());
-				}
-			}
-			else if(input.toLowerCase().equals("s")) {
-				if(((MazeRoom)maze[current.getRow()][current.getCol()]).questionPrompt(input)) {
-					current.setCoordinates(current.getRow()+1, current.getCol());
-				}
-			}
-			else if(input.toLowerCase().equals("e")) {
-				if(((MazeRoom)maze[current.getRow()][current.getCol()]).questionPrompt(input)) {
-					current.setCoordinates(current.getRow(), current.getCol()+1);
-				}
-			}
-			else if(input.toLowerCase().equals("w")) {
-				if(((MazeRoom)maze[current.getRow()][current.getCol()]).questionPrompt(input)) {
-					current.setCoordinates(current.getRow(), current.getCol()-1);
-				}
-			}
-		} // end while input
-	}
-	
-	private boolean isValidInput(String input) {
-		if(input.toLowerCase().equals("n") || input.toLowerCase().equals("e") || 
-				input.toLowerCase().equals("s") || input.toLowerCase().equals("w")) {
-			//return ((MazeRoom)maze[current.getRow()][current.getCol()]).isValidDoor(input);
-		}
-		else if(input.toLowerCase().equals("exit")) {
-			return true;
-		}
-		
-		return false;
 	}
 	
 	/*
