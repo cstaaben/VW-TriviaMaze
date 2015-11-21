@@ -47,11 +47,11 @@ public class MazeDoor implements MazeObject {
 		return input.toLowerCase().equals(question.getAnswer().toLowerCase());
 	}
 	
-	public void setLesserRoom(MazeRoom room) {
+	public void setLesserRoom(MazeObject room) {
 		this.lesserRoom = room;
 	}
 	
-	public void setGreaterRoom(MazeRoom room) {
+	public void setGreaterRoom(MazeObject room) {
 		this.greaterRoom = room;
 	}
 	

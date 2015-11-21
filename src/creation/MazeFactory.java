@@ -6,11 +6,11 @@ public class MazeFactory {
 	
 	private static MazeFactory reference = null;
 	
-	private MazeDoorFactory doorFactory;
+	private MazeDoorBuilder doorFactory;
 	private MazeObject[][] rooms;
 	
 	private MazeFactory() {		
-		doorFactory = MazeDoorFactory.getReference();
+		doorFactory = MazeDoorBuilder.getReference();
 	}
 	
 	public static MazeFactory getReference() {
@@ -30,9 +30,30 @@ public class MazeFactory {
 	}
 	
 	private void linkRooms() {
+		MazeDoor door = null;
+		
 		for(int i = 0; i < rooms.length; i++) {
 			for(int j = 0 ; j < rooms[i].length; j++) {
+				if((j + 1) < rooms[i].length) {
+					door = doorFactory.newDoor()
+							.lesserRoom(rooms[i][j])
+							.lesserDirection(MazeDirection.EAST)
+							.greaterRoom(rooms[i][j+1])
+							.greaterDirection(MazeDirection.WEST)
+							.buildDoor();
+					
+					((MazeRoom)rooms[i][j]).insertDoor(MazeDirection.EAST, door);
+					((MazeRoom)rooms[i][j+1]).insertDoor(MazeDirection.WEST, door);
+				} // end if j+1
 				
+				if((i + 1) < rooms.length) {
+					door = doorFactory.newDoor()
+							.lesserRoom(rooms[i][j])
+							.lesserDirection(MazeDirection.SOUTH)
+							.greaterRoom(rooms[i+1][j])
+							.greaterDirection(MazeDirection.NORTH)
+							.buildDoor();
+				} // end if i+1
 			} // end for j
 		} // end for i
 	}
@@ -42,7 +63,7 @@ public class MazeFactory {
 		initRooms();
 		linkRooms();
 		
-		return null;
+		return new Maze(rooms);
 	}
 	
 }

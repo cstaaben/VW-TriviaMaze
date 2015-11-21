@@ -21,6 +21,11 @@ public class MazeRoom implements MazeObject {
 		this.availDoors = availDoors;
 	}
 	
+	public void insertDoor(MazeDirection md, MazeDoor door) {
+		doors.put(md, door);
+		availDoors++;
+	}
+	
 	/*
 	public boolean isValidDoor(String direction) {
 		if(direction.toLowerCase().equals("n")) {
