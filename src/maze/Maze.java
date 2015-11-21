@@ -7,6 +7,7 @@ import tests.MazeNavigationTest;
 public class Maze implements MazeObject {
 	
 	public static final int MAX_SIZE = 10;
+	public static final int MIN_SIZE = 2;
 	
 	private int size;
 	private MazeObject[][] maze;
@@ -29,7 +30,11 @@ public class Maze implements MazeObject {
 		current = initCurrentCoord();
 	}
 	
-	public static Maze getMaze(int size) {
+	public static Maze getMaze(int size) throws IllegalArgumentException {
+		if(size < 2) {
+			throw new IllegalArgumentException("Size less than 2 passed to getMaze.");
+		}
+		
 		if(reference == null) {
 			reference = new Maze(size);
 		}
