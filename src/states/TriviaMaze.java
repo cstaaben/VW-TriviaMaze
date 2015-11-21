@@ -14,6 +14,7 @@ public class TriviaMaze {
 	private TriviaMazeState answerQuestionState;
 	private TriviaMazeState saveGameState;
 	private TriviaMazeState exitMazeState;
+	private TriviaMazeState endGameState;
 	
 	private TriviaMazeState currentState;
 	
@@ -26,6 +27,7 @@ public class TriviaMaze {
 		answerQuestionState = new AnswerQuestionState(this);
 		saveGameState = new SaveGameState(this);
 		exitMazeState = new ExitMazeState(this);
+		endGameState = new EndGameState(this);
 		
 		setState(mainMenuState);
 	}
@@ -43,5 +45,6 @@ public class TriviaMaze {
 	public TriviaMazeState getAnswerQuestionState() { return this.answerQuestionState; }
 	public TriviaMazeState getSaveGameState() { return this.saveGameState; }
 	public TriviaMazeState getExitMazeState() { return exitMazeState; }
+	public TriviaMazeState getEndGameState() { return endGameState; }
 	
 }

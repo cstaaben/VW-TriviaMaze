@@ -10,4 +10,5 @@ public interface TriviaMazeState {
 	public void saveGame();
 	public void mainMenu();
 	public void exitMaze();
+	public void endGame();
 }

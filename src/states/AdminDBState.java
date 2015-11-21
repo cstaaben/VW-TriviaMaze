@@ -56,4 +56,9 @@ public class AdminDBState implements TriviaMazeState {
 		
 	}
 
+	@Override
+	public void endGame() {
+		// TODO Auto-generated method stub
+	}
+	
 }

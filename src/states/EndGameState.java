@@ -1,10 +1,10 @@
 package states;
 
-public class SaveGameState implements TriviaMazeState {
+public class EndGameState implements TriviaMazeState {
 
-	private TriviaMaze triviaMaze;
+	private TriviaMaze triviaMaze; 
 	
-	public SaveGameState(TriviaMaze triviaMaze) {
+	public EndGameState(TriviaMaze triviaMaze) {
 		this.triviaMaze = triviaMaze;
 	}
 	
@@ -47,18 +47,18 @@ public class SaveGameState implements TriviaMazeState {
 	@Override
 	public void mainMenu() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void exitMaze() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	@Override
 	public void endGame() {
-		// TODO Auto-generated method stub
+		System.out.println("Thanks for playing!");
 	}
 
 }
