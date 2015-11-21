@@ -47,4 +47,40 @@ public class TriviaMaze {
 	public TriviaMazeState getExitMazeState() { return exitMazeState; }
 	public TriviaMazeState getEndGameState() { return endGameState; }
 	
+	public void mainMenu() {
+		currentState.mainMenu();
+	}
+	
+	public void newGame() {
+		currentState.newGame();
+	}
+	
+	public void loadGame() {
+		currentState.loadGame();
+	}
+	
+	public void adminDB() {
+		currentState.adminDB();
+	}
+	
+	public void navigateMaze() {
+		currentState.navigateMaze();
+	}
+	
+	public void answerQuestion() {
+		currentState.answerQuestion();
+	}
+	
+	public void saveGame() {
+		currentState.saveGame();
+	}
+	
+	public void endGame() {
+		currentState.endGame();
+	}
+	
+	public void exitMaze() {
+		currentState.exitMaze();
+	}
+	
 }

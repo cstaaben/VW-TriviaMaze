@@ -22,8 +22,9 @@ public class AdminDBState implements TriviaMazeState {
 
 	@Override
 	public void adminDB() {
-		// TODO Auto-generated method stub
-
+		
+		
+		triviaMaze.setState(triviaMaze.getMainMenuState());
 	}
 
 	@Override

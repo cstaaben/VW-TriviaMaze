@@ -6,6 +6,8 @@ public class LoadGameState implements TriviaMazeState {
 	
 	public LoadGameState(TriviaMaze triviaMaze) {
 		this.triviaMaze = triviaMaze;
+		
+		triviaMaze.setState(triviaMaze.getNavigateMazeState());
 	}
 	
 	@Override
