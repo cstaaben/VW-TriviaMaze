@@ -76,8 +76,8 @@ public class TriviaMaze {
 		currentState.navigateMaze();
 	}
 	
-	public void answerQuestion() {
-		currentState.answerQuestion();
+	public void answerQuestion(String direction) {
+		currentState.answerQuestion(direction);
 	}
 	
 	public void saveGame() {

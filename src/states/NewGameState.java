@@ -71,7 +71,7 @@ public class NewGameState implements TriviaMazeState {
 	}
 
 	@Override
-	public void answerQuestion() {
+	public void answerQuestion(String direction) {
 		// TODO Auto-generated method stub
 
 	}

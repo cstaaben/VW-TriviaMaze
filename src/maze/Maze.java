@@ -125,59 +125,12 @@ public class Maze implements MazeObject {
 	public MazeCoordinates getStart() { return this.start; }
 	public MazeCoordinates getEnd() { return this.exit; }
 	
-	/*
-	 * For testing purposes only
-	 */
 	public MazeRoom getRoom(int row, int col) {
 		return (MazeRoom)maze[row][col];
 	}
 	
 	public MazeRoom getRoom(MazeCoordinates mc) {
 		return (MazeRoom)maze[mc.getRow()][mc.getCol()];
-	}
-	
-//================================================================	
-	public class MazeCoordinates {
-		private int row;
-		private int column;
-		
-		public MazeCoordinates(int row, int col) {
-			this.row = row;
-			this.column = col;
-		}
-		
-		public int getRow() { return row; }
-		public int getCol() { return column; }
-		
-		public void setCoordinates(int row, int col) {
-			if(row > size-1 || col > size-1 || row < 0 || col < 0) {
-				throw new IndexOutOfBoundsException("Value passed to setCoordinates() out of bounds.");
-			}
-			
-			this.row = row;
-			this.column = col;
-		}
-		
-		public void setCoordinates(MazeCoordinates mc) {
-			if(mc.getRow() > size-1 || mc.getCol() > size-1 || mc.getRow() < 0 || mc.getCol() < 0) {
-				throw new IndexOutOfBoundsException("Value passed to setCoordinates() out of bounds.");
-			}
-			
-			this.row = mc.getRow();
-			this.column = mc.getCol();
-		}
-		
-		public boolean equals(MazeCoordinates mc) {
-			return mc.getRow() == row && mc.getCol() == column;
-		}
-		
-		public boolean equals(int row, int col) {
-			return this.row == row && col == column;
-		}
-		
-		public String display() {
-			return "(" + row + ", " + column + ")";
-		}
 	}
 
 }

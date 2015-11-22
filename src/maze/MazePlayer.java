@@ -1,6 +1,6 @@
 package maze;
 
-import maze.Maze.MazeCoordinates;
+import maze.MazeCoordinates;
 
 public class MazePlayer implements MazeObject {
 
@@ -33,8 +33,32 @@ public class MazePlayer implements MazeObject {
 		this.currentPoints += points;
 	}
 	
-	public void move(int row, int col) {
-		currentCoordinates.setCoordinates(row, col);
+	public void move(String direction) {
+		MazeCoordinates newCoordinates = null;
+		
+		switch(MazeDirection.valueOf(direction)) {
+			case NORTH:
+				newCoordinates = new MazeCoordinates(currentCoordinates.getRow()-1,
+						currentCoordinates.getCol());
+				break;
+			case SOUTH:
+				newCoordinates = new MazeCoordinates(currentCoordinates.getRow()+1,
+						currentCoordinates.getCol());
+				break;
+			case EAST:
+				newCoordinates = new MazeCoordinates(currentCoordinates.getRow(),
+						currentCoordinates.getCol()-1);
+				break;
+			case WEST:
+				newCoordinates = new MazeCoordinates(currentCoordinates.getRow(),
+						currentCoordinates.getCol()+1);
+				break;
+			default:
+				newCoordinates = currentCoordinates;
+				break;
+		}
+		
+		currentCoordinates.setCoordinates(newCoordinates);
 	}
 	
 }

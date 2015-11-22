@@ -36,60 +36,45 @@ public class NavigateMazeState implements TriviaMazeState {
 		MazePlayer player = triviaMaze.getPlayer();
 		Maze maze = triviaMaze.getMaze();
 		
-		String input = "";
+		String direction = "";
 		
-		while(!input.equals("exit")) {
+		while(!direction.equals("exit")) {
 			System.out.println(maze.getRoom(player.getCurrentCoordinates()).display());
 			System.out.print("Where would you like to move?  (Type \"exit\" to exit.) ");
-			input = MazeNavigationTest.KB.nextLine();
+			direction = MazeNavigationTest.KB.nextLine();
 			
-			while(!isValidInput(input)) {
-				System.out.println("Invalid input. Please enter N, S, E, or W.");
+			while(!isValidInput(direction)) {
+				System.out.println("Invalid direction. Please enter north, south, east, or west.");
 				System.out.println("Where would you like to go? (Type \"exit\" to exit.) ");
-				input = MazeNavigationTest.KB.nextLine();
+				direction = MazeNavigationTest.KB.nextLine();
 			}
 			
-			if(input.toLowerCase().equals("n")) {
-				if(maze.getRoom(player.getCurrentCoordinates()).questionPrompt(input)) {
-					player.move(player.getCurrentCoordinates().getRow()-1, 
-							player.getCurrentCoordinates().getCol());
-				}
+			if(!maze.getRoom(player.getCurrentCoordinates()).isValidDoor(direction)) {
+				System.out.println("You can't move there!");
 			}
-			else if(input.toLowerCase().equals("s")) {
-				if(maze.getRoom(player.getCurrentCoordinates()).questionPrompt(input)) {
-					player.move(player.getCurrentCoordinates().getRow()+1, 
-							player.getCurrentCoordinates().getCol());
-				}
+			else {
+				triviaMaze.setState(triviaMaze.getAnswerQuestionState());
+				
+				triviaMaze.answerQuestion(direction);
+				
+				player.move(direction);
 			}
-			else if(input.toLowerCase().equals("e")) {
-				if(maze.getRoom(player.getCurrentCoordinates()).questionPrompt(input)) {
-					player.move(player.getCurrentCoordinates().getRow(), 
-							player.getCurrentCoordinates().getCol()+1);
-				}
-			}
-			else if(input.toLowerCase().equals("w")) {
-				if(maze.getRoom(player.getCurrentCoordinates()).questionPrompt(input)) {
-					player.move(player.getCurrentCoordinates().getRow(), 
-							player.getCurrentCoordinates().getCol()-1);
-				}
-			}
-		} // end while input
+		} // end while direction
 	}
 	
 	private boolean isValidInput(String input) {
-		if(input.toLowerCase().equals("n") || input.toLowerCase().equals("e") || 
-				input.toLowerCase().equals("s") || input.toLowerCase().equals("w")) {
+		if(input.toLowerCase().equals("north") || input.toLowerCase().equals("east") || 
+				input.toLowerCase().equals("south") || input.toLowerCase().equals("west")) {
 			return triviaMaze.getMaze().getRoom(triviaMaze.getPlayer().getCurrentCoordinates()).isValidDoor(input);
 		}
-		else if(input.toLowerCase().equals("exit")) {
-			return true;
+		else {
+			return input.toLowerCase().equals("exit");
 		}
 		
-		return false;
 	}
 
 	@Override
-	public void answerQuestion() {
+	public void answerQuestion(String direction) {
 		// TODO Auto-generated method stub
 
 	}
