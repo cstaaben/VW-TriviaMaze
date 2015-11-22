@@ -36,7 +36,7 @@ public class MazePlayer implements MazeObject {
 	public void move(String direction) {
 		MazeCoordinates newCoordinates = null;
 		
-		switch(MazeDirection.valueOf(direction)) {
+		switch(MazeDirection.valueOf(direction.toUpperCase())) {
 			case NORTH:
 				newCoordinates = new MazeCoordinates(currentCoordinates.getRow()-1,
 						currentCoordinates.getCol());

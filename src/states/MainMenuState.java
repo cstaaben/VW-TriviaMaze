@@ -54,29 +54,28 @@ public class MainMenuState implements TriviaMazeState {
 	public void mainMenu() {
 		int input = 0;
 		
-		while(input != 4) {
-			do {
-				System.out.println(menu);
-				
-				try {
-					input = TriviaMaze.KB.nextInt();
-					if(input < 1 || input > 4) {
-						throw new IndexOutOfBoundsException("Value entered is out of the range of the menu.");
-					}
-					break;
+		do {
+			System.out.println(menu);
+			
+			try {
+				input = TriviaMaze.KB.nextInt();
+				if(input < 1 || input > 4) {
+					throw new IndexOutOfBoundsException("Value entered is out of the range of the menu.");
 				}
-				catch(InputMismatchException e) {
-					System.out.println("Value entered is not an integer.");
-					TriviaMaze.KB.next();
-					continue;
-				}
-				catch(IndexOutOfBoundsException i) {
-					System.out.println(i.getMessage());
-					continue;
-				}
-				
-			} while(input < 1 || input > 4);
-		} // end while input
+				break;
+			}
+			catch(InputMismatchException e) {
+				System.out.println("Value entered is not an integer.");
+				TriviaMaze.KB.next();
+				input = 0;
+				continue;
+			}
+			catch(IndexOutOfBoundsException i) {
+				System.out.println(i.getMessage());
+				continue;
+			}
+			
+		} while(input < 1 || input > 4);
 		
 		switch(input) {
 			case 1:

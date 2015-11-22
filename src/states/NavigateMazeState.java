@@ -3,8 +3,6 @@ package states;
 import maze.Maze;
 import maze.MazePlayer;
 
-import tests.MazeNavigationTest;
-
 public class NavigateMazeState implements TriviaMazeState {
 
 	private TriviaMaze triviaMaze;
@@ -41,12 +39,14 @@ public class NavigateMazeState implements TriviaMazeState {
 		while(!direction.equals("exit")) {
 			System.out.println(maze.getRoom(player.getCurrentCoordinates()).display());
 			System.out.print("Where would you like to move?  (Type \"exit\" to exit.) ");
-			direction = MazeNavigationTest.KB.nextLine();
+			direction = TriviaMaze.KB.nextLine();
+			TriviaMaze.KB.next();
 			
 			while(!isValidInput(direction)) {
-				System.out.println("Invalid direction. Please enter north, south, east, or west.");
+				System.out.println("\nInvalid direction. Please enter north, south, east, or west.");
 				System.out.println("Where would you like to go? (Type \"exit\" to exit.) ");
-				direction = MazeNavigationTest.KB.nextLine();
+				direction = TriviaMaze.KB.nextLine();
+				TriviaMaze.KB.next();
 			}
 			
 			if(!maze.getRoom(player.getCurrentCoordinates()).isValidDoor(direction)) {
