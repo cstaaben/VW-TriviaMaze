@@ -10,11 +10,9 @@ public class NullMazeRoom implements MazeObject {
 		door.setLocked(true);
 	}
 	
-	public MazeDoor getDoor() { return this.door; }
-	
 	@Override
 	public String display() {
-		return "";
+		return "null";
 	}
 
 }

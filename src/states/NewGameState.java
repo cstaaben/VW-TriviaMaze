@@ -8,9 +8,11 @@ import maze.MazePlayer;
 public class NewGameState implements TriviaMazeState {
 
 	private TriviaMaze triviaMaze;
+	private MazeFactory mazeFactory;
 	
 	public NewGameState(TriviaMaze triviaMaze) {
 		this.triviaMaze = triviaMaze;
+		this.mazeFactory = MazeFactory.getReference();
 	}
 	
 	private int sizePrompt() {
@@ -24,16 +26,17 @@ public class NewGameState implements TriviaMazeState {
 				if(size < 2 || size > 10) {
 					throw new IndexOutOfBoundsException("Value entered is beyond specified range.");
 				}
+				System.out.println();
 				break;
 			}
 			catch(InputMismatchException e) {
-				System.out.println("Value entered is not an integer.");
+				System.out.println("\nValue entered is not an integer.");
 				TriviaMaze.KB.next();
 				size = 0;
 				continue;
 			}
 			catch(IndexOutOfBoundsException i) {
-				System.out.println(i.getMessage());
+				System.out.println("\n" + i.getMessage());
 				TriviaMaze.KB.next();
 				size = 0;
 				continue;
@@ -45,7 +48,7 @@ public class NewGameState implements TriviaMazeState {
 	
 	@Override
 	public void newGame() {
-		triviaMaze.setMaze(MazeFactory.getReference().getMaze(sizePrompt()));
+		triviaMaze.setMaze(mazeFactory.getMaze(sizePrompt()));
 		
 		triviaMaze.setPlayer(new MazePlayer(triviaMaze.getMaze().getStart()));
 

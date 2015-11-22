@@ -7,7 +7,7 @@ public class MainMenuState implements TriviaMazeState {
 	private TriviaMaze triviaMaze;
 	private String menu = "1.) Start a new game\n"
 						+ "2.) Load a game\n"
-						+ "3.) Login to the question database\n"
+						+ "3.) Login to the database\n"
 						+ "4.) Exit game";
 	
 	public MainMenuState(TriviaMaze triviaMaze) {

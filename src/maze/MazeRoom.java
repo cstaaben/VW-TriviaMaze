@@ -1,6 +1,6 @@
 package maze;
 
-import tests.MazeNavigationTest;
+import states.TriviaMaze;
 import java.util.EnumMap;
 
 public class MazeRoom implements MazeObject {
@@ -37,7 +37,12 @@ public class MazeRoom implements MazeObject {
 		boolean result = false;
 		
 		System.out.println(((MazeDoor)doors.get(direction)).display());
-		answer = MazeNavigationTest.KB.nextLine();
+		try {
+			answer = TriviaMaze.KB.nextLine();
+		}
+		catch(Exception e) {
+			System.out.println("Invalid answer. Please try again.");
+		}
 		
 		result = ((MazeDoor)doors.get(direction)).isCorrectAnswer(answer);
 		
@@ -97,14 +102,13 @@ public class MazeRoom implements MazeObject {
 	@Override
 	public String display() {
 		String result = "There are " + availDoors + " doors. You can move: \n";
+		String direction = "";
 		
-		/*
-		for(int i = 0; i < NUM_DOORS; i++) {
-			if(!((MazeDoor)doors[i]).getDirection().equalsIgnoreCase("null")) {
-				result += "\t-" + ((MazeDoor)doors[i]).getDirection() + "\n";
-			}
+		for(MazeDirection md : doors.keySet()) {
+			direction = md.toString().charAt(0) + md.toString().substring(1, md.toString().length()).toLowerCase();
+			
+			result += "\t-" + direction + "\n";
 		}
-		*/
 		
 		return result;
 	}
