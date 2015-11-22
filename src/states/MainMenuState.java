@@ -61,7 +61,7 @@ public class MainMenuState implements TriviaMazeState {
 				try {
 					input = TriviaMaze.KB.nextInt();
 					if(input < 1 || input > 4) {
-						throw new IndexOutOfBoundsException("Value entered is out of range of the menu.");
+						throw new IndexOutOfBoundsException("Value entered is out of the range of the menu.");
 					}
 					break;
 				}
