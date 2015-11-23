@@ -33,7 +33,7 @@ public class ExitMazeState implements TriviaMazeState {
 	}
 
 	@Override
-	public void answerQuestion() {
+	public void answerQuestion(String direction) {
 		// TODO Auto-generated method stub
 
 	}
@@ -52,8 +52,8 @@ public class ExitMazeState implements TriviaMazeState {
 
 	@Override
 	public void exitMaze() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Congratulations! You've finished the maze!");
+		triviaMaze.setState(triviaMaze.getMainMenuState());
 	}
 
 	@Override

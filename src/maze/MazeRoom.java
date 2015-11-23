@@ -1,165 +1,100 @@
 package maze;
 
-import tests.MazeNavigationTest;
+import states.TriviaMaze;
+import java.util.EnumMap;
 
 public class MazeRoom implements MazeObject {
 	
 	public static final int NUM_DOORS = 4;
 	private int availDoors;
-	private MazeObject[] doors;
+	private EnumMap<MazeDirection, MazeObject> doors;
 	
-	private MazeMediator mediator;
-	
-	public MazeRoom(int row, int col) {
-		this.doors = new MazeDoor[NUM_DOORS];
+	public MazeRoom() {
+		this.doors = new EnumMap<MazeDirection, MazeObject>(MazeDirection.class);
 		
 		this.availDoors = 0;
-		
-		mediator = MazeMediator.getReference();
-		
-		initializeDoors(row, col);
-		
 	}
 	
 	public int getDoorNum() { return this.availDoors; }
 	
-	public void initializeDoors(int row, int col) {
-		
-		if(row == 0) {
-			this.doors[MazeDirection.NORTH.ordinal()] = new NullMazeDoor();
-			this.doors[MazeDirection.SOUTH.ordinal()] = new MazeDoor(MazeDirection.SOUTH);
-			this.availDoors++;
-		}
-		else if(row == mediator.getMazeSize()-1) {
-			this.doors[MazeDirection.SOUTH.ordinal()] = new NullMazeDoor();
-			this.doors[MazeDirection.NORTH.ordinal()] = new MazeDoor(MazeDirection.NORTH);
-			this.availDoors++;
-		}
-		else {
-			this.doors[MazeDirection.NORTH.ordinal()] = new MazeDoor(MazeDirection.NORTH);
-			this.doors[MazeDirection.SOUTH.ordinal()] = new MazeDoor(MazeDirection.SOUTH);
-			this.availDoors += 2;
-		}
-		
-		if(col == mediator.getMazeSize()-1) {
-			this.doors[MazeDirection.EAST.ordinal()] = new NullMazeDoor();
-			this.doors[MazeDirection.WEST.ordinal()] = new MazeDoor(MazeDirection.WEST);
-			this.availDoors++;
-		}
-		else if(col == 0) {
-			this.doors[MazeDirection.WEST.ordinal()] = new NullMazeDoor();
-			this.doors[MazeDirection.EAST.ordinal()] = new MazeDoor(MazeDirection.EAST);
-			this.availDoors++;
-		}
-		else {
-			this.doors[MazeDirection.EAST.ordinal()] = new MazeDoor(MazeDirection.EAST);
-			this.doors[MazeDirection.WEST.ordinal()] = new MazeDoor(MazeDirection.WEST);
-			this.availDoors += 2;
-		}
+	public void setDoorNum(int availDoors) {
+		this.availDoors = availDoors;
+	}
+	
+	public void insertDoor(MazeDirection md, MazeDoor door) {
+		doors.put(md, door);
+		availDoors++;
+	}
+	
+	public void insertEmptyDoor(MazeDirection md, MazeDoor door) {
+		doors.put(md, door);
 	}
 	
 	public boolean isValidDoor(String direction) {
-		if(direction.toLowerCase().equals("n")) {
-			return !((MazeDoor)doors[MazeDirection.NORTH.ordinal()]).getDirection().toLowerCase().equals("null") 
-					&& !((MazeDoor)doors[MazeDirection.NORTH.ordinal()]).isLocked();
-		}
-		else if(direction.toLowerCase().equals("e")) {
-			return !((MazeDoor)doors[MazeDirection.EAST.ordinal()]).getDirection().toLowerCase().equals("null")
-					&& !((MazeDoor)doors[MazeDirection.EAST.ordinal()]).isLocked();
-		}
-		else if(direction.toLowerCase().equals("s")) {
-			return !((MazeDoor)doors[MazeDirection.SOUTH.ordinal()]).getDirection().toLowerCase().equals("null")
-					&& !((MazeDoor)doors[MazeDirection.SOUTH.ordinal()]).isLocked();
-		}
-		else if(direction.toLowerCase().equals("w")) {
-			return !((MazeDoor)doors[MazeDirection.WEST.ordinal()]).getDirection().toLowerCase().equals("null")
-					&& !((MazeDoor)doors[MazeDirection.WEST.ordinal()]).isLocked();
-		}
+		MazeDirection md = MazeDirection.valueOf(direction.toUpperCase());
 		
-		return false;
+		return (!((MazeDoor)doors.get(md)).isLocked()) || ((MazeDoor)doors.get(md)).isOpen();
 	}
 	
-	public boolean questionPrompt(String input) {
+	public void questionPrompt(MazeDirection direction) {
 		String answer = "";
+		boolean result = false;
 		
-		if(input.toLowerCase().equals("n")) {
-			if(!((MazeDoor)doors[MazeDirection.NORTH.ordinal()]).isLocked() && 
-					((MazeDoor)doors[MazeDirection.NORTH.ordinal()]).isOpen()) {
-				return true;
-			}
-			
-			System.out.println(((MazeDoor)doors[MazeDirection.NORTH.ordinal()]).display());
-			answer = MazeNavigationTest.KB.nextLine();
-			return ((MazeDoor)doors[MazeDirection.NORTH.ordinal()]).isCorrectAnswer(answer);
+		System.out.println(((MazeDoor)doors.get(direction)).display());
+		try {
+			answer = TriviaMaze.KB.nextLine();
 		}
-		else if(input.toLowerCase().equals("e")) {
-			if(!((MazeDoor)doors[MazeDirection.EAST.ordinal()]).isLocked() && 
-					((MazeDoor)doors[MazeDirection.EAST.ordinal()]).isOpen()) {
-				return true;
-			}
-			
-			System.out.println(((MazeDoor)doors[MazeDirection.EAST.ordinal()]).display());
-			answer = MazeNavigationTest.KB.nextLine();
-			return ((MazeDoor)doors[MazeDirection.EAST.ordinal()]).isCorrectAnswer(answer);
-		}
-		else if(input.toLowerCase().equals("s")) {
-			if(!((MazeDoor)doors[MazeDirection.SOUTH.ordinal()]).isLocked() && 
-					((MazeDoor)doors[MazeDirection.SOUTH.ordinal()]).isOpen()) {
-				return true;
-			}
-			
-			System.out.println(((MazeDoor)doors[MazeDirection.SOUTH.ordinal()]).display());
-			answer = MazeNavigationTest.KB.nextLine();
-			return ((MazeDoor)doors[MazeDirection.SOUTH.ordinal()]).isCorrectAnswer(answer);
-		}
-		else if(input.toLowerCase().equals("w")) {
-			if(!((MazeDoor)doors[MazeDirection.WEST.ordinal()]).isLocked() && 
-					((MazeDoor)doors[MazeDirection.WEST.ordinal()]).isOpen()) {
-				return true;
-			}
-			
-			System.out.println(((MazeDoor)doors[MazeDirection.WEST.ordinal()]).display());
-			answer = MazeNavigationTest.KB.nextLine();
-			return ((MazeDoor)doors[MazeDirection.WEST.ordinal()]).isCorrectAnswer(answer);
+		catch(Exception e) {
+			System.out.println("Invalid answer. Please try again.");
 		}
 		
-		return false;
+		result = ((MazeDoor)doors.get(direction)).isCorrectAnswer(answer);
+		
+		if(result) {
+			System.out.println("Congratulations! That is correct!");
+		}
+		else {
+			System.out.println("I'm sorry, that is incorrect. This door is now locked.");
+		}
+		
+		((MazeDoor)doors.get(direction)).setLocked(!result);
+		((MazeDoor)doors.get(direction)).setOpen(result);
 	}
 	
 	public char checkDoor(int direction) {
 		switch(direction) {
 			case 0:
-				if(((MazeDoor)doors[MazeDirection.NORTH.ordinal()]).isLocked()) {
+				if(((MazeDoor)doors.get(MazeDirection.NORTH)).isLocked()) {
 					return 'l';
 				}
-				else if(((MazeDoor)doors[MazeDirection.NORTH.ordinal()]).isOpen()) {
+				else if(((MazeDoor)doors.get(MazeDirection.NORTH)).isOpen()) {
 					return 'o';
 				}
 				break;
 			
 			case 1:
-				if(((MazeDoor)doors[MazeDirection.EAST.ordinal()]).isLocked()) {
+				if(((MazeDoor)doors.get(MazeDirection.EAST)).isLocked()) {
 					return 'l';
 				}
-				else if(((MazeDoor)doors[MazeDirection.EAST.ordinal()]).isOpen()) {
+				else if(((MazeDoor)doors.get(MazeDirection.EAST)).isOpen()) {
 					return 'o';
 				}
 				break;
 				
 			case 2:
-				if(((MazeDoor)doors[MazeDirection.SOUTH.ordinal()]).isLocked()) {
+				if(((MazeDoor)doors.get(MazeDirection.SOUTH)).isLocked()) {
 					return 'l';
 				}
-				else if(((MazeDoor)doors[MazeDirection.SOUTH.ordinal()]).isOpen()) {
+				else if(((MazeDoor)doors.get(MazeDirection.SOUTH)).isOpen()) {
 					return 'o';
 				}
 				break;
 				
 			case 3:
-				if(((MazeDoor)doors[MazeDirection.WEST.ordinal()]).isLocked()) {
+				if(((MazeDoor)doors.get(MazeDirection.WEST)).isLocked()) {
 					return 'l';
 				}
-				else if(((MazeDoor)doors[MazeDirection.WEST.ordinal()]).isOpen()) {
+				else if(((MazeDoor)doors.get(MazeDirection.WEST)).isOpen()) {
 					return 'o';
 				}
 				break;
@@ -170,11 +105,14 @@ public class MazeRoom implements MazeObject {
 
 	@Override
 	public String display() {
-		String result = "There are " + availDoors + " doors. You can move: \n";
+		String result = "There are " + availDoors + " doors. The unlocked doors are facing: \n";
+		String direction = "";
 		
-		for(int i = 0; i < NUM_DOORS; i++) {
-			if(!((MazeDoor)doors[i]).getDirection().equalsIgnoreCase("null")) {
-				result += "\t-" + ((MazeDoor)doors[i]).getDirection() + "\n";
+		for(MazeDirection md : doors.keySet()) {
+			if(!((MazeDoor)doors.get(md)).isLocked()) {
+				direction = md.toString().charAt(0) + md.toString().substring(1, md.toString().length()).toLowerCase();
+				
+				result += "\t-" + direction + "\n";
 			}
 		}
 		

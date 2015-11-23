@@ -1,5 +1,7 @@
 package states;
 
+import maze.MazeDirection;
+
 public class AnswerQuestionState implements TriviaMazeState {
 
 	private TriviaMaze triviaMaze;
@@ -33,9 +35,12 @@ public class AnswerQuestionState implements TriviaMazeState {
 	}
 
 	@Override
-	public void answerQuestion() {
-		// TODO Auto-generated method stub
-
+	public void answerQuestion(String direction) {
+		MazeDirection md = MazeDirection.valueOf(direction.toUpperCase());
+		
+		triviaMaze.getMaze().getRoom(triviaMaze.getPlayer().getCurrentCoordinates()).questionPrompt(md);
+		
+		triviaMaze.setState(triviaMaze.getNavigateMazeState());
 	}
 
 	@Override

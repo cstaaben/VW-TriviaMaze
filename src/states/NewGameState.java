@@ -1,19 +1,54 @@
 package states;
 
+import creation.MazeFactory;
+import maze.MazePlayer;
+
 public class NewGameState implements TriviaMazeState {
 
 	private TriviaMaze triviaMaze;
+	private MazeFactory mazeFactory;
 	
 	public NewGameState(TriviaMaze triviaMaze) {
 		this.triviaMaze = triviaMaze;
+		this.mazeFactory = MazeFactory.getReference();
+	}
+	
+	private int sizePrompt() {
+		int size = 0;
 		
-		triviaMaze.setState(triviaMaze.getNavigateMazeState());
+		while(size == 0) {
+			System.out.print("Please enter a number between 2 and 10 for the size of the maze: ");
+			
+			try {
+				size = (int)Integer.parseInt(TriviaMaze.KB.nextLine());
+				if(size < 2 || size > 10) {
+					throw new IndexOutOfBoundsException("Value entered is beyond specified range.");
+				}
+				System.out.println();
+				break;
+			}
+			catch(NumberFormatException e) {
+				System.out.println("\nValue entered is not an integer.");
+				size = 0;
+				continue;
+			}
+			catch(IndexOutOfBoundsException i) {
+				System.out.println("\n" + i.getMessage());
+				size = 0;
+				continue;
+			}
+		}
+		
+		return size;
 	}
 	
 	@Override
 	public void newGame() {
-		// TODO Auto-generated method stub
+		triviaMaze.setMaze(mazeFactory.getMaze(sizePrompt()));
+		
+		triviaMaze.setPlayer(new MazePlayer(triviaMaze.getMaze().getStart()));
 
+		triviaMaze.setState(triviaMaze.getNavigateMazeState());
 	}
 
 	@Override
@@ -35,7 +70,7 @@ public class NewGameState implements TriviaMazeState {
 	}
 
 	@Override
-	public void answerQuestion() {
+	public void answerQuestion(String direction) {
 		// TODO Auto-generated method stub
 
 	}
