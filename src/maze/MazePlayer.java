@@ -47,11 +47,11 @@ public class MazePlayer implements MazeObject {
 				break;
 			case EAST:
 				newCoordinates = new MazeCoordinates(currentCoordinates.getRow(),
-						currentCoordinates.getCol()-1);
+						currentCoordinates.getCol()+1);
 				break;
 			case WEST:
 				newCoordinates = new MazeCoordinates(currentCoordinates.getRow(),
-						currentCoordinates.getCol()+1);
+						currentCoordinates.getCol()-1);
 				break;
 			default:
 				newCoordinates = currentCoordinates;

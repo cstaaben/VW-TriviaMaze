@@ -46,6 +46,7 @@ public class MazeFactory {
 							.buildDoor();
 					
 					emptyRoom.setDoor(door);
+					((MazeRoom)rooms[i][j]).insertEmptyDoor(MazeDirection.WEST, door);
 				}
 				
 				if((j + 1) < rooms[i].length) {
@@ -70,6 +71,7 @@ public class MazeFactory {
 							.buildDoor();
 					
 					emptyRoom.setDoor(door);
+					((MazeRoom)rooms[i][j]).insertEmptyDoor(MazeDirection.EAST, door);
 				}
 				
 				if(i == 0) {
@@ -83,6 +85,7 @@ public class MazeFactory {
 							.buildDoor();
 					
 					emptyRoom.setDoor(door);
+					((MazeRoom)rooms[i][j]).insertEmptyDoor(MazeDirection.NORTH, door);
 				}
 				
 				if((i + 1) < rooms.length) {
@@ -92,6 +95,9 @@ public class MazeFactory {
 							.greaterRoom(rooms[i+1][j])
 							.greaterDirection(MazeDirection.NORTH)
 							.buildDoor();
+					
+					((MazeRoom)rooms[i][j]).insertDoor(MazeDirection.SOUTH, door);
+					((MazeRoom)rooms[i+1][j]).insertDoor(MazeDirection.NORTH, door);
 				} // end if i+1
 				else if((i + 1) == rooms.length) {
 					emptyRoom = new NullMazeRoom();
@@ -104,6 +110,7 @@ public class MazeFactory {
 							.buildDoor();
 					
 					emptyRoom.setDoor(door);
+					((MazeRoom)rooms[i][j]).insertEmptyDoor(MazeDirection.SOUTH, door);
 				}
 			} // end for j
 		} // end for i

@@ -17,8 +17,8 @@ public class Maze implements MazeObject {
 		this.maze = maze;
 		this.size = maze.length;
 		
-		start = getStartCoord();
-		exit = getExitCoord();
+		start = getStartCoordinates();
+		exit = getExitCoordinates();
 	}
 
 	public String display() {
@@ -97,7 +97,7 @@ public class Maze implements MazeObject {
 		return "";
 	}
 	
-	private MazeCoordinates getStartCoord() {
+	private MazeCoordinates getStartCoordinates() {
 		int row = 0, col = 0;
 		
 		row = random.nextInt(this.size);
@@ -106,7 +106,7 @@ public class Maze implements MazeObject {
 		return new MazeCoordinates(row, col);
 	}
 	
-	private MazeCoordinates getExitCoord() {
+	private MazeCoordinates getExitCoordinates() {
 		int row = 0, col = 0;
 		
 		row = random.nextInt(this.size);

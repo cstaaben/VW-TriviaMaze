@@ -85,6 +85,7 @@ public class TriviaMaze {
 	}
 	
 	public void endGame() {
+		KB.close();
 		currentState.endGame();
 	}
 	

@@ -1,7 +1,5 @@
 package states;
 
-import java.util.InputMismatchException;
-
 public class MainMenuState implements TriviaMazeState {
 
 	private TriviaMaze triviaMaze;
@@ -58,20 +56,20 @@ public class MainMenuState implements TriviaMazeState {
 			System.out.println(menu);
 			
 			try {
-				input = TriviaMaze.KB.nextInt();
+				input = (int)Integer.parseInt(TriviaMaze.KB.nextLine());
 				if(input < 1 || input > 4) {
 					throw new IndexOutOfBoundsException("Value entered is out of the range of the menu.");
 				}
 				break;
 			}
-			catch(InputMismatchException e) {
+			catch(NumberFormatException e) {
 				System.out.println("Value entered is not an integer.");
-				TriviaMaze.KB.next();
 				input = 0;
 				continue;
 			}
 			catch(IndexOutOfBoundsException i) {
 				System.out.println(i.getMessage());
+				input = 0;
 				continue;
 			}
 			

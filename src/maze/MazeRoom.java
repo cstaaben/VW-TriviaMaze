@@ -26,6 +26,10 @@ public class MazeRoom implements MazeObject {
 		availDoors++;
 	}
 	
+	public void insertEmptyDoor(MazeDirection md, MazeDoor door) {
+		doors.put(md, door);
+	}
+	
 	public boolean isValidDoor(String direction) {
 		MazeDirection md = MazeDirection.valueOf(direction.toUpperCase());
 		
@@ -101,13 +105,15 @@ public class MazeRoom implements MazeObject {
 
 	@Override
 	public String display() {
-		String result = "There are " + availDoors + " doors. You can move: \n";
+		String result = "There are " + availDoors + " doors. The unlocked doors are facing: \n";
 		String direction = "";
 		
 		for(MazeDirection md : doors.keySet()) {
-			direction = md.toString().charAt(0) + md.toString().substring(1, md.toString().length()).toLowerCase();
-			
-			result += "\t-" + direction + "\n";
+			if(!((MazeDoor)doors.get(md)).isLocked()) {
+				direction = md.toString().charAt(0) + md.toString().substring(1, md.toString().length()).toLowerCase();
+				
+				result += "\t-" + direction + "\n";
+			}
 		}
 		
 		return result;

@@ -6,9 +6,12 @@ import maze.MazePlayer;
 public class NavigateMazeState implements TriviaMazeState {
 
 	private TriviaMaze triviaMaze;
+	private boolean exit;
 	
 	public NavigateMazeState(TriviaMaze triviaMaze) {
 		this.triviaMaze = triviaMaze;
+		
+		this.exit = false;
 	}
 	
 	@Override
@@ -36,30 +39,36 @@ public class NavigateMazeState implements TriviaMazeState {
 		
 		String direction = "";
 		
-		while(!direction.equals("exit")) {
+		while(!direction.equals("exit") || triviaMaze.getCurrentState().equals(triviaMaze.getExitMazeState())) {
 			System.out.println(maze.getRoom(player.getCurrentCoordinates()).display());
 			System.out.print("Where would you like to move?  (Type \"exit\" to exit.) ");
 			direction = TriviaMaze.KB.nextLine();
-			TriviaMaze.KB.next();
 			
 			while(!isValidInput(direction)) {
 				System.out.println("\nInvalid direction. Please enter north, south, east, or west.");
 				System.out.println("Where would you like to go? (Type \"exit\" to exit.) ");
 				direction = TriviaMaze.KB.nextLine();
-				TriviaMaze.KB.next();
 			}
 			
-			if(!maze.getRoom(player.getCurrentCoordinates()).isValidDoor(direction)) {
-				System.out.println("You can't move there!");
+			if(!exit) {
+				if(!maze.getRoom(player.getCurrentCoordinates()).isValidDoor(direction)) {
+					System.out.println("You can't move there!");
+				}
+				else {
+					triviaMaze.setState(triviaMaze.getAnswerQuestionState());
+					
+					triviaMaze.answerQuestion(direction);
+					
+					if(maze.getRoom(player.getCurrentCoordinates()).isValidDoor(direction)) {
+						player.move(direction);
+					}
+				}
 			}
-			else {
-				triviaMaze.setState(triviaMaze.getAnswerQuestionState());
-				
-				triviaMaze.answerQuestion(direction);
-				
-				player.move(direction);
+			
+			if(player.getCurrentCoordinates().equals(maze.getEnd())) {
+				triviaMaze.setState(triviaMaze.getExitMazeState());
 			}
-		} // end while direction
+		} 
 	}
 	
 	private boolean isValidInput(String input) {
@@ -67,10 +76,13 @@ public class NavigateMazeState implements TriviaMazeState {
 				input.toLowerCase().equals("south") || input.toLowerCase().equals("west")) {
 			return triviaMaze.getMaze().getRoom(triviaMaze.getPlayer().getCurrentCoordinates()).isValidDoor(input);
 		}
-		else {
-			return input.toLowerCase().equals("exit");
+		else if(input.toLowerCase().equals("exit")) {
+			this.exit = true;
+			triviaMaze.setState(triviaMaze.getMainMenuState());
+			return exit;
 		}
 		
+		return false;
 	}
 
 	@Override

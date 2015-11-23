@@ -1,7 +1,5 @@
 package states;
 
-import java.util.InputMismatchException;
-
 import creation.MazeFactory;
 import maze.MazePlayer;
 
@@ -22,22 +20,20 @@ public class NewGameState implements TriviaMazeState {
 			System.out.print("Please enter a number between 2 and 10 for the size of the maze: ");
 			
 			try {
-				size = TriviaMaze.KB.nextInt();
+				size = (int)Integer.parseInt(TriviaMaze.KB.nextLine());
 				if(size < 2 || size > 10) {
 					throw new IndexOutOfBoundsException("Value entered is beyond specified range.");
 				}
 				System.out.println();
 				break;
 			}
-			catch(InputMismatchException e) {
+			catch(NumberFormatException e) {
 				System.out.println("\nValue entered is not an integer.");
-				TriviaMaze.KB.next();
 				size = 0;
 				continue;
 			}
 			catch(IndexOutOfBoundsException i) {
 				System.out.println("\n" + i.getMessage());
-				TriviaMaze.KB.next();
 				size = 0;
 				continue;
 			}

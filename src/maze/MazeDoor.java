@@ -12,8 +12,6 @@ public class MazeDoor implements MazeObject {
 	public MazeDoor() {
 		this.open = false;
 		this.locked = false;
-		this.lesserDirection = MazeDirection.NULL;
-		this.greaterDirection = MazeDirection.NULL;
 	}
 
 	public MazeDirection getLesserDirection() { return lesserDirection; }
