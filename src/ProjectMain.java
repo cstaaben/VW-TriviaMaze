@@ -24,9 +24,6 @@ public class ProjectMain {
 			else if(maze.getCurrentState().equals(maze.getNavigateMazeState())) {
 				maze.navigateMaze();
 			}
-			else if(maze.getCurrentState().equals(maze.getAnswerQuestionState())) {
-				maze.answerQuestion();
-			}
 			else if(maze.getCurrentState().equals(maze.getExitMazeState())) {
 				maze.exitMaze();
 			}

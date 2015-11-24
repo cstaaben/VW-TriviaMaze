@@ -1,13 +1,11 @@
 package states;
 
-import java.util.InputMismatchException;
-
 public class MainMenuState implements TriviaMazeState {
 
 	private TriviaMaze triviaMaze;
 	private String menu = "1.) Start a new game\n"
 						+ "2.) Load a game\n"
-						+ "3.) Login to the question database\n"
+						+ "3.) Login to the database\n"
 						+ "4.) Exit game";
 	
 	public MainMenuState(TriviaMaze triviaMaze) {
@@ -39,7 +37,7 @@ public class MainMenuState implements TriviaMazeState {
 	}
 
 	@Override
-	public void answerQuestion() {
+	public void answerQuestion(String direction) {
 		// TODO Auto-generated method stub
 
 	}
@@ -54,29 +52,28 @@ public class MainMenuState implements TriviaMazeState {
 	public void mainMenu() {
 		int input = 0;
 		
-		while(input != 4) {
-			do {
-				System.out.println(menu);
-				
-				try {
-					input = TriviaMaze.KB.nextInt();
-					if(input < 1 || input > 4) {
-						throw new IndexOutOfBoundsException("Value entered is out of range of the menu.");
-					}
-					break;
+		do {
+			System.out.println(menu);
+			
+			try {
+				input = (int)Integer.parseInt(TriviaMaze.KB.nextLine());
+				if(input < 1 || input > 4) {
+					throw new IndexOutOfBoundsException("Value entered is out of the range of the menu.");
 				}
-				catch(InputMismatchException e) {
-					System.out.println("Value entered is not an integer.");
-					TriviaMaze.KB.next();
-					continue;
-				}
-				catch(IndexOutOfBoundsException i) {
-					System.out.println(i.getMessage());
-					continue;
-				}
-				
-			} while(input < 1 || input > 4);
-		} // end while input
+				break;
+			}
+			catch(NumberFormatException e) {
+				System.out.println("Value entered is not an integer.");
+				input = 0;
+				continue;
+			}
+			catch(IndexOutOfBoundsException i) {
+				System.out.println(i.getMessage());
+				input = 0;
+				continue;
+			}
+			
+		} while(input < 1 || input > 4);
 		
 		switch(input) {
 			case 1:
