@@ -20,5 +20,4 @@ src/SnippetTests.java
 # ItelliJ project Files
 .idea/
 *.iml
-
-
+out/
