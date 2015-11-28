@@ -72,6 +72,10 @@ public class NavigateMazeState implements TriviaMazeState {
 				triviaMaze.setState(triviaMaze.getExitMazeState());
 				System.out.println("Congratulations, you've finished the maze!");
 			}
+			else if(triviaMaze.isGameOver()) {
+				System.out.println("I'm sorry, there's no valid route to the exit. Game over.");
+				triviaMaze.setState(triviaMaze.getExitMazeState());
+			}
 		} 
 	}
 	

@@ -1,11 +1,14 @@
 package maze;
 
 import java.io.Serializable;
+import java.util.StringTokenizer;
 
 public class MazeQuestion implements MazeObject, Serializable {
 
 	private static final int POINTS = 1;
 	private static final long serialVersionUID = -806054378560451774L;
+	private static final int LINE_WIDTH = 70;
+	
 	private int questionID;
 	private char questionType;
 	private char fileType;
@@ -26,7 +29,27 @@ public class MazeQuestion implements MazeObject, Serializable {
 	
 	@Override
 	public String display() {
-		return questionText;
+		String result = "", line = "", s = "";
+		StringTokenizer tokenizer = new StringTokenizer(questionText);
+		
+		while(result.length() < questionText.length() && tokenizer.hasMoreTokens()) {
+					
+			while(line.length() < LINE_WIDTH && tokenizer.hasMoreTokens()) {
+				s = tokenizer.nextToken(" ") + " ";
+				
+				if(s.length() + line.length() <= LINE_WIDTH) {
+					line += s;
+				}
+				else {
+					result += line + "\n";
+					line = s;
+				} // end else
+			} // end line.length()
+		} // end result.length()
+		
+		result += line;
+		
+		return result;
 	}
 	
 	public char getQuestionType() {
