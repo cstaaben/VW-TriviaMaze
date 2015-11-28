@@ -4,9 +4,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
+import java.util.Set;
+import java.util.Collections;
 
 public class QuestionManager {
 	
@@ -17,6 +21,7 @@ public class QuestionManager {
 	private static Integer maxQuestionID;
 	
 	//number of questions needed for the maze size, should equal number of doors
+	//exclusive upper bound for autoIncrementIndex
 	private static Integer questionCount;
 	
 	private QuestionManager() {
@@ -46,8 +51,17 @@ public class QuestionManager {
 			Question newQuestionToAdd = uniqueInstance.getNewQuestion();
 			Integer newQuestionKey = newQuestionToAdd.getQuestionID();
 			questionHashMap.put(newQuestionKey, newQuestionToAdd);
-		}
+		}//end for loop i
+		Set<Integer> setOfKeys = questionHashMap.keySet();
+		List<Question> collectionOfQuestions = new ArrayList<Question>(questionHashMap.values());
+		Collections.shuffle(collectionOfQuestions);
 		
+		HashMap<Integer, Question> shuffledQuestionHashMap = new HashMap<Integer,Question>(numberOfDoors);
+		Iterator<Question> questionIterator = collectionOfQuestions.iterator();
+		for(Integer i : setOfKeys) {
+			shuffledQuestionHashMap.put(i, questionIterator.next());
+		}
+		questionHashMap = shuffledQuestionHashMap;
 	}
 	
 	private Question getNewQuestion() {

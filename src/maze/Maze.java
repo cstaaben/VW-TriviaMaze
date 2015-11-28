@@ -12,14 +12,27 @@ public class Maze implements MazeObject {
 	private MazeCoordinates start;
 	private MazeCoordinates exit;
 	private Random random = new Random();
-	
+	private int requiredPoints;
 	public Maze(MazeObject[][] maze) {
 		this.maze = maze;
 		this.size = maze.length;
 		
 		start = getStartCoordinates();
 		exit = getExitCoordinates();
+		
+		requiredPoints = (int)(.25 * doorCount(size));
 	}
+	
+	private static int doorCount(int sideLength) {
+		return 2 * (sideLength * (sideLength-1));
+	}
+	
+	public int getDoorCount() {
+		return doorCount(this.size);
+	}
+	
+	public int getRequiredPoints() { return this.requiredPoints; }
+	public int getSize() { return this.size; }
 
 	public String display() {
 		String result = "";
@@ -132,5 +145,4 @@ public class Maze implements MazeObject {
 	public MazeRoom getRoom(MazeCoordinates mc) {
 		return (MazeRoom)maze[mc.getRow()][mc.getCol()];
 	}
-
 }

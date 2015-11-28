@@ -7,7 +7,7 @@ public class MazeDoor implements MazeObject {
 	private boolean locked;
 	private MockQuestion question;
 	
-	private MazeObject lesserRoom, greaterRoom;
+	private MazeRoom lesserRoom, greaterRoom;
 	
 	public MazeDoor() {
 		this.open = false;
@@ -18,8 +18,8 @@ public class MazeDoor implements MazeObject {
 	public MazeDirection getGreaterDirection() { return greaterDirection; }
 	public boolean isOpen() { return open; }
 	public boolean isLocked() { return locked; }
-	public MazeObject getLesserRoom() { return lesserRoom; }
-	public MazeObject getGreaterRoom() { return greaterRoom; }
+	public MazeRoom getLesserRoom() { return lesserRoom; }
+	public MazeRoom getGreaterRoom() { return greaterRoom; }
 	
 	public void setLesserDirection(MazeDirection lesserDirection) {
 		this.lesserDirection = lesserDirection;
@@ -47,16 +47,19 @@ public class MazeDoor implements MazeObject {
 		return input.toLowerCase().equals(question.getAnswer().toLowerCase());
 	}
 	
-	public void setLesserRoom(MazeObject room) {
+	public void setLesserRoom(MazeRoom room) {
 		this.lesserRoom = room;
 	}
 	
-	public void setGreaterRoom(MazeObject room) {
+	public void setGreaterRoom(MazeRoom room) {
 		this.greaterRoom = room;
 	}
 	
 	public void setQuestion(MockQuestion question) {
 		this.question = question;
 	}
-
+	
+	public int getDoorPoints() {
+		return this.question.getPoints();
+	}
 }

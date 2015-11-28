@@ -2,20 +2,25 @@ package maze;
 
 import states.TriviaMaze;
 import java.util.EnumMap;
+import java.util.Iterator;
 
 public class MazeRoom implements MazeObject {
 	
 	public static final int NUM_DOORS = 4;
 	private int availDoors;
-	private EnumMap<MazeDirection, MazeObject> doors;
+	private EnumMap<MazeDirection, MazeDoor> doors;
 	
 	public MazeRoom() {
-		this.doors = new EnumMap<MazeDirection, MazeObject>(MazeDirection.class);
+		this.doors = new EnumMap<MazeDirection, MazeDoor>(MazeDirection.class);
 		
 		this.availDoors = 0;
 	}
 	
 	public int getDoorNum() { return this.availDoors; }
+	
+	public Iterator<MazeDoor> doorIterator() {
+		return doors.values().iterator();
+	}
 	
 	public void setDoorNum(int availDoors) {
 		this.availDoors = availDoors;
