@@ -29,7 +29,7 @@ public class MazeDoorBuilder {
 		return reference;
 	}
 	
-	public static void loadSize(int size) {
+	public void loadSize(int size) {
 		qm.initializeQuestionHashMap(size);
 		questions = qm.getQuestionIterator();
 	}
@@ -67,6 +67,10 @@ public class MazeDoorBuilder {
 	public MazeDoor buildDoor() {
 		door.setQuestion(questions.next());
 		
+		return door;
+	}
+	
+	public MazeDoor buildEmptyDoor() {
 		return door;
 	}
 
