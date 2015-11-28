@@ -124,4 +124,10 @@ public class MazeRoom implements MazeObject {
 		return result;
 	}
 
+	public boolean isPreviouslyVisited(String direction) {
+		MazeDirection md = MazeDirection.valueOf(direction.toUpperCase());
+		
+		return doors.get(md).isOpen() && !doors.get(md).isLocked();
+	}
+
 }
