@@ -173,6 +173,9 @@ public class MazeDB {
 					String answerText = questions.getString("ANSWERTEXT");
 					String filePath = questions.getString("FILEPATH");
 					
+					//unescape SQL ' char
+					questionText = questionText.replaceAll("''", "'");
+					
 					System.out.println("ID: " + questionID);
 					System.out.println("Type: " + questionType);
 					System.out.println("Question: " + questionText);
@@ -431,12 +434,14 @@ public class MazeDB {
 			throw new IllegalArgumentException("String array supplied to addQuestionToDatabase must have 5 elements, given array had " + strings.length);
 		}
 		
+		
 		//escape ' for SQL
 		for(int i = 0; i < strings.length; i++) {
 			if(strings[i] != null) {
 				strings[i] = strings[i].replaceAll("'", "''");
 			}
 		}// end for loop i
+		
 		
 		String questionType = strings[0];
 		String fileType = strings[1];
