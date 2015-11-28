@@ -5,7 +5,7 @@ public class MazeDoor implements MazeObject {
 	private MazeDirection lesserDirection, greaterDirection;
 	private boolean open;
 	private boolean locked;
-	private MockQuestion question;
+	private Question question;
 	
 	private MazeRoom lesserRoom, greaterRoom;
 	
@@ -55,7 +55,7 @@ public class MazeDoor implements MazeObject {
 		this.greaterRoom = room;
 	}
 	
-	public void setQuestion(MockQuestion question) {
+	public void setQuestion(Question question) {
 		this.question = question;
 	}
 	

@@ -7,7 +7,7 @@ public class MazeFactory {
 	private static MazeFactory reference = null;
 	
 	private MazeDoorBuilder doorFactory;
-	private MazeObject[][] rooms;
+	private MazeRoom[][] rooms;
 	
 	private MazeFactory() {		
 		doorFactory = MazeDoorBuilder.getReference();
@@ -43,7 +43,7 @@ public class MazeFactory {
 							.lesserDirection(MazeDirection.EAST)
 							.greaterRoom(rooms[i][j])
 							.greaterDirection(MazeDirection.WEST)
-							.buildDoor();
+							.buildEmptyDoor();
 					
 					emptyRoom.setDoor(door);
 					((MazeRoom)rooms[i][j]).insertEmptyDoor(MazeDirection.WEST, door);
@@ -68,7 +68,7 @@ public class MazeFactory {
 							.lesserDirection(MazeDirection.EAST)
 							.greaterDirection(MazeDirection.WEST)
 							.greaterRoom(emptyRoom)
-							.buildDoor();
+							.buildEmptyDoor();
 					
 					emptyRoom.setDoor(door);
 					((MazeRoom)rooms[i][j]).insertEmptyDoor(MazeDirection.EAST, door);
@@ -82,7 +82,7 @@ public class MazeFactory {
 							.lesserDirection(MazeDirection.SOUTH)
 							.greaterRoom(rooms[i][j])
 							.greaterDirection(MazeDirection.NORTH)
-							.buildDoor();
+							.buildEmptyDoor();
 					
 					emptyRoom.setDoor(door);
 					((MazeRoom)rooms[i][j]).insertEmptyDoor(MazeDirection.NORTH, door);
@@ -96,8 +96,8 @@ public class MazeFactory {
 							.greaterDirection(MazeDirection.NORTH)
 							.buildDoor();
 					
-					((MazeRoom)rooms[i][j]).insertDoor(MazeDirection.SOUTH, door);
-					((MazeRoom)rooms[i+1][j]).insertDoor(MazeDirection.NORTH, door);
+					rooms[i][j].insertDoor(MazeDirection.SOUTH, door);
+					rooms[i+1][j].insertDoor(MazeDirection.NORTH, door);
 				} // end if i+1
 				else if((i + 1) == rooms.length) {
 					emptyRoom = new NullMazeRoom();
@@ -107,7 +107,7 @@ public class MazeFactory {
 							.lesserDirection(MazeDirection.SOUTH)
 							.greaterRoom(emptyRoom)
 							.greaterDirection(MazeDirection.NORTH)
-							.buildDoor();
+							.buildEmptyDoor();
 					
 					emptyRoom.setDoor(door);
 					((MazeRoom)rooms[i][j]).insertEmptyDoor(MazeDirection.SOUTH, door);
@@ -119,6 +119,8 @@ public class MazeFactory {
 	public Maze getMaze(int size) {
 		rooms = new MazeRoom[size][size];
 		initRooms();
+		
+		doorFactory.loadSize(2 * (size * (size -1)));
 		linkRooms();
 		
 		return new Maze(rooms);

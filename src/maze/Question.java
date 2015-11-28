@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Question implements MazeObject, Serializable {
 
+	private static final int POINTS = 1;
 	private static final long serialVersionUID = -806054378560451774L;
 	private int questionID;
 	private char questionType;
@@ -11,7 +12,6 @@ public class Question implements MazeObject, Serializable {
 	private String questionText;
 	private String answerText;
 	private String filePath;
-	//private int points;
 	
 	public Question(int newQuestionID, char newQuestionType, char newFileType, String newQuestionText, String newAnswerText, String newFilePath) {
 		this.questionID = newQuestionID;
@@ -54,7 +54,7 @@ public class Question implements MazeObject, Serializable {
 	}
 	
 	public int getPoints() {
-		return 1;
+		return POINTS;
 	}
 
 }

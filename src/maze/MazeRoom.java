@@ -38,14 +38,14 @@ public class MazeRoom implements MazeObject {
 	public boolean isValidDoor(String direction) {
 		MazeDirection md = MazeDirection.valueOf(direction.toUpperCase());
 		
-		return (!((MazeDoor)doors.get(md)).isLocked()) || ((MazeDoor)doors.get(md)).isOpen();
+		return (!doors.get(md).isLocked()) || doors.get(md).isOpen();
 	}
 	
 	public void questionPrompt(MazeDirection direction) {
 		String answer = "";
 		boolean result = false;
 		
-		System.out.println(((MazeDoor)doors.get(direction)).display());
+		System.out.println(doors.get(direction).display());
 		try {
 			answer = TriviaMaze.KB.nextLine();
 		}
@@ -53,7 +53,7 @@ public class MazeRoom implements MazeObject {
 			System.out.println("Invalid answer. Please try again.");
 		}
 		
-		result = ((MazeDoor)doors.get(direction)).isCorrectAnswer(answer);
+		result = doors.get(direction).isCorrectAnswer(answer);
 		
 		if(result) {
 			System.out.println("Congratulations! That is correct!");
@@ -62,8 +62,8 @@ public class MazeRoom implements MazeObject {
 			System.out.println("I'm sorry, that is incorrect. This door is now locked.");
 		}
 		
-		((MazeDoor)doors.get(direction)).setLocked(!result);
-		((MazeDoor)doors.get(direction)).setOpen(result);
+		doors.get(direction).setLocked(!result);
+		doors.get(direction).setOpen(result);
 	}
 	
 	public char checkDoor(int direction) {
