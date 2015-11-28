@@ -15,11 +15,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import states.TriviaMaze;
+
 public class MazeDB {
 	
 	//main method makes sure mazeQuestions.db exists, and creates it otherwise
 	
 	public static void main(String args[]) {
+		MazeDB.databaseAdministration();
+	}
+	
+	public static void databaseAdministration() {
 		Connection c = null;
 		Statement statement = null;
 		DatabaseMetaData dbm = null;
@@ -77,7 +83,7 @@ public class MazeDB {
 			System.exit(0);
 		}
 		
-		kb = new Scanner(System.in);
+		kb = TriviaMaze.KB;
 		MazeDB.menu(kb);
 	}
 	
@@ -111,10 +117,10 @@ public class MazeDB {
 	
 	private static void menuPrint() {
 		System.out.println("Enter a number 1-4:\r\n"
-				+ "1. Add question\r\n"
-				+ "2. Print all questions\r\n"
-				+ "3. Delete question\r\n"
-				+ "4. Exit program");
+				+ "1.) Add question\r\n"
+				+ "2.) Print all questions\r\n"
+				+ "3.) Delete question\r\n"
+				+ "4.) Exit database admin");
 	}
 	
 	//menu for adding questions
@@ -145,10 +151,10 @@ public class MazeDB {
 	
 	private static void addQuestionMenuPrint() {
 		System.out.println("Enter a number 1-4:\r\n"
-				+ "1. Add true or false question\r\n"
-				+ "2. Add multiple choice question\r\n"
-				+ "3. Add short answer question\r\n"
-				+ "4. Exit to main menu");
+				+ "1.) Add true or false question\r\n"
+				+ "2.) Add multiple choice question\r\n"
+				+ "3.) Add short answer question\r\n"
+				+ "4.) Exit to DB menu");
 	}
 
 	//prints all questions in the database to stdout
@@ -540,9 +546,9 @@ public class MazeDB {
 	
 	private static void chooseFileTypeMenuPrint() {
 		System.out.println("Choose a file type:\r\n"
-				+ "t. Text-only question\r\n"
-				+ "v. Video question\r\n"
-				+ "s. Sound question\r\n"
-				+ "x. Cancel and exit to Add Question menu");
+				+ "t.) Text-only question\r\n"
+				+ "v.) Video question\r\n"
+				+ "s.) Sound question\r\n"
+				+ "x.) Cancel and exit to Add Question menu");
 	}
 }

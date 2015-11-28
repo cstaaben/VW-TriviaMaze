@@ -1,5 +1,7 @@
 package states;
 
+import mazeDB.MazeDB;
+
 public class AdminDBState implements TriviaMazeState {
 
 	private TriviaMaze triviaMaze;
@@ -23,7 +25,7 @@ public class AdminDBState implements TriviaMazeState {
 	@Override
 	public void adminDB() {
 		
-		
+		MazeDB.databaseAdministration();
 		triviaMaze.setState(triviaMaze.getMainMenuState());
 	}
 
