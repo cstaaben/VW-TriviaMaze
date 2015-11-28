@@ -4,6 +4,7 @@ import maze.MazeDoor;
 import maze.Question;
 import maze.QuestionManager;
 import maze.MazeObject;
+import maze.NullMazeDoor;
 
 import java.util.Iterator;
 
@@ -36,6 +37,12 @@ public class MazeDoorBuilder {
 	
 	public MazeDoorBuilder newDoor() {
 		this.door = new MazeDoor();
+		
+		return this;
+	}
+	
+	public MazeDoorBuilder newEmptyDoor() {
+		this.door = new NullMazeDoor();
 		
 		return this;
 	}
