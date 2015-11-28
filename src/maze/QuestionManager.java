@@ -84,6 +84,9 @@ public class QuestionManager {
 						String newAnswerText = rs.getString(5);
 						String newFilePath = rs.getString(6);
 						
+						//unescape SQL '
+						newQuestionText = newQuestionText.replaceAll("''", "'");
+						
 						newQuestion = new Question(newQuestionID, newQuestionType, newFileType, newQuestionText, newAnswerText, newFilePath);
 						
 					} else {
