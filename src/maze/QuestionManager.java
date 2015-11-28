@@ -10,6 +10,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+
+import mazeDB.MazeDB;
+
 import java.util.Collections;
 
 public class QuestionManager {
@@ -85,7 +88,7 @@ public class QuestionManager {
 				System.exit(0);
 			}
 			
-			try(Connection connection = DriverManager.getConnection("jdbc:sqlite:src/mazeDB/mazeQuestions.db");) {
+			try(Connection connection = DriverManager.getConnection(MazeDB.getDBPath());) {
 				connection.setAutoCommit(false);
 				try(Statement statement = connection.createStatement();
 					ResultSet rs = statement.executeQuery("SELECT * FROM QUESTION WHERE ID = " + toTry + ";");) {

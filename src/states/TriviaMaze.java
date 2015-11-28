@@ -148,7 +148,6 @@ public class TriviaMaze {
 					}
 					countedDoors.put(currentDoor.hashCode(), currentDoor);
 				}
-				
 			}
 		}
 		

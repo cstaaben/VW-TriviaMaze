@@ -21,9 +21,13 @@ public class MazeDB {
 	
 	//main method makes sure mazeQuestions.db exists, and creates it otherwise
 	
+	private static final String DB_PATH = "jdbc:sqlite:src/mazeDB/mazeQuestions.db";
+	
 	public static void main(String args[]) {
 		MazeDB.databaseAdministration();
 	}
+	
+	public static String getDBPath() { return MazeDB.DB_PATH; }
 	
 	public static void databaseAdministration() {
 		Connection c = null;
@@ -34,7 +38,7 @@ public class MazeDB {
 		
 		try {
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:src/mazeDB/mazeQuestions.db");
+			c = DriverManager.getConnection(MazeDB.DB_PATH);
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
@@ -167,7 +171,7 @@ public class MazeDB {
 			System.exit(0);
 		}
 		
-		try(Connection connection = DriverManager.getConnection("jdbc:sqlite:src/mazeDB/mazeQuestions.db");) {
+		try(Connection connection = DriverManager.getConnection(MazeDB.DB_PATH);) {
 			connection.setAutoCommit(false);
 			try(Statement statement = connection.createStatement();
 				ResultSet questions = statement.executeQuery("SELECT * FROM QUESTION;");) {
@@ -231,7 +235,7 @@ public class MazeDB {
 						System.err.println(e.getClass().getName() + ": " + e.getMessage());
 						System.exit(0);
 					}
-					try(Connection connection = DriverManager.getConnection("jdbc:sqlite:src/mazeDB/mazeQuestions.db");) {
+					try(Connection connection = DriverManager.getConnection(MazeDB.DB_PATH);) {
 						connection.setAutoCommit(false);
 						try(PreparedStatement statement = connection.prepareStatement("DELETE FROM QUESTION WHERE ID = ?");) {
 							statement.setInt(1, idToDelete);
@@ -462,7 +466,7 @@ public class MazeDB {
 			System.exit(0);
 		}
 		
-		try (Connection connection = DriverManager.getConnection("jdbc:sqlite:src/mazeDB/mazeQuestions.db");){
+		try (Connection connection = DriverManager.getConnection(MazeDB.DB_PATH);){
 			connection.setAutoCommit(false);
 			
 			try(PreparedStatement statement = connection.prepareStatement("INSERT INTO QUESTION (QUESTIONTYPE,FILETYPE,QUESTIONTEXT,ANSWERTEXT,FILEPATH) values "
