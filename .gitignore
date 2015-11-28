@@ -12,7 +12,6 @@ hs_err_pid*
 
 # Eclipse project files
 bin/
-.classpath
 .project
 
 src/SnippetTests.java
