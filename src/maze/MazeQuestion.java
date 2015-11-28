@@ -2,7 +2,7 @@ package maze;
 
 import java.io.Serializable;
 
-public class Question implements MazeObject, Serializable {
+public class MazeQuestion implements MazeObject, Serializable {
 
 	private static final int POINTS = 1;
 	private static final long serialVersionUID = -806054378560451774L;
@@ -13,7 +13,7 @@ public class Question implements MazeObject, Serializable {
 	private String answerText;
 	private String filePath;
 	
-	public Question(int newQuestionID, char newQuestionType, char newFileType, String newQuestionText, String newAnswerText, String newFilePath) {
+	public MazeQuestion(int newQuestionID, char newQuestionType, char newFileType, String newQuestionText, String newAnswerText, String newFilePath) {
 		this.questionID = newQuestionID;
 		this.questionType = newQuestionType;
 		this.fileType = newFileType;

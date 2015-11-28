@@ -8,14 +8,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import maze.Question;
+import maze.MazeQuestion;
 import maze.QuestionManager;
 
 public class QuestionManagerTest {
 	
 	QuestionManager qm;
 	
-	Iterator<Question> questionIterator;
+	Iterator<MazeQuestion> questionIterator;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -32,21 +32,21 @@ public class QuestionManagerTest {
 		qm.initializeQuestionHashMap(180);
 		questionIterator = qm.getQuestionIterator();
 		while(questionIterator.hasNext()) {
-			Question q = questionIterator.next();
+			MazeQuestion q = questionIterator.next();
 			System.out.println(q.getQuestion());
 		}
 		System.out.println("Random Question Set From DB 2:");
 				qm.initializeQuestionHashMap(180);
 				questionIterator = qm.getQuestionIterator();
 				while(questionIterator.hasNext()) {
-					Question q = questionIterator.next();
+					MazeQuestion q = questionIterator.next();
 					System.out.println(q.getQuestion());
 				}
 				System.out.println("Random Question Set From DB 3:");
 						qm.initializeQuestionHashMap(180);
 						questionIterator = qm.getQuestionIterator();
 						while(questionIterator.hasNext()) {
-							Question q = questionIterator.next();
+							MazeQuestion q = questionIterator.next();
 							System.out.println(q.getQuestion());
 						}
 	}
