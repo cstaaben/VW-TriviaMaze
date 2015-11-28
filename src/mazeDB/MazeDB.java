@@ -34,7 +34,7 @@ public class MazeDB {
 		
 		try {
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:src/MazeDB/mazeQuestions.db");
+			c = DriverManager.getConnection("jdbc:sqlite:src/mazeDB/mazeQuestions.db");
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
@@ -167,7 +167,7 @@ public class MazeDB {
 			System.exit(0);
 		}
 		
-		try(Connection connection = DriverManager.getConnection("jdbc:sqlite:src/MazeDB/mazeQuestions.db");) {
+		try(Connection connection = DriverManager.getConnection("jdbc:sqlite:src/mazeDB/mazeQuestions.db");) {
 			connection.setAutoCommit(false);
 			try(Statement statement = connection.createStatement();
 				ResultSet questions = statement.executeQuery("SELECT * FROM QUESTION;");) {
@@ -231,7 +231,7 @@ public class MazeDB {
 						System.err.println(e.getClass().getName() + ": " + e.getMessage());
 						System.exit(0);
 					}
-					try(Connection connection = DriverManager.getConnection("jdbc:sqlite:src/MazeDB/mazeQuestions.db");) {
+					try(Connection connection = DriverManager.getConnection("jdbc:sqlite:src/mazeDB/mazeQuestions.db");) {
 						connection.setAutoCommit(false);
 						try(PreparedStatement statement = connection.prepareStatement("DELETE FROM QUESTION WHERE ID = ?");) {
 							statement.setInt(1, idToDelete);
@@ -462,7 +462,7 @@ public class MazeDB {
 			System.exit(0);
 		}
 		
-		try (Connection connection = DriverManager.getConnection("jdbc:sqlite:src/MazeDB/mazeQuestions.db");){
+		try (Connection connection = DriverManager.getConnection("jdbc:sqlite:src/mazeDB/mazeQuestions.db");){
 			connection.setAutoCommit(false);
 			
 			try(PreparedStatement statement = connection.prepareStatement("INSERT INTO QUESTION (QUESTIONTYPE,FILETYPE,QUESTIONTEXT,ANSWERTEXT,FILEPATH) values "

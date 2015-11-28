@@ -71,7 +71,7 @@ public class QuestionManager {
 				System.exit(0);
 			}
 			
-			try(Connection connection = DriverManager.getConnection("jdbc:sqlite:src/MazeDB/mazeQuestions.db");) {
+			try(Connection connection = DriverManager.getConnection("jdbc:sqlite:src/mazeDB/mazeQuestions.db");) {
 				connection.setAutoCommit(false);
 				try(Statement statement = connection.createStatement();
 					ResultSet rs = statement.executeQuery("SELECT * FROM QUESTION WHERE ID = " + toTry + ";");) {
@@ -112,7 +112,7 @@ public class QuestionManager {
 				System.exit(0);
 			}
 			
-			try(Connection connection = DriverManager.getConnection("jdbc:sqlite:src/MazeDB/mazeQuestions.db");) {
+			try(Connection connection = DriverManager.getConnection("jdbc:sqlite:src/mazeDB/mazeQuestions.db");) {
 				connection.setAutoCommit(false);
 				try(Statement statement = connection.createStatement();
 					ResultSet idResultSet = statement.executeQuery("SELECT max(ID) FROM QUESTION;");) {

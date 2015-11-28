@@ -54,6 +54,9 @@ public class NavigateMazeState implements TriviaMazeState {
 				if(!maze.getRoom(player.getCurrentCoordinates()).isValidDoor(direction)) {
 					System.out.println("You can't move there!");
 				}
+				else if(maze.getRoom(player.getCurrentCoordinates()).isPreviouslyVisited(direction)) {
+					player.move(direction);
+				}
 				else {
 					triviaMaze.setState(triviaMaze.getAnswerQuestionState());
 					
@@ -75,7 +78,7 @@ public class NavigateMazeState implements TriviaMazeState {
 	private boolean isValidInput(String input) {
 		if(input.toLowerCase().equals("north") || input.toLowerCase().equals("east") || 
 				input.toLowerCase().equals("south") || input.toLowerCase().equals("west")) {
-			return triviaMaze.getMaze().getRoom(triviaMaze.getPlayer().getCurrentCoordinates()).isValidDoor(input);
+			return true;
 		}
 		else if(input.toLowerCase().equals("exit")) {
 			this.exit = true;
