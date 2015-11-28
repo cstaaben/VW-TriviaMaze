@@ -7,7 +7,6 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 import maze.Maze;
-import maze.MazeCoordinates;
 import maze.MazeDoor;
 import maze.MazePlayer;
 import maze.MazeRoom;
@@ -135,10 +134,10 @@ public class TriviaMaze {
 			while(doorIterator.hasNext()) {
 				MazeDoor currentDoor = doorIterator.next();
 				if(!currentDoor.isLocked() && !countedDoors.containsValue(currentDoor)) {
-					if(!checkedRooms.containsValue(currentDoor.getLesserRoom())) {
+					if(currentDoor.getLesserRoom() != null && !checkedRooms.containsValue(currentDoor.getLesserRoom())) {
 						checkedRooms.put(currentDoor.getLesserRoom().hashCode(), currentDoor.getLesserRoom());
 						stack.push(currentDoor.getLesserRoom());
-					} else if (!checkedRooms.containsValue(currentDoor.getGreaterRoom())) {
+					} else if (currentDoor.getGreaterRoom() != null && !checkedRooms.containsValue(currentDoor.getGreaterRoom())) {
 						checkedRooms.put(currentDoor.getGreaterRoom().hashCode(), currentDoor.getGreaterRoom());
 						stack.push(currentDoor.getGreaterRoom());
 					}
