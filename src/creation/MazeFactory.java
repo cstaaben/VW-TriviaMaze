@@ -119,6 +119,8 @@ public class MazeFactory {
 	public Maze getMaze(int size) {
 		rooms = new MazeRoom[size][size];
 		initRooms();
+		
+		MazeDoorBuilder.loadSize(size);
 		linkRooms();
 		
 		return new Maze(rooms);
