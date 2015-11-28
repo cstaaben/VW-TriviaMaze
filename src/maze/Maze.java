@@ -2,8 +2,6 @@ package maze;
 
 import java.util.Random;
 
-import tests.MazeNavigationTest;
-
 public class Maze implements MazeObject {
 	
 	public static final int MAX_SIZE = 10;
@@ -13,45 +11,14 @@ public class Maze implements MazeObject {
 	private MazeObject[][] maze;
 	private MazeCoordinates start;
 	private MazeCoordinates exit;
-	private MazeCoordinates current;
 	private Random random = new Random();
 	
-	private static Maze reference = null;
-	
-	private Maze(int size) {
-		this.size = size;
+	public Maze(MazeObject[][] maze) {
+		this.maze = maze;
+		this.size = maze.length;
 		
-		MazeMediator.createReference(this);
-		
-		initMaze();
-		
-		start = getStartCoord();
-		exit = getExitCoord();
-		current = initCurrentCoord();
-	}
-	
-	public static Maze getMaze(int size) throws IllegalArgumentException {
-		if(size < 2) {
-			throw new IllegalArgumentException("Size less than 2 passed to getMaze.");
-		}
-		
-		if(reference == null) {
-			reference = new Maze(size);
-		}
-		
-		return reference;
-	}
-	
-	public int getSize() { return this.size; }
-	
-	private void initMaze() {
-		maze = new MazeObject[size][size];
-		
-		for(int i = 0; i < size; i++) {
-			for(int j = 0; j < size; j++) {
-				maze[i][j] = new MazeRoom(i, j);
-			}
-		}
+		start = getStartCoordinates();
+		exit = getExitCoordinates();
 	}
 
 	public String display() {
@@ -130,7 +97,7 @@ public class Maze implements MazeObject {
 		return "";
 	}
 	
-	private MazeCoordinates getStartCoord() {
+	private MazeCoordinates getStartCoordinates() {
 		int row = 0, col = 0;
 		
 		row = random.nextInt(this.size);
@@ -139,7 +106,7 @@ public class Maze implements MazeObject {
 		return new MazeCoordinates(row, col);
 	}
 	
-	private MazeCoordinates getExitCoord() {
+	private MazeCoordinates getExitCoordinates() {
 		int row = 0, col = 0;
 		
 		row = random.nextInt(this.size);
@@ -158,96 +125,12 @@ public class Maze implements MazeObject {
 	public MazeCoordinates getStart() { return this.start; }
 	public MazeCoordinates getEnd() { return this.exit; }
 	
-	private MazeCoordinates initCurrentCoord() {
-		return new MazeCoordinates(start.getRow(), start.getCol());
-	}
-	
-	public void navigate() {
-		String input = "";
-		current.setCoordinates(start.getRow(), start.getCol());
-		
-		while(!input.equals("exit")) {
-			System.out.println(maze[current.getRow()][current.getCol()].display());
-			System.out.print("Where would you like to move?  (Type \"exit\" to exit.) ");
-			input = MazeNavigationTest.KB.nextLine();
-			
-			while(!isValidInput(input)) {
-				System.out.println("Invalid input. Please enter N, S, E, or W.");
-				System.out.println("Where would you like to go? (Type \"exit\" to exit.) ");
-				input = MazeNavigationTest.KB.nextLine();
-			}
-			
-			if(input.toLowerCase().equals("n")) {
-				if(((MazeRoom)maze[current.getRow()][current.getCol()]).questionPrompt(input)) {
-					current.setCoordinates(current.getRow()-1, current.getCol());
-				}
-			}
-			else if(input.toLowerCase().equals("s")) {
-				if(((MazeRoom)maze[current.getRow()][current.getCol()]).questionPrompt(input)) {
-					current.setCoordinates(current.getRow()+1, current.getCol());
-				}
-			}
-			else if(input.toLowerCase().equals("e")) {
-				if(((MazeRoom)maze[current.getRow()][current.getCol()]).questionPrompt(input)) {
-					current.setCoordinates(current.getRow(), current.getCol()+1);
-				}
-			}
-			else if(input.toLowerCase().equals("w")) {
-				if(((MazeRoom)maze[current.getRow()][current.getCol()]).questionPrompt(input)) {
-					current.setCoordinates(current.getRow(), current.getCol()-1);
-				}
-			}
-		} // end while input
-	}
-	
-	private boolean isValidInput(String input) {
-		if(input.toLowerCase().equals("n") || input.toLowerCase().equals("e") || 
-				input.toLowerCase().equals("s") || input.toLowerCase().equals("w")) {
-			return ((MazeRoom)maze[current.getRow()][current.getCol()]).isValidDoor(input);
-		}
-		else if(input.toLowerCase().equals("exit")) {
-			return true;
-		}
-		
-		return false;
-	}
-	
-	/*
-	 * For testing purposes only
-	 */
 	public MazeRoom getRoom(int row, int col) {
 		return (MazeRoom)maze[row][col];
 	}
 	
-//================================================================	
-	public class MazeCoordinates {
-		private int row;
-		private int column;
-		
-		public MazeCoordinates(int row, int col) {
-			this.row = row;
-			this.column = col;
-		}
-		
-		public int getRow() { return row; }
-		public int getCol() { return column; }
-		
-		public void setCoordinates(int row, int col) {
-			if(row > size-1 || col > size-1 || row < 0 || col < 0) {
-				throw new IndexOutOfBoundsException("Value passed to setCoordinates() out of bounds.");
-			}
-			
-			this.row = row;
-			this.column = col;
-		}
-		
-		public boolean equals(MazeCoordinates mc) {
-			return mc.getRow() == row && mc.getCol() == column;
-		}
-		
-		public boolean equals(int row, int col) {
-			return this.row == row && col == column;
-		}
+	public MazeRoom getRoom(MazeCoordinates mc) {
+		return (MazeRoom)maze[mc.getRow()][mc.getCol()];
 	}
 
 }

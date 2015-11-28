@@ -2,6 +2,9 @@ package states;
 
 import java.util.Scanner;
 
+import maze.Maze;
+import maze.MazePlayer;
+
 public class TriviaMaze {
 	
 	public static final Scanner KB = new Scanner(System.in);
@@ -17,6 +20,9 @@ public class TriviaMaze {
 	private TriviaMazeState endGameState;
 	
 	private TriviaMazeState currentState;
+	
+	private Maze maze;
+	private MazePlayer player;
 	
 	public TriviaMaze() {
 		mainMenuState = new MainMenuState(this);
@@ -47,6 +53,9 @@ public class TriviaMaze {
 	public TriviaMazeState getExitMazeState() { return exitMazeState; }
 	public TriviaMazeState getEndGameState() { return endGameState; }
 	
+	public MazePlayer getPlayer() { return this.player; }
+	public Maze getMaze() { return this.maze; }
+	
 	public void mainMenu() {
 		currentState.mainMenu();
 	}
@@ -67,8 +76,8 @@ public class TriviaMaze {
 		currentState.navigateMaze();
 	}
 	
-	public void answerQuestion() {
-		currentState.answerQuestion();
+	public void answerQuestion(String direction) {
+		currentState.answerQuestion(direction);
 	}
 	
 	public void saveGame() {
@@ -76,11 +85,20 @@ public class TriviaMaze {
 	}
 	
 	public void endGame() {
+		KB.close();
 		currentState.endGame();
 	}
 	
 	public void exitMaze() {
 		currentState.exitMaze();
+	}
+	
+	public void setMaze(Maze maze) {
+		this.maze = maze;
+	}
+	
+	public void setPlayer(MazePlayer player) {
+		this.player = player;
 	}
 	
 }

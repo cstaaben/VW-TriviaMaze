@@ -7,8 +7,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import player.MazePlayer;
 import maze.Maze;
+import maze.MazePlayer;
 import maze.Maze.MazeCoordinates;
 
 public class MazePlayerTest {
