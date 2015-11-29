@@ -4,17 +4,26 @@ import maze.MazeCoordinates;
 
 public class MazePlayer implements MazeObject {
 
+	private static final long serialVersionUID = 2800610953134040139L;
 	private MazeCoordinates currentCoordinates;
+	private MazeCoordinates exitCoordinates;
 	private int currentPoints;
 	
 	public MazePlayer(MazeCoordinates start) {
 		this.currentCoordinates = start;
+		this.exitCoordinates = null;
 		this.currentPoints = 0;
 	}
 	
 	public String display() {
-		return "You are currently at coordinates (" + currentCoordinates.getRow() + ", " 
-				+ currentCoordinates.getCol() + "with " + currentPoints + " points.";
+		String result = "You are currently at coordinates " + currentCoordinates.display() 
+			+ " with " + currentPoints + " points.\n";
+		
+		if(exitCoordinates != null) {
+			result += "The exit is at " + exitCoordinates.display() + ".";
+		}
+		
+		return result;
 	}
 	
 	public int getCurrentPoints() { return this.currentPoints; }
@@ -59,6 +68,10 @@ public class MazePlayer implements MazeObject {
 		}
 		
 		currentCoordinates.setCoordinates(newCoordinates);
+	}
+	
+	public void discoverExit() {
+		exitCoordinates.setCoordinates(currentCoordinates);
 	}
 	
 }

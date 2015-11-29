@@ -2,6 +2,7 @@ package maze;
 
 public class MazeDoor implements MazeObject {
 	
+	private static final long serialVersionUID = 1928962900649929811L;
 	private MazeDirection lesserDirection, greaterDirection;
 	private boolean open;
 	private boolean locked;

@@ -1,9 +1,8 @@
 package maze;
 
-import java.io.Serializable;
 import java.util.StringTokenizer;
 
-public class MazeQuestion implements MazeObject, Serializable {
+public class MazeQuestion implements MazeObject {
 
 	private static final int POINTS = 1;
 	private static final long serialVersionUID = -806054378560451774L;
@@ -45,6 +44,7 @@ public class MazeQuestion implements MazeObject, Serializable {
 					line = s;
 				} // end else
 			} // end line.length()
+			
 		} // end result.length()
 		
 		result += line;

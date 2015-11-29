@@ -1,6 +1,8 @@
 package maze;
 
-public interface MazeObject {
+import java.io.Serializable;
+
+public interface MazeObject extends Serializable {
 	
 	public String display();
 }

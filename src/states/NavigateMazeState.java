@@ -40,6 +40,7 @@ public class NavigateMazeState implements TriviaMazeState {
 		String direction = "";
 		
 		while(!direction.equals("exit") && !triviaMaze.getCurrentState().equals(triviaMaze.getExitMazeState())) {
+			System.out.println(player.display());
 			System.out.println(maze.getRoom(player.getCurrentCoordinates()).display());
 			System.out.print("Where would you like to move?  (Type \"exit\" to exit.) ");
 			direction = TriviaMaze.KB.nextLine();
@@ -56,6 +57,11 @@ public class NavigateMazeState implements TriviaMazeState {
 				}
 				else if(maze.getRoom(player.getCurrentCoordinates()).isPreviouslyVisited(direction)) {
 					player.move(direction);
+					if(player.getCurrentCoordinates().equals(maze.getEnd())) {
+						player.discoverExit();
+						System.out.println("You've discovered the exit! Unfortunately, you don't have enough"
+								+ "points to unlock it yet. Keep going!");
+					}
 				}
 				else {
 					triviaMaze.setState(triviaMaze.getAnswerQuestionState());

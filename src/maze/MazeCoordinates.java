@@ -1,6 +1,6 @@
 package maze;
 
-public class MazeCoordinates {
+public class MazeCoordinates implements MazeObject {
 		private int row;
 		private int column;
 		
