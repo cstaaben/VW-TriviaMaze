@@ -34,7 +34,6 @@ public class MazeQuestion implements MazeObject {
 	
 	@Override
 	public String display() {
-<<<<<<< HEAD:src/maze/Question.java
 		if(fileType == 's') {
 			new MP3Player(new File(filePath)).play();
 		} if (fileType == 'v') {
@@ -48,8 +47,6 @@ public class MazeQuestion implements MazeObject {
 			}
 		}
 		
-		return questionText;
-=======
 		String result = "", line = "", s = "";
 		StringTokenizer tokenizer = new StringTokenizer(questionText);
 		
@@ -72,7 +69,6 @@ public class MazeQuestion implements MazeObject {
 		result += line;
 		
 		return result;
->>>>>>> b4fab4cc8f8f39baac49bc75c1e9b29aebdfd0b5:src/maze/MazeQuestion.java
 	}
 	
 	public char getQuestionType() {
