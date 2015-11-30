@@ -4,6 +4,7 @@ import java.util.Random;
 
 public class Maze implements MazeObject {
 	
+	private static final long serialVersionUID = -1295493944705726960L;
 	public static final int MAX_SIZE = 10;
 	public static final int MIN_SIZE = 2;
 	

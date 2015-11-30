@@ -2,6 +2,8 @@ package maze;
 
 public class NullMazeDoor extends MazeDoor {
 	
+	private static final long serialVersionUID = 6143575408807179137L;
+
 	public NullMazeDoor() {
 	}
 	

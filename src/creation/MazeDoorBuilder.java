@@ -1,7 +1,7 @@
 package creation;
 
 import maze.MazeDoor;
-import maze.Question;
+import maze.MazeQuestion;
 import maze.QuestionManager;
 import maze.MazeObject;
 import maze.NullMazeDoor;
@@ -14,7 +14,7 @@ public class MazeDoorBuilder {
 	
 	private static MazeDoorBuilder reference = null;
 	private static QuestionManager qm;
-	private static Iterator<Question> questions;
+	private static Iterator<MazeQuestion> questions;
 	
 	private MazeDoor door;
 	

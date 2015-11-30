@@ -6,7 +6,9 @@ import java.util.Iterator;
 
 public class MazeRoom implements MazeObject {
 	
+	private static final long serialVersionUID = -5854710716356049106L;
 	public static final int NUM_DOORS = 4;
+	private static final int INCORRECT_ANSWER = 0;
 	private int availDoors;
 	private EnumMap<MazeDirection, MazeDoor> doors;
 	
@@ -41,7 +43,7 @@ public class MazeRoom implements MazeObject {
 		return (!doors.get(md).isLocked()) || doors.get(md).isOpen();
 	}
 	
-	public void questionPrompt(MazeDirection direction) {
+	public int questionPrompt(MazeDirection direction) {
 		String answer = "";
 		boolean result = false;
 		
@@ -55,15 +57,17 @@ public class MazeRoom implements MazeObject {
 		
 		result = doors.get(direction).isCorrectAnswer(answer);
 		
+		doors.get(direction).setLocked(!result);
+		doors.get(direction).setOpen(result);
+		
 		if(result) {
 			System.out.println("Congratulations! That is correct!");
+			return doors.get(direction).getDoorPoints();
 		}
 		else {
 			System.out.println("I'm sorry, that is incorrect. This door is now locked.");
+			return INCORRECT_ANSWER;
 		}
-		
-		doors.get(direction).setLocked(!result);
-		doors.get(direction).setOpen(result);
 	}
 	
 	public char checkDoor(int direction) {

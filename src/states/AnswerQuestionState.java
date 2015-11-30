@@ -38,7 +38,8 @@ public class AnswerQuestionState implements TriviaMazeState {
 	public void answerQuestion(String direction) {
 		MazeDirection md = MazeDirection.valueOf(direction.toUpperCase());
 		
-		triviaMaze.getMaze().getRoom(triviaMaze.getPlayer().getCurrentCoordinates()).questionPrompt(md);
+		int points = triviaMaze.getMaze().getRoom(triviaMaze.getPlayer().getCurrentCoordinates()).questionPrompt(md);
+		triviaMaze.getPlayer().incrementPoints(points);
 		
 		triviaMaze.setState(triviaMaze.getNavigateMazeState());
 	}

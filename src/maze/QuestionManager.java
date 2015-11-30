@@ -19,7 +19,7 @@ public class QuestionManager {
 	
 	private static QuestionManager uniqueInstance;
 	
-	private static HashMap<Integer, Question> questionHashMap;
+	private static HashMap<Integer, MazeQuestion> questionHashMap;
 	
 	private static Integer maxQuestionID;
 	
@@ -37,7 +37,7 @@ public class QuestionManager {
 		return uniqueInstance;
 	}
 	
-	public Iterator<Question> getQuestionIterator() {
+	public Iterator<MazeQuestion> getQuestionIterator() {
 		return questionHashMap.values().iterator();
 	}
 	
@@ -48,31 +48,31 @@ public class QuestionManager {
 			questionHashMap.clear();
 		}
 		
-		questionHashMap = new HashMap<Integer, Question>(numberOfDoors);
+		questionHashMap = new HashMap<Integer, MazeQuestion>(numberOfDoors);
 		
 		for(int i = 0; i < questionCount; i++) {
-			Question newQuestionToAdd = uniqueInstance.getNewQuestion();
+			MazeQuestion newQuestionToAdd = uniqueInstance.getNewQuestion();
 			Integer newQuestionKey = newQuestionToAdd.getQuestionID();
 			questionHashMap.put(newQuestionKey, newQuestionToAdd);
 		}//end for loop i
 		Set<Integer> setOfKeys = questionHashMap.keySet();
-		List<Question> collectionOfQuestions = new ArrayList<Question>(questionHashMap.values());
+		List<MazeQuestion> collectionOfQuestions = new ArrayList<MazeQuestion>(questionHashMap.values());
 		Collections.shuffle(collectionOfQuestions);
 		
-		HashMap<Integer, Question> shuffledQuestionHashMap = new HashMap<Integer,Question>(numberOfDoors);
-		Iterator<Question> questionIterator = collectionOfQuestions.iterator();
+		HashMap<Integer, MazeQuestion> shuffledQuestionHashMap = new HashMap<Integer,MazeQuestion>(numberOfDoors);
+		Iterator<MazeQuestion> questionIterator = collectionOfQuestions.iterator();
 		for(Integer i : setOfKeys) {
 			shuffledQuestionHashMap.put(i, questionIterator.next());
 		}
 		questionHashMap = shuffledQuestionHashMap;
 	}
 	
-	private Question getNewQuestion() {
+	private MazeQuestion getNewQuestion() {
 		maxQuestionID = getMaxQuestionID();
 		Random rng = new Random(System.currentTimeMillis() + System.nanoTime());
 		int modValue = uniqueInstance.getMaxQuestionID() + 1;
 		
-		Question newQuestion = null;
+		MazeQuestion newQuestion = null;
 		
 		while(newQuestion == null) {
 			int toTry = rng.nextInt(modValue);
@@ -104,7 +104,7 @@ public class QuestionManager {
 						//unescape SQL '
 						newQuestionText = newQuestionText.replaceAll("''", "'");
 						
-						newQuestion = new Question(newQuestionID, newQuestionType, newFileType, newQuestionText, newAnswerText, newFilePath);
+						newQuestion = new MazeQuestion(newQuestionID, newQuestionType, newFileType, newQuestionText, newAnswerText, newFilePath);
 						
 					} else {
 						continue;
