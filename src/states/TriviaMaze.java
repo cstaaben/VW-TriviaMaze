@@ -1,9 +1,16 @@
 package states;
 
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 import maze.Maze;
+import maze.MazeCoordinates;
+import maze.MazeDoor;
 import maze.MazePlayer;
+import maze.MazeRoom;
 
 public class TriviaMaze {
 	
@@ -101,4 +108,54 @@ public class TriviaMaze {
 		this.player = player;
 	}
 	
+	public boolean isGameOver() {
+		int potentialPoints = player.getCurrentPoints();
+		boolean exitFound = false;
+		
+		Deque<MazeRoom> stack = new LinkedList<MazeRoom>();
+		HashMap<Integer, MazeRoom> checkedRooms = new HashMap<Integer, MazeRoom>(maze.getSize());
+		HashMap<Integer, MazeDoor> countedDoors = new HashMap<Integer, MazeDoor>(maze.getDoorCount());
+		
+		MazeRoom currentRoom = maze.getRoom(player.getCurrentCoordinates());
+		
+		if(!checkedRooms.containsValue(currentRoom)) {
+			checkedRooms.put(currentRoom.hashCode(), currentRoom);
+			stack.push(currentRoom);
+		}
+		
+		while(!stack.isEmpty()) {
+			currentRoom = stack.pop();
+			
+			if(currentRoom.equals(maze.getRoom(maze.getEnd()))) {
+				exitFound = true;
+			}
+			
+			Iterator<MazeDoor> doorIterator = currentRoom.doorIterator();
+			
+			while(doorIterator.hasNext()) {
+				MazeDoor currentDoor = doorIterator.next();
+				if(!currentDoor.isLocked() && !countedDoors.containsValue(currentDoor)) {
+					if(!checkedRooms.containsValue(currentDoor.getLesserRoom())) {
+						checkedRooms.put(currentDoor.getLesserRoom().hashCode(), currentDoor.getLesserRoom());
+						stack.push(currentDoor.getLesserRoom());
+					} else if (!checkedRooms.containsValue(currentDoor.getGreaterRoom())) {
+						checkedRooms.put(currentDoor.getGreaterRoom().hashCode(), currentDoor.getGreaterRoom());
+						stack.push(currentDoor.getGreaterRoom());
+					}
+					
+					if(!currentDoor.isOpen()) {
+						potentialPoints += currentDoor.getDoorPoints();
+					}
+					countedDoors.put(currentDoor.hashCode(), currentDoor);
+				}
+				
+			}
+		}
+		
+		if(exitFound && (potentialPoints >= maze.getRequiredPoints())) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 }

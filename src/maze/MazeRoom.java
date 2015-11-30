@@ -2,20 +2,27 @@ package maze;
 
 import states.TriviaMaze;
 import java.util.EnumMap;
+import java.util.Iterator;
 
 public class MazeRoom implements MazeObject {
 	
+	private static final long serialVersionUID = -5854710716356049106L;
 	public static final int NUM_DOORS = 4;
+	private static final int INCORRECT_ANSWER = 0;
 	private int availDoors;
-	private EnumMap<MazeDirection, MazeObject> doors;
+	private EnumMap<MazeDirection, MazeDoor> doors;
 	
 	public MazeRoom() {
-		this.doors = new EnumMap<MazeDirection, MazeObject>(MazeDirection.class);
+		this.doors = new EnumMap<MazeDirection, MazeDoor>(MazeDirection.class);
 		
 		this.availDoors = 0;
 	}
 	
 	public int getDoorNum() { return this.availDoors; }
+	
+	public Iterator<MazeDoor> doorIterator() {
+		return doors.values().iterator();
+	}
 	
 	public void setDoorNum(int availDoors) {
 		this.availDoors = availDoors;
@@ -33,14 +40,14 @@ public class MazeRoom implements MazeObject {
 	public boolean isValidDoor(String direction) {
 		MazeDirection md = MazeDirection.valueOf(direction.toUpperCase());
 		
-		return (!((MazeDoor)doors.get(md)).isLocked()) || ((MazeDoor)doors.get(md)).isOpen();
+		return (!doors.get(md).isLocked()) || doors.get(md).isOpen();
 	}
 	
-	public void questionPrompt(MazeDirection direction) {
+	public int questionPrompt(MazeDirection direction) {
 		String answer = "";
 		boolean result = false;
 		
-		System.out.println(((MazeDoor)doors.get(direction)).display());
+		System.out.println(doors.get(direction).display());
 		try {
 			answer = TriviaMaze.KB.nextLine();
 		}
@@ -48,17 +55,19 @@ public class MazeRoom implements MazeObject {
 			System.out.println("Invalid answer. Please try again.");
 		}
 		
-		result = ((MazeDoor)doors.get(direction)).isCorrectAnswer(answer);
+		result = doors.get(direction).isCorrectAnswer(answer);
+		
+		doors.get(direction).setLocked(!result);
+		doors.get(direction).setOpen(result);
 		
 		if(result) {
 			System.out.println("Congratulations! That is correct!");
+			return doors.get(direction).getDoorPoints();
 		}
 		else {
 			System.out.println("I'm sorry, that is incorrect. This door is now locked.");
+			return INCORRECT_ANSWER;
 		}
-		
-		((MazeDoor)doors.get(direction)).setLocked(!result);
-		((MazeDoor)doors.get(direction)).setOpen(result);
 	}
 	
 	public char checkDoor(int direction) {
@@ -117,6 +126,12 @@ public class MazeRoom implements MazeObject {
 		}
 		
 		return result;
+	}
+
+	public boolean isPreviouslyVisited(String direction) {
+		MazeDirection md = MazeDirection.valueOf(direction.toUpperCase());
+		
+		return doors.get(md).isOpen() && !doors.get(md).isLocked();
 	}
 
 }

@@ -12,16 +12,13 @@ hs_err_pid*
 
 # Eclipse project files
 bin/
-.classpath
 .project
+.classpath
 
 src/SnippetTests.java
+
+# IntelliJ project files
 *.name
-.idea/compiler.xml
-.idea/encodings.xml
-.idea/misc.xml
-.idea/modules.xml
-.idea/workspace.xml
-.idea/copyright/profiles_settings.xml
-.idea/vcs.xml
-VW-TriviaMaze.iml
+.idea/
+*.iml
+out/

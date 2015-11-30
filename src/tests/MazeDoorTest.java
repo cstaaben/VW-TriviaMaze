@@ -16,7 +16,7 @@ public class MazeDoorTest {
 	@Before
 	public void setUp() throws Exception {
 		//initial door
-		test = new MazeDoor(MazeDirection.SOUTH);
+		test = new MazeDoor();
 	}
 	
 	@After

@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import maze.Maze;
 import maze.MazePlayer;
-import maze.Maze.MazeCoordinates;
+import maze.MazeCoordinates;
 
 public class MazePlayerTest {
 
@@ -19,7 +19,7 @@ public class MazePlayerTest {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		m = Maze.getMaze(5);
+		//m = new Maze();
 		mc = m.getStart();
 	}
 
