@@ -1,5 +1,7 @@
 package maze;
 
+import jaco.mp3.player.MP3Player;
+import java.io.File;
 import java.io.Serializable;
 
 public class Question implements MazeObject, Serializable {
@@ -26,6 +28,19 @@ public class Question implements MazeObject, Serializable {
 	
 	@Override
 	public String display() {
+		if(fileType == 's') {
+			new MP3Player(new File(filePath)).play();
+		} if (fileType == 'v') {
+			String command = "java -cp ./bin maze.VideoPlayer ";
+			command = command + this.getFilePath();
+			try {
+				Process videoProcess = Runtime.getRuntime().exec(command);
+			} catch (Exception e) {
+				System.out.println("failed attempt to play video with command: " + command);
+				e.printStackTrace();
+			}
+		}
+		
 		return questionText;
 	}
 	
