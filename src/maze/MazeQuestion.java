@@ -1,12 +1,12 @@
 package maze;
 
-<<<<<<< HEAD:src/maze/Question.java
 import jaco.mp3.player.MP3Player;
+import tests.Question;
+
 import java.io.File;
 import java.io.Serializable;
-=======
+
 import java.util.StringTokenizer;
->>>>>>> b4fab4cc8f8f39baac49bc75c1e9b29aebdfd0b5:src/maze/MazeQuestion.java
 
 public class MazeQuestion implements MazeObject {
 
@@ -98,5 +98,10 @@ public class MazeQuestion implements MazeObject {
 	public int getPoints() {
 		return POINTS;
 	}
-
+	
+	public static void main(String[] args) {
+		MazeQuestion q = new MazeQuestion(1, 's', 'v', "Who is talking?", "Dan Tappan", "src/maze/mp4/test.mp4");
+		System.out.println(q.display());
+		while(true){}
+	}
 }

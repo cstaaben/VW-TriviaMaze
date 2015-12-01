@@ -24,4 +24,5 @@ public class QuestionTest {
 		System.out.println(q.display());
 		while(true){}
 	}
+
 }

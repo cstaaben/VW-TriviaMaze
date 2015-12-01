@@ -141,7 +141,7 @@ public class TriviaMaze {
 						checkedRooms.put(currentDoor.getGreaterRoom().hashCode(), currentDoor.getGreaterRoom());
 						stack.push(currentDoor.getGreaterRoom());
 					}
-					
+					//the player can only potentially gain more points from a door that is neither locked nor open
 					if(!currentDoor.isOpen()) {
 						potentialPoints += currentDoor.getDoorPoints();
 					}

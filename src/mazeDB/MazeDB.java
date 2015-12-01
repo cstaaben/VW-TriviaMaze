@@ -19,15 +19,21 @@ import states.TriviaMaze;
 
 public class MazeDB {
 	
-	//main method makes sure mazeQuestions.db exists, and creates it otherwise
+	
 	
 	private static final String DB_PATH = "jdbc:sqlite:src/mazeDB/mazeQuestions.db";
+	
+	//just calls same method that get calls for the AdminDBState
 	
 	public static void main(String args[]) {
 		MazeDB.databaseAdministration();
 	}
 	
+	//accessor method to allow changing .db file path in one place
+	
 	public static String getDBPath() { return MazeDB.DB_PATH; }
+	
+	//formerly main method makes sure mazeQuestions.db exists, and creates it otherwise
 	
 	public static void databaseAdministration() {
 		Connection c = null;
@@ -94,6 +100,9 @@ public class MazeDB {
 	//main menu for adding, printing, or deleting questions
 	
 	private static void menu(Scanner kb) {
+		if(kb == null) {
+			throw new RuntimeException("null Scanner kb");
+		}
 		String input;
 		
 		MazeDB.menuPrint();
@@ -130,6 +139,9 @@ public class MazeDB {
 	//menu for adding questions
 	
 	private static void addQuestionMenu(Scanner kb) {
+		if(kb == null) {
+			throw new RuntimeException("null Scanner kb");
+		}
 		MazeDB.addQuestionMenuPrint();
 		
 		String input = kb.nextLine();
@@ -206,6 +218,9 @@ public class MazeDB {
 	//allows the user to delete a question by ID
 	
 	private static void deleteQuestionMenu(Scanner kb) {
+		if(kb == null) {
+			throw new RuntimeException("null Scanner kb");
+		}
 		String input = "";
 		int idToDelete = 0;
 		boolean validIntGiven = false;
@@ -264,6 +279,9 @@ public class MazeDB {
 	//series of prompts to add a true/false question
 	
 	private static void addTrueFalseQuestion(Scanner kb) {
+		if(kb == null) {
+			throw new RuntimeException("null Scanner kb");
+		}
 		String questionType;
 		String fileType;
 		String questionText;
@@ -298,6 +316,9 @@ public class MazeDB {
 	//gets the answer string for a true or false question
 	
 	private static String enterAnswerTextForTrueFalse(Scanner kb) {
+		if(kb == null) {
+			throw new RuntimeException("null Scanner kb");
+		}
 		while(true) {
 			MazeDB.enterTrueFalseQuestionTextPromptPrint();
 			String input = kb.nextLine();
@@ -323,6 +344,9 @@ public class MazeDB {
 	//series of prompts to add a multiple choice question
 	
 	private static void addMultipleChoiceQuestion(Scanner kb) {
+		if(kb == null) {
+			throw new RuntimeException("null Scanner kb");
+		}
 		String questionType;
 		String fileType;
 		String questionText;
@@ -355,6 +379,9 @@ public class MazeDB {
 	//gets the answer String for a multiple choice question
 	
 	private static String enterAnswerTextForMultipleChoice(Scanner kb) {
+		if(kb == null) {
+			throw new RuntimeException("null Scanner kb");
+		}
 		while(true) {
 			MazeDB.enterMultipleChoiceQuestionTextPromptPrint();
 			String input = kb.nextLine();
@@ -387,6 +414,9 @@ public class MazeDB {
 	//series of prompts to add a short answer question
 	
 	private static void addShortAnswerQuestion(Scanner kb) {
+		if(kb == null) {
+			throw new RuntimeException("null Scanner kb");
+		}
 		String questionType;
 		String fileType;
 		String questionText;
@@ -419,6 +449,9 @@ public class MazeDB {
 	//gets the answer String for a short answer question
 	
 	private static String enterAnswerTextForShortAnswer(Scanner kb) {
+		if(kb == null) {
+			throw new RuntimeException("null Scanner kb");
+		}
 		
 		MazeDB.enterShortAnswerQuestionTextPromptPrint();
 		String input = kb.nextLine();
@@ -440,6 +473,9 @@ public class MazeDB {
 	//takes a string array and creates a new question in the database with it
 	
 	private static void addQuestionToDatabase(String[] strings) {
+		if(strings == null) {
+			throw new RuntimeException("null String[] strings to be used to form question to add to database");
+		}
 		if(strings.length != 5) {
 			throw new IllegalArgumentException("String array supplied to addQuestionToDatabase must have 5 elements, given array had " + strings.length);
 		}
@@ -496,6 +532,9 @@ public class MazeDB {
 	//prompts for and returns a String representing the relative path and filename for a media file
 	
 	private static String enterFilePath(Scanner kb) {
+		if(kb == null) {
+			throw new RuntimeException("null Scanner kb");
+		}
 		System.out.println("Enter relative path with filename for sound or video file");
 		return kb.nextLine();
 	}
@@ -503,6 +542,12 @@ public class MazeDB {
 	//gets the String that asks the question and provides possible answers if applicable
 	
 	private static String enterQuestionText(String fileType, Scanner kb) {
+		if(kb == null) {
+			throw new RuntimeException("null Scanner kb");
+		}
+		if(fileType == null) {
+			throw new RuntimeException("null fileType provided to enterQuestionText()");
+		}
 		while(true) {
 			MazeDB.enterQuestionTextPromptPrint();
 			String input = kb.nextLine();
@@ -529,6 +574,9 @@ public class MazeDB {
 	//gets the String representing the file type
 	
 	private static String chooseFileType(Scanner kb) {
+		if(kb == null) {
+			throw new RuntimeException("null Scanner kb");
+		}
 		MazeDB.chooseFileTypeMenuPrint();
 		String input = kb.nextLine();
 		

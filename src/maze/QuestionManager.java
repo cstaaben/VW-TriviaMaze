@@ -41,6 +41,7 @@ public class QuestionManager {
 		return questionHashMap.values().iterator();
 	}
 	
+	//this must be called after the instance is instantiated and before getQuestionIterator
 	public void initializeQuestionHashMap(int numberOfDoors) {
 		questionCount = numberOfDoors;
 		
