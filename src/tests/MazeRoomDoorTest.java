@@ -82,12 +82,45 @@ public class MazeRoomDoorTest {
 		assertFalse(test.isValidDoor("south"));
 		assertFalse(test.isValidDoor("east"));
 	}
-	
-	@Test
-	public void openLockedTest() {
 
+	@Test
+	public void topMidTest() {
+		test = maze.getRoom(0,1);
+
+		assertTrue(test.isValidDoor("south"));
+		assertTrue(test.isValidDoor("east"));
+		assertTrue(test.isValidDoor("west"));
+		assertFalse(test.isValidDoor("north"));
 	}
-	
-	
+
+	@Test
+	public void leftMidTest() {
+		test = maze.getRoom(1,0);
+
+		assertTrue(test.isValidDoor("south"));
+		assertTrue(test.isValidDoor("east"));
+		assertTrue(test.isValidDoor("north"));
+		assertFalse(test.isValidDoor("west"));
+	}
+
+	@Test
+	public void rightMidTest() {
+		test = maze.getRoom(1,2);
+
+		assertTrue(test.isValidDoor("north"));
+		assertTrue(test.isValidDoor("east"));
+		assertTrue(test.isValidDoor("west"));
+		assertFalse(test.isValidDoor("south"));
+	}
+
+	@Test
+	public void bottomMidTest() {
+		test = maze.getRoom(2,1);
+
+		assertTrue(test.isValidDoor("north"));
+		assertTrue(test.isValidDoor("east"));
+		assertTrue(test.isValidDoor("west"));
+		assertFalse(test.isValidDoor("south"));
+	}
 
 }

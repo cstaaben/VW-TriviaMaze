@@ -5,9 +5,7 @@ import java.util.Random;
 public class Maze implements MazeObject {
 	
 	private static final long serialVersionUID = -1295493944705726960L;
-	public static final int MAX_SIZE = 10;
-	public static final int MIN_SIZE = 2;
-	
+
 	private int size;
 	private MazeObject[][] maze;
 	private MazeCoordinates start;
@@ -112,7 +110,7 @@ public class Maze implements MazeObject {
 	}
 	
 	private MazeCoordinates getStartCoordinates() {
-		int row = 0, col = 0;
+		int row, col;
 		
 		row = random.nextInt(this.size);
 		col = random.nextInt(this.size);
@@ -121,7 +119,7 @@ public class Maze implements MazeObject {
 	}
 	
 	private MazeCoordinates getExitCoordinates() {
-		int row = 0, col = 0;
+		int row, col;
 		
 		row = random.nextInt(this.size);
 		while(row == start.getRow()) {

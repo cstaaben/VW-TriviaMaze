@@ -21,7 +21,7 @@ public class NewGameState implements TriviaMazeState {
 			
 			try {
 				size = (int)Integer.parseInt(TriviaMaze.KB.nextLine());
-				if(size < 2 || size > 10) {
+				if(size < mazeFactory.MIN_SIZE || size > mazeFactory.MAX_SIZE) {
 					throw new IndexOutOfBoundsException("Value entered is beyond specified range.");
 				}
 				System.out.println();

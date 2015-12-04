@@ -5,6 +5,8 @@ import maze.*;
 public class MazeFactory {
 	
 	private static MazeFactory reference = null;
+	public static final int MAX_SIZE = 10;
+	public static final int MIN_SIZE = 2;
 	
 	private MazeDoorBuilder doorFactory;
 	private MazeRoom[][] rooms;
@@ -30,7 +32,7 @@ public class MazeFactory {
 	}
 	
 	private void linkRooms() {
-		MazeDoor door = null;
+		MazeDoor door;
 		
 		for(int i = 0; i < rooms.length; i++) {
 			for(int j = 0 ; j < rooms[i].length; j++) {
@@ -99,10 +101,14 @@ public class MazeFactory {
 		rooms = new MazeRoom[size][size];
 		initRooms();
 		
-		doorFactory.loadSize(2 * (size * (size -1)));
+		doorFactory.loadSize(computeDoorNum(size));
 		linkRooms();
 		
 		return new Maze(rooms);
+	}
+
+	private int computeDoorNum(int s) {
+		return (2 * (s * (s - 1)));
 	}
 	
 }
