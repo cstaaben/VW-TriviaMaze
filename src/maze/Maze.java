@@ -12,6 +12,7 @@ public class Maze implements MazeObject {
 	private MazeCoordinates exit;
 	private Random random = new Random();
 	private int requiredPoints;
+
 	public Maze(MazeObject[][] maze) {
 		this.maze = maze;
 		this.size = maze.length;

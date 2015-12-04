@@ -39,10 +39,11 @@ public class NavigateMazeState implements TriviaMazeState {
 		
 		String direction = "";
 		
-		while(!direction.equals("exit") && !triviaMaze.getCurrentState().equals(triviaMaze.getExitMazeState())) {
+		while(!exit && !triviaMaze.getCurrentState().equals(triviaMaze.getExitMazeState())) {
 			System.out.println(player.display());
 			System.out.println(maze.getRoom(player.getCurrentCoordinates()).display());
-			System.out.print("Where would you like to move?  (Type \"exit\" to exit.) ");
+			System.out.print("Where would you like to move?  (Type \"exit\" to exit or " +
+					"\"save\" to save the game): ");
 			direction = TriviaMaze.KB.nextLine();
 			
 			while(!isValidInput(direction)) {
@@ -93,6 +94,11 @@ public class NavigateMazeState implements TriviaMazeState {
 		else if(input.toLowerCase().equals("exit")) {
 			this.exit = true;
 			triviaMaze.setState(triviaMaze.getMainMenuState());
+			return exit;
+		}
+		else if(input.toLowerCase().equals("save")) {
+			this.exit = true;
+			triviaMaze.setState(triviaMaze.getSaveGameState());
 			return exit;
 		}
 		
