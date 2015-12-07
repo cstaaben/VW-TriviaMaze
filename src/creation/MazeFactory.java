@@ -1,8 +1,17 @@
+/**
+ * MazeFactory.java
+ * Author: Corbin Staaben
+ * Description: MazeFactory creates a 2D array of MazeRooms, links them together through MazeDoors (using a
+ * MazeDoorBuilder), and inserts the doors used to link the rooms together into the MazeRoom. It also implements a
+ * Singleton pattern to eliminate duplicate instances of the class in a nonconcurrent setting.
+ */
 package creation;
 
 import maze.*;
 
-public class MazeFactory {
+import java.io.Serializable;
+
+public class MazeFactory implements Serializable {
 	
 	private static MazeFactory reference = null;
 	public static final int MAX_SIZE = 10;
@@ -10,11 +19,20 @@ public class MazeFactory {
 	
 	private MazeDoorBuilder doorFactory;
 	private MazeRoom[][] rooms;
-	
+
+	/**
+	 * Private constructor for internal use in obtaining a reference to this MazeFactory; it also obtains a
+	 * reference to the MazeDoorBuilder instance for instantiating and "building" MazeDoors
+	 */
+
 	private MazeFactory() {		
 		doorFactory = MazeDoorBuilder.getReference();
 	}
-	
+
+	/**
+	 * Implementation of the Singleton pattern. It is a static method used to obtain a reference to this MazeFactory
+	 * @return - a reference to this MazeFactory
+	 */
 	public static MazeFactory getReference() {
 		if(reference == null) {
 			reference = new MazeFactory();
@@ -22,7 +40,10 @@ public class MazeFactory {
 		
 		return reference;
 	}
-	
+
+	/**
+	 * A helper method to initialize all MazeRooms in the 2D array
+	 */
 	private void initRooms() {
 		for(int i = 0; i < rooms.length; i++) {
 			for(int j = 0; j < rooms[i].length; j++) {
@@ -30,7 +51,10 @@ public class MazeFactory {
 			} // end for j
 		} // end for i
 	}
-	
+
+	/**
+	 * A helper method to link two rooms together and give each room a reference to the door that links them
+	 */
 	private void linkRooms() {
 		MazeDoor door;
 		
@@ -96,7 +120,12 @@ public class MazeFactory {
 			} // end for j
 		} // end for i
 	}
-	
+
+	/**
+	 * Method called from other classes to obtain a new Maze object of the provided size
+	 * @param size - the desired size of the square array (i.e. of the nxn array)
+	 * @return - a created and assembled Maze object
+	 */
 	public Maze getMaze(int size) {
 		rooms = new MazeRoom[size][size];
 		initRooms();
@@ -107,6 +136,12 @@ public class MazeFactory {
 		return new Maze(rooms);
 	}
 
+	/**
+	 * A helper method to compute the number of questions, based on the size of the Maze, necessary to fill all
+	 * MazeDoor objects in the Maze object
+	 * @param s - the size of the square Maze object
+	 * @return - the computed number corresponding to the number of questions necessary to "fill" the Maze object
+	 */
 	private int computeDoorNum(int s) {
 		return (2 * (s * (s - 1)));
 	}
