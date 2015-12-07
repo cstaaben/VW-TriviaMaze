@@ -40,7 +40,6 @@ public class MazeDB {
 		Statement statement = null;
 		DatabaseMetaData dbm = null;
 		ResultSet tables = null;
-		Scanner kb;
 		
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -93,8 +92,7 @@ public class MazeDB {
 			System.exit(0);
 		}
 		
-		kb = TriviaMaze.KB;
-		MazeDB.menu(kb);
+		MazeDB.menu(TriviaMaze.KB);
 	}
 	
 	//main menu for adding, printing, or deleting questions
@@ -305,7 +303,7 @@ public class MazeDB {
 		}
 		
 		if(!fileType.equals("t")) {
-			filePath = enterFilePath(kb);
+			filePath = enterFilePath(kb, fileType);
 		}
 	    
 	    String[] strings = new String[] {questionType, fileType, questionText, answerText, filePath};
@@ -369,7 +367,7 @@ public class MazeDB {
 		}
 		
 		if(!fileType.equals("t")) {
-			filePath = enterFilePath(kb);
+			filePath = enterFilePath(kb, fileType);
 		}
 	    
 	    String[] strings = new String[] {questionType, fileType, questionText, answerText, filePath};
@@ -439,7 +437,7 @@ public class MazeDB {
 		}
 		
 		if(!fileType.equals("t")) {
-			filePath = enterFilePath(kb);
+			filePath = enterFilePath(kb, fileType);
 		}
 	    
 	    String[] strings = new String[] {questionType, fileType, questionText, answerText, filePath};
@@ -531,12 +529,56 @@ public class MazeDB {
 	
 	//prompts for and returns a String representing the relative path and filename for a media file
 	
-	private static String enterFilePath(Scanner kb) {
+	private static String enterFilePath(Scanner kb, String fileType) {
 		if(kb == null) {
 			throw new RuntimeException("null Scanner kb");
 		}
-		System.out.println("Enter relative path with filename for sound or video file");
-		return kb.nextLine();
+		System.out.println("Enter path with filename for MP3 sound or MP4 video file");
+		if(fileType.equals("s")) { //if sound
+			System.out.println("srs/maze/mp3/<filename>.mp3 is recommended for sound files");
+			return MazeDB.getMP3Path();
+		} else if (fileType.equals("v")) { //if video
+			System.out.println("srs/maze/mp4/<filename>.mp4 is recommended for video files");
+			return MazeDB.getMP4Path();
+		} else {
+			throw new IllegalArgumentException("only fileType \"v\" or \"s\" should use enterFilePath");
+		}
+	}
+	
+	//gets a path ending with .mp3
+	
+	private static String getMP3Path() {
+		boolean validSuffix = false;
+		String mp3Path = "";
+		while(!validSuffix) {
+			mp3Path = TriviaMaze.KB.nextLine();
+			String[] strings = mp3Path.split("\\."); //splits on ., which must be escaped
+			if(strings.length > 0 && strings[strings.length - 1].equalsIgnoreCase("mp3")) {
+				validSuffix = true;
+			}
+			if(!validSuffix) {
+				System.out.println("File name must have .mp3 extension");
+			}
+		}
+		return mp3Path;
+	}
+	
+	//gets a path ending with .mp4
+	
+	private static String getMP4Path() {
+		boolean validSuffix = false;
+		String mp4Path = "";
+		while(!validSuffix) {
+			mp4Path = TriviaMaze.KB.nextLine();
+			String[] strings = mp4Path.split("\\."); //splits on ., which must be escaped
+			if(strings.length > 0 && strings[strings.length - 1].equalsIgnoreCase("mp4")) {
+				validSuffix = true;
+			}
+			if(!validSuffix) {
+				System.out.println("File name must have .mp4 extension");
+			}
+		}
+		return mp4Path;
 	}
 	
 	//gets the String that asks the question and provides possible answers if applicable
