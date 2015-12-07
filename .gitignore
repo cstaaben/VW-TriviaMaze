@@ -17,7 +17,8 @@ bin/
 
 src/SnippetTests.java
 
-# ItelliJ project Files
+# IntelliJ project files
+*.name
 .idea/
 *.iml
 out/
