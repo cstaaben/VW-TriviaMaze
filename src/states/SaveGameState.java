@@ -62,8 +62,8 @@ public class SaveGameState implements TriviaMazeState, Serializable {
 		result += "-" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 		result += "-" + Calendar.getInstance().get(Calendar.YEAR);
 		result += "_" + Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-		result += ":" + Calendar.getInstance().get(Calendar.MINUTE);
-		result += ":" + Calendar.getInstance().get(Calendar.SECOND);
+		result += "-" + Calendar.getInstance().get(Calendar.MINUTE);
+		result += "-" + Calendar.getInstance().get(Calendar.SECOND);
 
 		return result;
 	}
