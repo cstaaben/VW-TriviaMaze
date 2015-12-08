@@ -2,6 +2,7 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import creation.MazeFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -19,14 +20,14 @@ public class MazePlayerTest {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		//m = new Maze();
+		m = MazeFactory.getReference().getMaze(3);
 		mc = m.getStart();
 	}
 
 	@Before
 	public void setUp() throws Exception {
 		test = new MazePlayer(mc);
-		test.setPoints(50);
+		test.setPoints(10);
 	}
 
 	@After
@@ -35,14 +36,14 @@ public class MazePlayerTest {
 
 	@Test
 	public void pointsTest() {
-		assertEquals(50, test.getCurrentPoints());
+		assertEquals(10, test.getCurrentPoints());
 		try {
 			test.incrementPoints(10);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		assertEquals(60, test.getCurrentPoints());
+		assertEquals(20, test.getCurrentPoints());
 	}
 	
 	@Test

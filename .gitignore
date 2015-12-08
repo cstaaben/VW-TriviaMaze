@@ -12,12 +12,13 @@ hs_err_pid*
 
 # Eclipse project files
 bin/
-.classpath
 .project
+.classpath
 
 src/SnippetTests.java
 
-# ItelliJ project Files
+# IntelliJ project files
+*.name
 .idea/
 *.iml
 out/
