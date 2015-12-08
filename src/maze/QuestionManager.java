@@ -12,6 +12,7 @@ import java.util.Random;
 import java.util.Set;
 
 import mazeDB.MazeDB;
+import states.TriviaMaze;
 
 import java.util.Collections;
 
@@ -53,14 +54,32 @@ public class QuestionManager {
 		
 		questionHashMap = new HashMap<Integer, MazeQuestion>(numberOfDoors);
 		
-		/* ADDING DEMO SUPPORT HERE
+		MazeQuestion newQuestionToAdd;
+		Integer newQuestionKey;
+		
 		if(TriviaMaze.DEMO) {
-			newQuestionToAdd = new MazeQuestion()
-		}*/
+			if(numberOfDoors < 4) {
+				throw new RuntimeException("there must be at least 4 doors to run the demo");
+			}
+			i = 3;
+			newQuestionToAdd = new MazeQuestion(196, 'm', 'v', "Who is dodging punches in the video? a. Muhammad Ali b. George Foreman c. Mike Tyson d. Raging Bull" , "a", "srs/maze/mp4/0001.mp4");
+			newQuestionKey = newQuestionToAdd.getQuestionID();
+			questionHashMap.put(newQuestionKey, newQuestionToAdd);
+			newQuestionToAdd = new MazeQuestion(192, 'm', 's', "What sort of bird makes this call? a. Ostrich b. Albatross c. Raven d. Robin" , "d", "src/maze/mp3/0001.mp3");
+			newQuestionKey = newQuestionToAdd.getQuestionID();
+			questionHashMap.put(newQuestionKey, newQuestionToAdd);
+			newQuestionToAdd = new MazeQuestion(194, 'm', 's', "Who composed this piece? a. Wolfgang Amadeus Mozart b. Bob Dylan c. Johann Sebastian Bach d. Madonna" , "c", "src/maze/mp3/0002.mp3");
+			newQuestionKey = newQuestionToAdd.getQuestionID();
+			questionHashMap.put(newQuestionKey, newQuestionToAdd);
+			newQuestionToAdd = new MazeQuestion(195, 'm', 's', "What school's fight song is this from? a. MIT b. Yale c. Notre Dame d. USC" , "c", "src/maze/mp3/0003.mp3");
+			newQuestionKey = newQuestionToAdd.getQuestionID();
+			questionHashMap.put(newQuestionKey, newQuestionToAdd);
+			
+		}
 		
 		for(; i < questionCount; i++) {
-			MazeQuestion newQuestionToAdd = uniqueInstance.getNewQuestion();
-			Integer newQuestionKey = newQuestionToAdd.getQuestionID();
+			newQuestionToAdd = uniqueInstance.getNewQuestion();
+			newQuestionKey = newQuestionToAdd.getQuestionID();
 			questionHashMap.put(newQuestionKey, newQuestionToAdd);
 		}//end for loop i
 		Set<Integer> setOfKeys = questionHashMap.keySet();
