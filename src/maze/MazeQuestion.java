@@ -1,3 +1,10 @@
+/**
+ * MazeQuestion.java
+ * Author: Caleb Jewett & Corbin Staaben
+ * Description: MazeQuestion contains a question from the database, the correct answer, the points the question
+ * is worth, the type of question, the type of file associated with the question, and the file path to the file
+ * if the question is an audio or video question.
+ */
 package maze;
 
 import jaco.mp3.player.MP3Player;
@@ -20,7 +27,17 @@ public class MazeQuestion implements MazeObject {
 	private String questionText;
 	private String answerText;
 	private String filePath;
-	
+
+	/**
+	 * Constructor that sets the question ID, the question type, file type, question, answer, and file path
+	 * @param newQuestionID - this MazeQuestion's ID
+	 * @param newQuestionType - the type of this question (multiple choice, short answer, t/f, etc.)
+	 * @param newFileType - the type of file associated with this question
+	 * @param newQuestionText - The text of the question itself
+	 * @param newAnswerText - the correct answer
+	 * @param newFilePath - path to the file associated with this question
+	 */
+
 	public MazeQuestion(int newQuestionID, char newQuestionType, char newFileType, String newQuestionText, String newAnswerText, String newFilePath) {
 		this.questionID = newQuestionID;
 		this.questionType = newQuestionType;
@@ -29,9 +46,17 @@ public class MazeQuestion implements MazeObject {
 		this.answerText = newAnswerText;
 		this.filePath = newFilePath;
 	}
-	
-	public long getID() { return serialVersionUID; }
-	
+
+	/**
+	 * Retrieve the unique ID
+	 * @return - the unique serial version ID
+	 */
+	public long getUID() { return serialVersionUID; }
+
+	/**
+	 * Generate a String representation of the question
+	 * @return - the String representation of the question (if applicable)
+	 */
 	@Override
 	public String display() {
 		if(fileType == 's') {
@@ -70,38 +95,52 @@ public class MazeQuestion implements MazeObject {
 		
 		return result;
 	}
-	
+
+	/**
+	 * Retrieve the type of question
+	 * @return - character representing the question type
+	 */
 	public char getQuestionType() {
 		return questionType;
 	}
-	
+
+	/**
+	 * Retrieve the question itself
+	 * @return - the question text
+	 */
 	public String getQuestion() {
 		return questionText;
 	}
-	
+
+	/**
+	 * Retrieve the correct answer to the question
+	 * @return - the correct answer
+	 */
 	public String getAnswer() {
 		return answerText;
 	}
-	
+
+	/**
+	 * Retrieve the type of file associated with the question
+	 * @return - a character representing the type of file
+	 */
 	public char getFileType() {
 		return fileType;
-	}
-	
-	public int getQuestionID() {
-		return questionID;
-	}
-	
-	public String getFilePath() {
-		return filePath;
-	}
-	
-	public int getPoints() {
-		return POINTS;
-	}
-	
-	public static void main(String[] args) {
-		MazeQuestion q = new MazeQuestion(1, 's', 'v', "Who is talking?", "Dan Tappan", "src/maze/mp4/test.mp4");
-		System.out.println(q.display());
-		while(true){}
-	}
+	/**
+	 * Retrieve the ID given to this question
+	 * @return
+	 */
+	public int getQuestionID() { return questionID; }
+
+	/**
+	 * Retrieve the path to the file associated with this question
+	 * @return - the String representation of the file path
+	 */
+	public String getFilePath() { return filePath;	}
+
+	/**
+	 * Retrieve the number of points this question is worth
+	 * @return - the integer value of the points this question is worth
+	 */
+	public int getPoints() {	return POINTS;	}
 }

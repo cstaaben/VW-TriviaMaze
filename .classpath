@@ -4,5 +4,6 @@
 	<classpathentry kind="lib" path="src/mazeDB/MazeDB.java"/>
 	<classpathentry kind="lib" path="D:/GitHub/TRIVIA_MAZE/VW-TriviaMaze/src/mazeDB/sqlite-jdbc-3.8.11.2.jar"/>
 	<classpathentry kind="lib" path="D:/GitHub/TRIVIA_MAZE/VW-TriviaMaze/src/maze/jaco-mp3-player-0.9.4.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
