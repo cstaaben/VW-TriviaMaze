@@ -2,6 +2,7 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import creation.MazeFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +15,7 @@ public class MazeTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		test = Maze.getMaze(5);
+		test = MazeFactory.getReference().getMaze(5);
 	}
 
 	@After

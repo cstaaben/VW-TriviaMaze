@@ -1,10 +1,26 @@
+/**
+ * DoorJam.java
+ * Author: Corbin Staaben
+ * Description: DoorJam provides the method for executing the program, instantiates the TriviaMaze object used to
+ * handle game flow, and calls the various methods appropriate for each state of the program.
+ */
+
+import states.LoadGameState;
 import states.TriviaMaze;
 
-public class ProjectMain {
-	
-	public static void main(String[] args) {
-		TriviaMaze maze = new TriviaMaze();
-		
+import java.io.Serializable;
+import java.util.Observable;
+import java.util.Observer;
+
+public class DoorJam {
+
+	private TriviaMaze maze = new TriviaMaze();
+
+	/**
+	 * run() controls the game's flow - calling each appropriate method when the game is in each of its states
+	 */
+	public void run() {
+
 		while(!maze.getCurrentState().equals(maze.getEndGameState())) {
 			if(maze.getCurrentState().equals(maze.getNewGameState())) {
 				maze.newGame();
@@ -31,5 +47,4 @@ public class ProjectMain {
 		
 		maze.endGame();
 	}
-
 }
