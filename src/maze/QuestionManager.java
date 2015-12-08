@@ -43,9 +43,7 @@ public class QuestionManager {
 	
 	//this must be called after the instance is instantiated and before getQuestionIterator
 	public void initializeQuestionHashMap(int numberOfDoors) {
-		
 		questionCount = numberOfDoors;
-		int i = 0;
 		
 		if(questionHashMap != null) {
 			questionHashMap.clear();
@@ -53,12 +51,7 @@ public class QuestionManager {
 		
 		questionHashMap = new HashMap<Integer, MazeQuestion>(numberOfDoors);
 		
-		/* ADDING DEMO SUPPORT HERE
-		if(TriviaMaze.DEMO) {
-			newQuestionToAdd = new MazeQuestion()
-		}*/
-		
-		for(; i < questionCount; i++) {
+		for(int i = 0; i < questionCount; i++) {
 			MazeQuestion newQuestionToAdd = uniqueInstance.getNewQuestion();
 			Integer newQuestionKey = newQuestionToAdd.getQuestionID();
 			questionHashMap.put(newQuestionKey, newQuestionToAdd);
@@ -69,8 +62,8 @@ public class QuestionManager {
 		
 		HashMap<Integer, MazeQuestion> shuffledQuestionHashMap = new HashMap<Integer,MazeQuestion>(numberOfDoors);
 		Iterator<MazeQuestion> questionIterator = collectionOfQuestions.iterator();
-		for(Integer integer : setOfKeys) {
-			shuffledQuestionHashMap.put(integer, questionIterator.next());
+		for(Integer i : setOfKeys) {
+			shuffledQuestionHashMap.put(i, questionIterator.next());
 		}
 		questionHashMap = shuffledQuestionHashMap;
 	}
