@@ -1,4 +1,4 @@
-/*
+/**
  * MazeDB.java
  * Author: Clifton Caleb Jewett
  * Description: Class for a console interface with the SQLite database of trivia questions
@@ -19,19 +19,47 @@ import states.TriviaMaze;
 
 public class MazeDB {
 	
+	private static String DB_PATH = "jdbc:sqlite:src/mazeDB/mazeQuestions.db";
+	private static boolean databaseIsLoaded = false;
+	private static boolean questionIsAdded = false;
+	private static boolean questionIsDeleted = false;
+	private static boolean questionIsPrinted = false;
 	
-	
-	private static final String DB_PATH = "jdbc:sqlite:src/mazeDB/mazeQuestions.db";
-	
-	//just calls same method that get calls for the AdminDBState
+	/**
+	 * The main method used for the independent database program.
+	 * @param args - not used
+	 */
 	
 	public static void main(String args[]) {
 		MazeDB.databaseAdministration();
 	}
 	
-	//accessor method to allow changing .db file path in one place
+	/**
+	 * Sets DB_PATH to another path for the rest of the session for testing purposes.
+	 * @param newPath - string path for a SQLite db file to be used temporarily for testing
+	 */
+	
+	public static void setDBPathForTest(String newPath) {
+		DB_PATH = newPath;
+	}
+	
+	/**
+	 * Gets the currently used database path
+	 * @return - the currently used database path
+	 */
 	
 	public static String getDBPath() { return MazeDB.DB_PATH; }
+	
+	/**
+	 * Returns a boolean representing whether the database has been loaded.
+	 * @return - boolean representing whether the database has been loaded
+	 */
+	
+	public static boolean databaseIsLoaded() { return databaseIsLoaded; }
+	
+	public static boolean questionIsAdded() { return questionIsAdded; }
+	public static boolean questionIsDeleted() { return questionIsDeleted; }
+	public static boolean questionIsPrinted() { return questionIsPrinted; }
 	
 	//formerly main method makes sure mazeQuestions.db exists, and creates it otherwise
 	
@@ -77,8 +105,10 @@ public class MazeDB {
 			      statement.executeUpdate(sql);
 			      statement.close();
 			      System.out.println("Table QUESTION created successfully");
+			      databaseIsLoaded = true;
 			} else {
 				System.out.println("Table QUESTION found");
+				databaseIsLoaded = true;
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -205,6 +235,7 @@ public class MazeDB {
 						System.out.println("File Path: " + filePath);
 					}
 					System.out.println("=============================");
+					questionIsPrinted = true;
 				}
 			}
 		} catch (Exception e) {
@@ -259,6 +290,7 @@ public class MazeDB {
 						}
 						if(deletionOccurred > 0) {
 							System.out.println("Question was deleted.");
+							questionIsDeleted = true;
 						} else {
 							System.out.println("Question was not found.");
 						}
@@ -522,6 +554,7 @@ public class MazeDB {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
+		questionIsAdded = true;
 		System.out.println("SUCCESS: THE FOLLOWING WAS EXECUTED:");
 		System.out.println("INSERT INTO QUESTION (QUESTIONTYPE,FILETYPE,QUESTIONTEXT,ANSWERTEXT,FILEPATH) values "
 				+ "(" + questionType + "," + fileType + "," + questionText + "," + answerText + "," + filePath + ")");
