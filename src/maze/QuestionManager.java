@@ -1,3 +1,9 @@
+/**
+ * QuestionManager.java
+ * Author: Clifton Caleb Jewett
+ * Description: Class to query the database to construct the collection of questions for an instance of a maze.
+ */
+
 package maze;
 
 import java.sql.Connection;
@@ -18,18 +24,32 @@ import java.util.Collections;
 
 public class QuestionManager {
 	
+	//the Singleton instance of QuestionManager
+	
 	private static QuestionManager uniqueInstance;
 	
+	//HashMap of questions taken from database
+	
 	private static HashMap<Integer, MazeQuestion> questionHashMap;
+	
+	//gets filled with the largest question ID in the database
 	
 	private static Integer maxQuestionID;
 	
 	//number of questions needed for the maze size, should equal number of doors
 	//exclusive upper bound for autoIncrementIndex
+	
 	private static Integer questionCount;
+	
+	//private constructor for Singleton
 	
 	private QuestionManager() {
 	}
+	
+	/**
+	 * Returns Singleton instance
+	 * @return - Singleton instance
+	 */
 	
 	public static QuestionManager getInstance() {
 		if(uniqueInstance == null) {
@@ -38,11 +58,20 @@ public class QuestionManager {
 		return uniqueInstance;
 	}
 	
+	/**
+	 * Returns iterator of questions.
+	 * @return - Iterator of questions
+	 */
+	
 	public Iterator<MazeQuestion> getQuestionIterator() {
 		return questionHashMap.values().iterator();
 	}
 	
-	//this must be called after the instance is instantiated and before getQuestionIterator
+	/**
+	 * Called before getQuestionIterator to set its size and initialize it
+	 * @param numberOfDoors - the number of questions needed for the current game
+	 */
+	
 	public void initializeQuestionHashMap(int numberOfDoors) {
 		
 		questionCount = numberOfDoors;
@@ -94,6 +123,11 @@ public class QuestionManager {
 		questionHashMap = shuffledQuestionHashMap;
 	}
 	
+	/**
+	 * Gets a question from the database not currently in the HashMap
+	 * @return - a new question
+	 */
+	
 	private MazeQuestion getNewQuestion() {
 		maxQuestionID = getMaxQuestionID();
 		Random rng = new Random(System.currentTimeMillis() + System.nanoTime());
@@ -144,6 +178,11 @@ public class QuestionManager {
 		}
 		return newQuestion;
 	}
+	
+	/**
+	 * Calculates the largest ID int in the database and returns it.
+	 * @return - returns the largest ID int in the database
+	 */
 	
 	private int getMaxQuestionID() {
 		if(maxQuestionID != null) {
