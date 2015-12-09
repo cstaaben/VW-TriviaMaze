@@ -18,6 +18,7 @@ import maze.MazeRoom;
 public class TriviaMaze implements Serializable {
 	
 	public static final Scanner KB = new Scanner(System.in);
+	public static boolean DEMO = false;
 	
 	private TriviaMazeState mainMenuState;
 	private TriviaMazeState newGameState;
@@ -39,7 +40,7 @@ public class TriviaMaze implements Serializable {
 	 * MainMenuState so the user may choose how to proceed.
 	 */
 
-	public TriviaMaze() {
+	public TriviaMaze(String demo) {
 		mainMenuState = new MainMenuState(this);
 		newGameState = new NewGameState(this);
 		loadGameState = new LoadGameState(this);
@@ -49,6 +50,8 @@ public class TriviaMaze implements Serializable {
 		saveGameState = new SaveGameState(this);
 		exitMazeState = new ExitMazeState(this);
 		endGameState = new EndGameState();
+
+		DEMO = demo.equals("demo");
 
 		setState(mainMenuState);
 	}
