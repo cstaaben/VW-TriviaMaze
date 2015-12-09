@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -26,6 +25,11 @@ public class MazeDBTest {
 	    System.setErr(new PrintStream(errContent));
 	    System.setIn(inContent);
 	}
+	
+	@Before
+	public void setUp() {
+		MazeDB.setDBPathForTest("jdbc:sqlite:src/mazeDB/testQuestions.db");
+	}
 
 	@After
 	public void cleanUpStreams() {
@@ -36,19 +40,19 @@ public class MazeDBTest {
 
 	@Test
 	public void testgetDBPath() {
-		assertEquals("jdbc:sqlite:src/mazeDB/mazeQuestions.db", MazeDB.getDBPath());
+		assertEquals("jdbc:sqlite:src/mazeDB/testQuestions.db", MazeDB.getDBPath());
 	}
+	
 	
 	@Test
 	public void testDatabaseAdministration() {
-		System.setIn(new ByteArrayInputStream("4\n".getBytes()));
+		assertFalse(MazeDB.databaseIsLoaded());
+		assertFalse(MazeDB.questionIsAdded());
+		assertFalse(MazeDB.questionIsPrinted());
+		System.setIn(new ByteArrayInputStream("1\n1\nt\nIs this a test question?\nt\n4\n2\n4\n".getBytes()));
 		MazeDB.databaseAdministration();
-		assertEquals("Opened database successfully\r\n" +
-					"Table QUESTION found\r\n" +
-					"Enter a number 1-4:\r\n" +
-					"1.) Add question\r\n" +
-					"2.) Print all questions\r\n" +
-					"3.) Delete question\r\n" +
-					"4.) Exit database admin\r\n" , outContent.toString());
+		assertTrue(MazeDB.databaseIsLoaded());
+		assertTrue(MazeDB.questionIsAdded());
+		assertTrue(MazeDB.questionIsPrinted());
 	}
 }

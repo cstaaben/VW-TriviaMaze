@@ -2,6 +2,7 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.util.HashMap;
 import java.util.Iterator;
 
 import org.junit.After;
@@ -27,28 +28,16 @@ public class QuestionManagerTest {
 	}
 
 	@Test
-	public void test() {
-		System.out.println("Random Question Set From DB 1:");
-		qm.initializeQuestionHashMap(180);
-		questionIterator = qm.getQuestionIterator();
-		while(questionIterator.hasNext()) {
-			MazeQuestion q = questionIterator.next();
-			System.out.println(q.getQuestion());
+	public void testForDuplicateQuestions() {
+		qm.initializeQuestionHashMap(190);
+		Iterator<MazeQuestion> mazeQuestionIterator = qm.getQuestionIterator();
+		HashMap<Integer, MazeQuestion> testMap = new HashMap<Integer, MazeQuestion>(190);
+		while(mazeQuestionIterator.hasNext()) {
+			MazeQuestion currentQuestion = mazeQuestionIterator.next();
+			assertFalse(testMap.containsKey(currentQuestion.getQuestionID()));
+			assertFalse(testMap.containsValue(currentQuestion));
+			testMap.put(currentQuestion.getQuestionID(), currentQuestion);
 		}
-		System.out.println("Random Question Set From DB 2:");
-				qm.initializeQuestionHashMap(180);
-				questionIterator = qm.getQuestionIterator();
-				while(questionIterator.hasNext()) {
-					MazeQuestion q = questionIterator.next();
-					System.out.println(q.getQuestion());
-				}
-				System.out.println("Random Question Set From DB 3:");
-						qm.initializeQuestionHashMap(180);
-						questionIterator = qm.getQuestionIterator();
-						while(questionIterator.hasNext()) {
-							MazeQuestion q = questionIterator.next();
-							System.out.println(q.getQuestion());
-						}
 	}
 
 }

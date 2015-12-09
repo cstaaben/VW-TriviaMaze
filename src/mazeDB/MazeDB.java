@@ -1,4 +1,4 @@
-/*
+/**
  * MazeDB.java
  * Author: Clifton Caleb Jewett
  * Description: Class for a console interface with the SQLite database of trivia questions
@@ -19,21 +19,68 @@ import states.TriviaMaze;
 
 public class MazeDB {
 	
+	private static String DB_PATH = "jdbc:sqlite:src/mazeDB/mazeQuestions.db";
+	private static boolean databaseIsLoaded = false;
+	private static boolean questionIsAdded = false;
+	private static boolean questionIsDeleted = false;
+	private static boolean questionIsPrinted = false;
 	
-	
-	private static final String DB_PATH = "jdbc:sqlite:src/mazeDB/mazeQuestions.db";
-	
-	//just calls same method that get calls for the AdminDBState
+	/**
+	 * The main method used for the independent database program.
+	 * @param args - not used
+	 */
 	
 	public static void main(String args[]) {
 		MazeDB.databaseAdministration();
 	}
 	
-	//accessor method to allow changing .db file path in one place
+	/**
+	 * Sets DB_PATH to another path for the rest of the session for testing purposes.
+	 * @param newPath - string path for a SQLite db file to be used temporarily for testing
+	 */
+	
+	public static void setDBPathForTest(String newPath) {
+		DB_PATH = newPath;
+	}
+	
+	/**
+	 * Gets the currently used database path
+	 * @return - the currently used database path
+	 */
 	
 	public static String getDBPath() { return MazeDB.DB_PATH; }
 	
-	//formerly main method makes sure mazeQuestions.db exists, and creates it otherwise
+	/**
+	 * Returns a boolean representing whether the database has been loaded.
+	 * @return - boolean representing whether the database has been loaded
+	 */
+	
+	public static boolean databaseIsLoaded() { return databaseIsLoaded; }
+	
+	/**
+	 * Returns a boolean representing whether a question has been added this session.
+	 * @return - boolean representing whether a question has been added this session
+	 */
+	
+	public static boolean questionIsAdded() { return questionIsAdded; }
+	
+	/**
+	 * Returns a boolean representing whether a question has been deleted this session.
+	 * @return boolean representing whether a question has been deleted this session
+	 */
+	
+	public static boolean questionIsDeleted() { return questionIsDeleted; }
+	
+	/**
+	 * Returns a boolean representing whether a question has been printed this session.
+	 * @return boolean representing whether a question has been printed this session
+	 */
+	
+	public static boolean questionIsPrinted() { return questionIsPrinted; }
+	
+	/**
+	 * Opens database connection, creates database if not present, and opens editing menu.
+	 */
 	
 	public static void databaseAdministration() {
 		Connection c = null;
@@ -77,8 +124,10 @@ public class MazeDB {
 			      statement.executeUpdate(sql);
 			      statement.close();
 			      System.out.println("Table QUESTION created successfully");
+			      databaseIsLoaded = true;
 			} else {
 				System.out.println("Table QUESTION found");
+				databaseIsLoaded = true;
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -95,7 +144,10 @@ public class MazeDB {
 		MazeDB.menu(TriviaMaze.KB);
 	}
 	
-	//main menu for adding, printing, or deleting questions
+	/**
+	 * Main menu functionality for database editing.
+	 * @param kb - input Scanner
+	 */
 	
 	private static void menu(Scanner kb) {
 		if(kb == null) {
@@ -104,9 +156,7 @@ public class MazeDB {
 		String input;
 		
 		MazeDB.menuPrint();
-		
 		input = kb.nextLine();
-		
 		while(true) {
 			switch(input) {
 				case "1": MazeDB.addQuestionMenu(kb);
@@ -124,7 +174,9 @@ public class MazeDB {
 		}
 	}
 	
-	//prints menu choices for Main Menu
+	/**
+	 * Prints main menu options
+	 */
 	
 	private static void menuPrint() {
 		System.out.println("Enter a number 1-4:\r\n"
@@ -134,16 +186,17 @@ public class MazeDB {
 				+ "4.) Exit database admin");
 	}
 	
-	//menu for adding questions
+	/**
+	 * Menu prompt for adding questions.
+	 * @param kb - input Scanner
+	 */
 	
 	private static void addQuestionMenu(Scanner kb) {
 		if(kb == null) {
 			throw new RuntimeException("null Scanner kb");
 		}
 		MazeDB.addQuestionMenuPrint();
-		
 		String input = kb.nextLine();
-		
 		while(true) {
 			switch(input) {
 				case "1": addTrueFalseQuestion(kb);
@@ -161,7 +214,9 @@ public class MazeDB {
 		}
 	}
 	
-	//prints menu choices for Add Question Menu
+	/**
+	 * Prints menu for adding questions.
+	 */
 	
 	private static void addQuestionMenuPrint() {
 		System.out.println("Enter a number 1-4:\r\n"
@@ -170,8 +225,10 @@ public class MazeDB {
 				+ "3.) Add short answer question\r\n"
 				+ "4.) Exit to DB menu");
 	}
-
-	//prints all questions in the database to stdout
+	
+	/**
+	 * Prints all questions in the database.
+	 */
 	
 	private static void printAllQuestions() {
 		try {
@@ -192,10 +249,8 @@ public class MazeDB {
 					String questionText = questions.getString("QUESTIONTEXT");
 					String answerText = questions.getString("ANSWERTEXT");
 					String filePath = questions.getString("FILEPATH");
-					
 					//unescape SQL ' char
 					questionText = questionText.replaceAll("''", "'");
-					
 					System.out.println("ID: " + questionID);
 					System.out.println("Type: " + questionType);
 					System.out.println("Question: " + questionText);
@@ -205,6 +260,7 @@ public class MazeDB {
 						System.out.println("File Path: " + filePath);
 					}
 					System.out.println("=============================");
+					questionIsPrinted = true;
 				}
 			}
 		} catch (Exception e) {
@@ -213,7 +269,10 @@ public class MazeDB {
 		}
 	}
 	
-	//allows the user to delete a question by ID
+	/**
+	 * Prompts the user to delete a question by ID.
+	 * @param kb - input Scanner
+	 */
 	
 	private static void deleteQuestionMenu(Scanner kb) {
 		if(kb == null) {
@@ -223,10 +282,8 @@ public class MazeDB {
 		int idToDelete = 0;
 		boolean validIntGiven = false;
 		int deletionOccurred = 0;
-		
 		System.out.println("Enter the ID of a question to delete, or \"exit\" to exit:");
 		input = kb.nextLine();
-		
 		while(!input.equals("exit")) {
 			validIntGiven = false;
 			if(!input.equals("exit")) {
@@ -259,6 +316,7 @@ public class MazeDB {
 						}
 						if(deletionOccurred > 0) {
 							System.out.println("Question was deleted.");
+							questionIsDeleted = true;
 						} else {
 							System.out.println("Question was not found.");
 						}
@@ -274,7 +332,10 @@ public class MazeDB {
 		}
 	}
 	
-	//series of prompts to add a true/false question
+	/**
+	 * Prompts the user to enter the parameters for a true or false question.
+	 * @param kb - input Scanner
+	 */
 	
 	private static void addTrueFalseQuestion(Scanner kb) {
 		if(kb == null) {
@@ -287,31 +348,29 @@ public class MazeDB {
 		String filePath = null;
 		
 		questionType = "t";
-		
 		fileType = chooseFileType(kb);
-		
 		if(fileType == null) {
 			return;
 		}
-		
 		questionText = enterQuestionText(fileType, kb);
-		
 		answerText = enterAnswerTextForTrueFalse(kb);
-		
 		if(answerText == null) {
 			return;
 		}
-		
 		if(!fileType.equals("t")) {
 			filePath = enterFilePath(kb, fileType);
 		}
-	    
 	    String[] strings = new String[] {questionType, fileType, questionText, answerText, filePath};
-		
 		MazeDB.addQuestionToDatabase(strings);
 	}
 	
 	//gets the answer string for a true or false question
+	
+	/**
+	 * Prompts user for true or false questions answer text
+	 * @param kb - input Scanner
+	 * @return - answer text for true or false question
+	 */
 	
 	private static String enterAnswerTextForTrueFalse(Scanner kb) {
 		if(kb == null) {
@@ -320,7 +379,6 @@ public class MazeDB {
 		while(true) {
 			MazeDB.enterTrueFalseQuestionTextPromptPrint();
 			String input = kb.nextLine();
-			
 			if(input.equalsIgnoreCase("t")) {
 				return "t";
 			}
@@ -333,13 +391,18 @@ public class MazeDB {
 		}
 	}
 	
-	//prints the prompt for an answer to a true or false question
+	/**
+	 * Prints the prompt for an answer to a true or false question
+	 */
 	
 	private static void enterTrueFalseQuestionTextPromptPrint() {
 		System.out.println("Enter answer for true false question (t or f) or x to exit to Add Question Menu");
 	}
 	
-	//series of prompts to add a multiple choice question
+	/**
+	 * Prompts user for the parameters of a new multiple choice question.
+	 * @param kb - input Scanner
+	 */
 	
 	private static void addMultipleChoiceQuestion(Scanner kb) {
 		if(kb == null) {
@@ -352,29 +415,29 @@ public class MazeDB {
 		String filePath = null;
 		
 		questionType = "m";
-		
 		fileType = chooseFileType(kb);
-		
 		if(fileType == null) {
 			return;
 		}
-		
 		questionText = enterQuestionText(fileType, kb);
-		
 		answerText = enterAnswerTextForMultipleChoice(kb);
 		if(answerText == null) {
 			return;
 		}
-		
 		if(!fileType.equals("t")) {
 			filePath = enterFilePath(kb, fileType);
 		}
-	    
 	    String[] strings = new String[] {questionType, fileType, questionText, answerText, filePath};
 		MazeDB.addQuestionToDatabase(strings);
 	}
 	
 	//gets the answer String for a multiple choice question
+	
+	/**
+	 * Prompts user for the answer to a multiple choice question.
+	 * @param kb - input Scanner
+	 * @return - returns answer String for a new multiple choice question
+	 */
 	
 	private static String enterAnswerTextForMultipleChoice(Scanner kb) {
 		if(kb == null) {
@@ -383,7 +446,6 @@ public class MazeDB {
 		while(true) {
 			MazeDB.enterMultipleChoiceQuestionTextPromptPrint();
 			String input = kb.nextLine();
-			
 			if(input.equalsIgnoreCase("a")) {
 				return "a";
 			}
@@ -404,12 +466,19 @@ public class MazeDB {
 	
 	//prints the prompt for entering the answer to a multiple choice question
 	
+	/**
+	 * Prints prompt for multiple choice answer.
+	 */
+	
 	private static void enterMultipleChoiceQuestionTextPromptPrint() {
 		System.out.println("Enter answer for multiple choice question\r\n"
 						+ "(a, b, c, or d) or x to exit to Add Question Menu");
 	}
 	
-	//series of prompts to add a short answer question
+	/**
+	 * Prompts user for the parameters for a new short answer question.
+	 * @param kb - input Scanner
+	 */
 	
 	private static void addShortAnswerQuestion(Scanner kb) {
 		if(kb == null) {
@@ -422,15 +491,11 @@ public class MazeDB {
 		String filePath = null;
 		
 		questionType = "s";
-		
 		fileType = chooseFileType(kb);
-		
 		if(fileType == null) {
 			return;
 		}
-		
 		questionText = enterQuestionText(fileType, kb);
-		
 		answerText = enterAnswerTextForShortAnswer(kb);
 		if(answerText == null) {
 			return;
@@ -439,36 +504,43 @@ public class MazeDB {
 		if(!fileType.equals("t")) {
 			filePath = enterFilePath(kb, fileType);
 		}
-	    
 	    String[] strings = new String[] {questionType, fileType, questionText, answerText, filePath};
 		MazeDB.addQuestionToDatabase(strings);
 	}
 	
 	//gets the answer String for a short answer question
 	
+	/**
+	 * Prompts the user for a short answer String.
+	 * @param kb - input Scanner
+	 * @return - String of answer text for a short answer question
+	 */
+	
 	private static String enterAnswerTextForShortAnswer(Scanner kb) {
 		if(kb == null) {
 			throw new RuntimeException("null Scanner kb");
 		}
-		
 		MazeDB.enterShortAnswerQuestionTextPromptPrint();
 		String input = kb.nextLine();
-		
 		if(input.isEmpty()) {
 			return null;
 		}
-		
 		return input;
 	}
 	
-	//prints the prompt for entering the answer to a short answer question
+	/**
+	 * Prints the prompt for a short answer String.
+	 */
 	
 	private static void enterShortAnswerQuestionTextPromptPrint() {
 		System.out.println("Enter answer for short answer question\r\n"
 				+ "or enter blank string to cancel and exit to Add Question Menu");
 	}
 	
-	//takes a string array and creates a new question in the database with it
+	/**
+	 * Adds a question to the database.
+	 * @param strings - an array of String parameters for the new question
+	 */
 	
 	private static void addQuestionToDatabase(String[] strings) {
 		if(strings == null) {
@@ -477,41 +549,32 @@ public class MazeDB {
 		if(strings.length != 5) {
 			throw new IllegalArgumentException("String array supplied to addQuestionToDatabase must have 5 elements, given array had " + strings.length);
 		}
-		
-		
 		//escape ' for SQL
 		for(int i = 0; i < strings.length; i++) {
 			if(strings[i] != null) {
 				strings[i] = strings[i].replaceAll("'", "''");
 			}
 		}// end for loop i
-		
-		
 		String questionType = strings[0];
 		String fileType = strings[1];
 		String questionText = strings[2];
 		String answerText = strings[3];
 		String filePath = strings[4];
-		
 		try {
 			Class.forName("org.sqlite.JDBC");
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-		
 		try (Connection connection = DriverManager.getConnection(MazeDB.DB_PATH);){
 			connection.setAutoCommit(false);
-			
 			try(PreparedStatement statement = connection.prepareStatement("INSERT INTO QUESTION (QUESTIONTYPE,FILETYPE,QUESTIONTEXT,ANSWERTEXT,FILEPATH) values "
 				+ "(?, ?, ?, ?, ?)");) {
-		
 				statement.setString(1, questionType);
 				statement.setString(2, fileType);
 				statement.setString(3, questionText);
 				statement.setString(4, answerText);
 				statement.setString(5, filePath);
-				
 				statement.executeUpdate();
 				} catch (Exception e) {
 					System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -522,12 +585,18 @@ public class MazeDB {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
+		questionIsAdded = true;
 		System.out.println("SUCCESS: THE FOLLOWING WAS EXECUTED:");
 		System.out.println("INSERT INTO QUESTION (QUESTIONTYPE,FILETYPE,QUESTIONTEXT,ANSWERTEXT,FILEPATH) values "
 				+ "(" + questionType + "," + fileType + "," + questionText + "," + answerText + "," + filePath + ")");
 	}
 	
-	//prompts for and returns a String representing the relative path and filename for a media file
+	/**
+	 * Prompts the user for a filepath for a media file for a question.
+	 * @param kb - input Scanner
+	 * @param fileType - String representing the type of file
+	 * @return - String representing the filepath and filename of the media file
+	 */
 	
 	private static String enterFilePath(Scanner kb, String fileType) {
 		if(kb == null) {
@@ -545,7 +614,10 @@ public class MazeDB {
 		}
 	}
 	
-	//gets a path ending with .mp3
+	/**
+	 * Prompts the user for a string ending with .mp3
+	 * @return - a String ending with ".mp3"
+	 */
 	
 	private static String getMP3Path() {
 		boolean validSuffix = false;
@@ -563,7 +635,10 @@ public class MazeDB {
 		return mp3Path;
 	}
 	
-	//gets a path ending with .mp4
+	/**
+	 * Prompts the user for a string ending with .mp4
+	 * @return - a String ending with ".mp4"
+	 */
 	
 	private static String getMP4Path() {
 		boolean validSuffix = false;
@@ -581,7 +656,12 @@ public class MazeDB {
 		return mp4Path;
 	}
 	
-	//gets the String that asks the question and provides possible answers if applicable
+	/**
+	 * Prompts the user for the question text for a question object.
+	 * @param fileType - String representing the media file type of the question.
+	 * @param kb - input Scanner
+	 * @return - question text String
+	 */
 	
 	private static String enterQuestionText(String fileType, Scanner kb) {
 		if(kb == null) {
@@ -593,7 +673,6 @@ public class MazeDB {
 		while(true) {
 			MazeDB.enterQuestionTextPromptPrint();
 			String input = kb.nextLine();
-			
 			if(fileType.equals("v") || fileType.equals("s")) {
 				if(input.isEmpty()) {
 					return null;
@@ -606,8 +685,10 @@ public class MazeDB {
 			}
 		}
 	}
-
-	//prints the prompt to enter a question
+	
+	/**
+	 * Prints the prompt for question text.
+	 */
 	
 	private static void enterQuestionTextPromptPrint() {
 		System.out.println("Enter the question text string (an empty text is only valid for sound and video questions):");
@@ -615,13 +696,18 @@ public class MazeDB {
 
 	//gets the String representing the file type
 	
+	/**
+	 * Prompts user for file type String
+	 * @param kb - input Scanner
+	 * @return - "t" for text-only, "v" for video, or "s" for sound (or null for cancel)
+	 */
+	
 	private static String chooseFileType(Scanner kb) {
 		if(kb == null) {
 			throw new RuntimeException("null Scanner kb");
 		}
 		MazeDB.chooseFileTypeMenuPrint();
 		String input = kb.nextLine();
-		
 		while(true) {
 			switch(input.toLowerCase()) {
 				case "t": return "t";//text-only
@@ -635,8 +721,10 @@ public class MazeDB {
 			input = kb.nextLine();
 		}
 	}
-
-	//prints menu choices for fileType
+	
+	/**
+	 * Prints prompt for file type.
+	 */
 	
 	private static void chooseFileTypeMenuPrint() {
 		System.out.println("Choose a file type:\r\n"
