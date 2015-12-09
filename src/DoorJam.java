@@ -14,7 +14,11 @@ import java.util.Observer;
 
 public class DoorJam {
 
-	private TriviaMaze maze = new TriviaMaze();
+	private TriviaMaze maze;
+
+	public DoorJam(String demo) {
+		maze = new TriviaMaze(demo);
+	}
 
 	/**
 	 * run() controls the game's flow - calling each appropriate method when the game is in each of its states

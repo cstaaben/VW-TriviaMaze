@@ -6,7 +6,12 @@
 public class DoorJamMain {
 
 	public static void main(String[] args) {
-		DoorJam game = new DoorJam();
+		DoorJam game;
+
+		if(args.length > 0)
+			game = new DoorJam(args[0]);
+		else
+			game = new DoorJam("");
 
 		game.run();
 	}
