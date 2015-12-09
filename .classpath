@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="D:/GitHub/TRIVIA_MAZE/VW-TriviaMaze/src/mazeDB/sqlite-jdbc-3.8.11.2.jar"/>
+	<classpathentry kind="lib" path="D:/GitHub/TRIVIA_MAZE/VW-TriviaMaze/src/maze/jaco-mp3-player-0.9.4.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
