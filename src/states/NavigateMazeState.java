@@ -9,7 +9,6 @@ package states;
 
 import maze.Maze;
 import maze.MazePlayer;
-
 import java.io.Serializable;
 
 public class NavigateMazeState implements TriviaMazeState, Serializable {

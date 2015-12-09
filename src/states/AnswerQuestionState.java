@@ -7,7 +7,6 @@
 package states;
 
 import maze.MazeDirection;
-
 import java.io.Serializable;
 
 public class AnswerQuestionState implements TriviaMazeState, Serializable {

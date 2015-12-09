@@ -10,7 +10,6 @@ package states;
 
 import creation.MazeFactory;
 import maze.MazePlayer;
-
 import java.io.Serializable;
 
 public class NewGameState implements TriviaMazeState, Serializable {

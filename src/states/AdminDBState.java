@@ -7,7 +7,6 @@
 package states;
 
 import mazeDB.MazeDB;
-
 import java.io.Serializable;
 
 public class AdminDBState implements TriviaMazeState, Serializable {

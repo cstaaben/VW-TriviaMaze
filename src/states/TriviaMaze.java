@@ -7,13 +7,15 @@
  */
 package states;
 
-import java.io.Serializable;
+
 import java.util.*;
 
 import maze.Maze;
 import maze.MazeDoor;
 import maze.MazePlayer;
 import maze.MazeRoom;
+
+import java.io.Serializable;
 
 public class TriviaMaze implements Serializable {
 	
